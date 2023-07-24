@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace WeSociety.Domain.Interfaces
 {
-    internal interface IUnitOfWork
+    public interface IUnitOfWork
     {
+
+        Task<int> SaveChangesAsync();
     }
 }

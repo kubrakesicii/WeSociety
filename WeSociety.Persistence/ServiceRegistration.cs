@@ -17,7 +17,7 @@ namespace WeSociety.Persistence
         {
             services.AddDbContext<WeSocietyDbContext>(options =>
             {
-               // options.UseSqlServer()
+                options.UseSqlServer($"Server={config["DB_SERVER"]}; Database={config["DB_NAME"]}; Trusted_Connection=True;TrustServerCertificate=True;");
             });
 
         }
