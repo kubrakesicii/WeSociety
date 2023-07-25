@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WeSociety.Domain.Base
 {
-    public class BaseDto
+    public abstract class AggregateRoot : Entity
     {
     }
 }

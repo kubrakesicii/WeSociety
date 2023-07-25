@@ -8,7 +8,7 @@ using WeSociety.Domain.Base;
 
 namespace WeSociety.Domain.Repository
 {
-    public interface IGenericRepository<T> where T : BaseEntity
+    public interface IGenericRepository<T> where T : Entity
     {
         Task<List<T>> GetAll(Expression<Func<T, bool>> filter = null);
         Task<T> Get(Expression<Func<T, bool>> filter);

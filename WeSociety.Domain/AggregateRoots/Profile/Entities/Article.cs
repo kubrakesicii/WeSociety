@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WeSociety.Domain.Base;
+﻿using WeSociety.Domain.Base;
 
-namespace WeSociety.Domain.Entities.Profiles.Articles
+namespace WeSociety.Domain.AggregateRoots.Profile.Entities
 {
-    public class Article : BaseEntity
+    public class Article : Entity
     {
 
         public string Title { get; private set; }
@@ -19,10 +14,13 @@ namespace WeSociety.Domain.Entities.Profiles.Articles
         public Profile Profile { get; private set; }
 
 
+        public IList<ArticleComment> ArticleComments { get; set; }
+
         public Article(string title, string domain, string content, int profileId)
         {
+            if (string.IsNullOrEmpty(title)) throw new ArgumentNullException(nameof(title));
             Title = title;
-            Domain = domain;
+            Domain = title.ToLower().Replace(" ", "-");
             Content = content;
 
             ProfileId = profileId == 0 ? throw new Exception("Profile must be exists") : profileId;

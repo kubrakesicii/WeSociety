@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WeSociety.Domain.Entities.Users
+namespace WeSociety.Domain.AggregateRoots.Users
 {
     public class AppUser : IdentityUser
     {

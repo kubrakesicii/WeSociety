@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WeSociety.Domain.Base
 {
-    public class BaseEntity
+    public class Entity
     {
         public int Id { get; set; }
         public DateTime CreatedAt { get; set; }

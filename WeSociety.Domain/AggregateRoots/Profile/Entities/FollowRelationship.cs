@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using WeSociety.Domain.Base;
 
-namespace WeSociety.Domain.Entities.Profiles.FollowingProfiles
+namespace WeSociety.Domain.AggregateRoots.Profile.Entities
 {
-    public class FollowRelationship : BaseEntity
+    public class FollowRelationship : Entity
     {
         public int FollowerId { get; private set; }
         public Profile Follower { get; private set; }

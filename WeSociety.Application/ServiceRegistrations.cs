@@ -20,6 +20,7 @@ namespace WeSociety.Application
 
             var logger = new LoggerConfiguration()
            .WriteTo.File(new JsonFormatter(), "../Application/Logs/logger.json")
+           .WriteTo.Console()
            .WriteTo.File("../Application/Logs/all.logs",
                restrictedToMinimumLevel: LogEventLevel.Warning,
                rollingInterval: RollingInterval.Day)

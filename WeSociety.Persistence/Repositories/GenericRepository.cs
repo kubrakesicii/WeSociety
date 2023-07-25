@@ -11,7 +11,7 @@ using WeSociety.Persistence.Context;
 
 namespace WeSociety.Persistence.Repositories
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
+    public class GenericRepository<T> : IGenericRepository<T> where T : Entity
     {
         protected WeSocietyDbContext _context;
 
