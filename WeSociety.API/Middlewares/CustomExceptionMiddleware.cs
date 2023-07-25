@@ -35,7 +35,7 @@ namespace WeSociety.API.Middlewares
                 success = false,
                 status = statusCode,
                 messsage = ex.Message,
-                errors = ex.InnerException
+                errors = GetErrors(ex)
             };
 
             httpContext.Response.ContentType = "application/json";
@@ -47,20 +47,21 @@ namespace WeSociety.API.Middlewares
            exception switch
            {
                LoginException => StatusCodes.Status200OK,
+               Application.Exceptions.ValidationException => StatusCodes.Status400BadRequest,
                _ => StatusCodes.Status500InternalServerError
            };
 
 
-        /*
-        private static IReadOnlyDictionary<string, string[]> GetErrors(Exception exception)
+        
+        private static IReadOnlyDictionary<string, List<string>> GetErrors(Exception exception)
         {
-            IReadOnlyDictionary<string, string[]> errors = null;
-            if (exception is ValidationException validationException)
+            IReadOnlyDictionary<string, List<string>> errors = null;
+            if (exception is Application.Exceptions.ValidationException validationException)
             {
-                errors = validationException.ErrorsDictionary;
+                errors = validationException.Errors;
             }
             return errors;
-        */
+        
     }
 
     // Extension method used to add the middleware to the HTTP request pipeline.

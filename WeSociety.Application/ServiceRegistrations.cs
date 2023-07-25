@@ -19,9 +19,9 @@ namespace WeSociety.Application
             services.AddAutoMapper(assembly);
 
             var logger = new LoggerConfiguration()
-           .WriteTo.File(new JsonFormatter(), "../Application/Logs/logger.json")
+           .WriteTo.File(new JsonFormatter(), "../WeSociety.Application/Logs/logger.json")
            .WriteTo.Console()
-           .WriteTo.File("../Application/Logs/all.logs",
+           .WriteTo.File("../WeSociety.Application/Logs/all.logs",
                restrictedToMinimumLevel: LogEventLevel.Warning,
                rollingInterval: RollingInterval.Day)
            .MinimumLevel.Information()
