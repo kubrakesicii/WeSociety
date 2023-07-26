@@ -14,13 +14,14 @@ namespace WeSociety.Persistence.Repositories
     public class GenericRepository<T> : IGenericRepository<T> where T : Entity
     {
         protected WeSocietyDbContext _context;
+        protected DbSet<T> _dbSet;
 
         public GenericRepository(WeSocietyDbContext context)
         {
             _context = context;
+            _dbSet = _context.Set<T>();
         }
 
-        protected DbSet<T> _dbSet;
 
         public async Task Delete(T entity)
         {

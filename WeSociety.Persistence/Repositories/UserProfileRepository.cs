@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,11 @@ namespace WeSociety.Persistence.Repositories
     {
         public UserProfileRepository(WeSocietyDbContext context) : base(context)
         {
+        }
+
+        public async Task<UserProfile> GetWithUserAsync(int id)
+        {
+            return await _context.UserProfiles.Include(x => x.User).Where(x => x.Id == id).FirstOrDefaultAsync();
         }
     }
 }

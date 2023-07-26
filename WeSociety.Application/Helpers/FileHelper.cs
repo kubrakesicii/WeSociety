@@ -1,14 +1,22 @@
 ﻿using Microsoft.AspNetCore.Http;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace WeSociety.Application.Helpers
 {
     public static class FileHelper
     {
-        public static async Task<byte[]> ConvertFileToByteArray(IFormFile file)
+        public static byte[] ConvertFileToByteArray(IFormFile file)
         {
-            using var memoryStream = new MemoryStream();
-            await file.OpenReadStream().CopyToAsync(memoryStream);
-            return memoryStream.ToArray();
+            using var stream = new MemoryStream();
+            file.CopyTo(stream);
+            return stream.ToArray();
+        }
+
+        public static string ConvertByteArrayToFile(byte[] bytes)
+        {
+            string fileContentBase64 = "data:image/png;base64,";
+            fileContentBase64 += Convert.ToBase64String(bytes);
+            return fileContentBase64;
         }
     }
 }

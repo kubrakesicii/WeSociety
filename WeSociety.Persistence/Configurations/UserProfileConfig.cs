@@ -1,10 +1,6 @@
-﻿using Azure;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.Extensions.Hosting;
-using WeSociety.Domain.AggregateRoots.Profile;
-using WeSociety.Domain.AggregateRoots.Profile.Entities;
-using WeSociety.Domain.AggregateRoots.Users;
+using WeSociety.Domain.AggregateRoots.UserProfile;
 
 namespace WeSociety.Persistence.Configurations
 {

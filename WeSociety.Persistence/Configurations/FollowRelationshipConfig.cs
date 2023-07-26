@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using WeSociety.Domain.AggregateRoots.Profile;
-using WeSociety.Domain.AggregateRoots.Profile.Entities;
+using WeSociety.Domain.AggregateRoots.UserProfile;
+using WeSociety.Domain.AggregateRoots.UserProfile.Entities;
 
 namespace WeSociety.Persistence.Configurations
 {

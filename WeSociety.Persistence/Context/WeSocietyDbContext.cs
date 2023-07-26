@@ -1,13 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WeSociety.Domain.AggregateRoots.Profile;
-using WeSociety.Domain.AggregateRoots.Profile.Entities;
+using WeSociety.Domain.AggregateRoots.UserProfile;
+using WeSociety.Domain.AggregateRoots.UserProfile.Entities;
 using WeSociety.Domain.AggregateRoots.Users;
 using WeSociety.Persistence.Configurations;
 

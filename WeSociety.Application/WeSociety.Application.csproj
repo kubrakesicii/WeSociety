@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="CQRS\Queries\" />
     <Folder Include="Logs\" />
   </ItemGroup>
 

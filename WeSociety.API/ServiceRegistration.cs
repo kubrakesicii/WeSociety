@@ -16,7 +16,7 @@ namespace WeSociety.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = $"TEST API V1",
+                    Title = $"WeSociety API",
                     Version = "v1.0",
                     Description = ".NET Core 6.0.100",
                     TermsOfService = new Uri("https://Example.com/terms"),
@@ -26,9 +26,6 @@ namespace WeSociety.API
                         Url = new Uri("https://example.com/license")
                     }
                 });
-
-
-                // c.OperationFilter<SwaggerHeaderParameter>();
 
                 var securitySchema = new OpenApiSecurityScheme
                 {

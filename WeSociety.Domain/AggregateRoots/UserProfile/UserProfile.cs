@@ -21,15 +21,23 @@ namespace WeSociety.Domain.AggregateRoots.UserProfile
 
 
 
-                public UserProfile(byte[] image, string fullName, string bio, string userId, IList<Article> articles, IList<FollowRelationship> followings, IList<FollowRelationship> followers)
+        public UserProfile(byte[] image, string fullName, string bio, string userId)
         {
+            Console.WriteLine("Created from user prof constructur");
             Image = image;
             FullName = fullName;
             Bio = bio;
             UserId = userId;
-            Articles = articles;
-            Followings = followings;
-            Followers = followers;
+            Articles = new List<Article> { };
+            Followings = new List<FollowRelationship> { };
+            Followers = new List<FollowRelationship> { };
+        }
+
+        public void UpdateUserProfile(byte[] image, string fullName, string bio)
+        {
+            Image = image;
+            FullName = fullName;
+            Bio = bio;
         }
 
         // Bir profili takip etme işlemi
