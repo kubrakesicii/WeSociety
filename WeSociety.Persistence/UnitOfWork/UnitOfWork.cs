@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WeSociety.Domain.Interfaces;
+using WeSociety.Domain.Repositories;
 using WeSociety.Persistence.Context;
+using WeSociety.Persistence.Repositories;
 
 namespace WeSociety.Persistence.UnitOfWork
 {
@@ -12,10 +14,15 @@ namespace WeSociety.Persistence.UnitOfWork
     {
         private WeSocietyDbContext _context;
 
+        private readonly IUserProfileRepository _profileRepository;
+        private readonly IArticleRepository _articleRepository;
         public UnitOfWork(WeSocietyDbContext context)
         {
             _context = context;
         }
+
+        public IUserProfileRepository UserProfiles => _profileRepository ?? new UserProfileRepository(_context);
+        public IArticleRepository Articles => _articleRepository ?? new ArticleRepository(_context);
 
         public void Dispose()
         {

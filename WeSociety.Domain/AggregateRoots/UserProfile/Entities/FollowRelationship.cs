@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WeSociety.Domain.Base;
 
-namespace WeSociety.Domain.AggregateRoots.Profile.Entities
+namespace WeSociety.Domain.AggregateRoots.UserProfile.Entities
 {
     public class FollowRelationship : Entity
     {

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WeSociety.Domain.AggregateRoots.Profile.Entities;
+﻿using WeSociety.Domain.AggregateRoots.UserProfile.Entities;
 using WeSociety.Domain.AggregateRoots.Users;
 using WeSociety.Domain.Base;
 
@@ -11,6 +6,7 @@ namespace WeSociety.Domain.AggregateRoots.UserProfile
 {
     public class UserProfile : AggregateRoot
     {
+
         public byte[] Image { get; private set; }
         public string FullName { get; private set; }
         public string Bio { get; private set; }
@@ -23,8 +19,18 @@ namespace WeSociety.Domain.AggregateRoots.UserProfile
         public IList<FollowRelationship> Followings { get; private set; }
         public IList<FollowRelationship> Followers { get; private set; }
 
-        //public IList<FollowRelationship> FollowRelationships { get; private set; }
 
+
+                public UserProfile(byte[] image, string fullName, string bio, string userId, IList<Article> articles, IList<FollowRelationship> followings, IList<FollowRelationship> followers)
+        {
+            Image = image;
+            FullName = fullName;
+            Bio = bio;
+            UserId = userId;
+            Articles = articles;
+            Followings = followings;
+            Followers = followers;
+        }
 
         // Bir profili takip etme işlemi
         //public void FollowProfile(int followingId)
