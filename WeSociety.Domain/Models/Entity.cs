@@ -9,8 +9,8 @@ namespace WeSociety.Domain.Base
     public class Entity
     {
         public int Id { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public DateTime CreatedTime { get; set; }
+        public DateTime UpdatedTime { get; set; }
         public int IsActive { get; set; }
     }
 }

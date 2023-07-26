@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace WeSociety.Application.Exceptions
 {
-    public class ValidationException : CustomException
+    public class UserExistsException : CustomException
     {
-        public ValidationException(IReadOnlyDictionary<string, List<string>>? errors) : base("VALIDATIONEXCEPTION", HttpStatusCode.BadRequest, errors)
+        public UserExistsException() : base("USEREXISTS", HttpStatusCode.OK)
         {
         }
     }

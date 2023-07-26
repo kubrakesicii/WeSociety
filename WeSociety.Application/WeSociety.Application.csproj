@@ -23,10 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTO\" />
+    <Folder Include="CQRS\Queries\" />
     <Folder Include="Logs\" />
-    <Folder Include="Mapping\" />
-    <Folder Include="CQRS\" />
   </ItemGroup>
 
 </Project>

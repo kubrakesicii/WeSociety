@@ -1,6 +1,6 @@
 ﻿using WeSociety.Domain.Base;
 
-namespace WeSociety.Domain.AggregateRoots.Profile.Entities
+namespace WeSociety.Domain.AggregateRoots.UserProfile.Entities
 {
     public class Article : Entity
     {
@@ -8,13 +8,13 @@ namespace WeSociety.Domain.AggregateRoots.Profile.Entities
         public string Title { get; private set; }
         public string Domain { get; private set; }
         public string Content { get; private set; }
-        //public int IsPublished { get; private set; }
+        public int IsPublished { get; private set; }
 
         public int ProfileId { get; private set; }
-        public Profile Profile { get; private set; }
+        public UserProfile Profile { get; private set; }
 
 
-        public IList<ArticleComment> ArticleComments { get; set; }
+        //public IList<ArticleComment> ArticleComments { get; set; }
 
         public Article(string title, string domain, string content, int profileId)
         {

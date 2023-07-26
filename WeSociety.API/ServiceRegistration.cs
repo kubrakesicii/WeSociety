@@ -73,12 +73,10 @@ namespace WeSociety.API
                 //c.DocExpansion(DocExpansion.None);
             });
 
-            app.MapControllers();
-
             //MIDDLEWARES
             app.UseCustomExceptionMiddleware();
 
-
+            app.MapControllers();
             app.Run();
         }
     }

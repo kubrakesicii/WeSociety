@@ -15,14 +15,14 @@ namespace WeSociety.Application.CQRS.Behaviors
             if (!_validators.Any()) return await next();
 
             var context = new ValidationContext<TRequest>(request);
-            
+
             var errors = _validators.Select(x => x.Validate(context))
                 .SelectMany(x => x.Errors)
                 .Where(x => x != null)
                 .GroupBy(
                      x => x.PropertyName,
                      x => x.ErrorMessage,
-                     (propertyName , errorMessages) => new
+                     (propertyName, errorMessages) => new
                      {
                          Key = propertyName,
                          Values = errorMessages.Distinct().ToList()

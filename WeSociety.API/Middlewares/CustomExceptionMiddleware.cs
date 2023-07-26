@@ -20,48 +20,27 @@ namespace WeSociety.API.Middlewares
             {
                 await _next(httpContext);
             }
-            catch (Exception ex)
+            catch (CustomException ex)
             {
                 await HandleExceptionAsync(httpContext,ex);
             }
         }
 
 
-        private static async Task HandleExceptionAsync(HttpContext httpContext,Exception ex)
+        private static async Task HandleExceptionAsync(HttpContext httpContext, CustomException ex)
         {
-            var statusCode = GetStatusCode(ex);
             var response = new
             {
                 success = false,
-                status = statusCode,
+                status = ex.StatusCode,
                 messsage = ex.Message,
-                errors = GetErrors(ex)
+                errors = ex.Errors
             };
 
             httpContext.Response.ContentType = "application/json";
-            httpContext.Response.StatusCode = statusCode;
+            httpContext.Response.StatusCode = (int)ex.StatusCode;
             await httpContext.Response.WriteAsync(JsonConvert.SerializeObject(response));
         }
-
-        private static int GetStatusCode(Exception exception) =>
-           exception switch
-           {
-               LoginException => StatusCodes.Status200OK,
-               Application.Exceptions.ValidationException => StatusCodes.Status400BadRequest,
-               _ => StatusCodes.Status500InternalServerError
-           };
-
-
-        
-        private static IReadOnlyDictionary<string, List<string>> GetErrors(Exception exception)
-        {
-            IReadOnlyDictionary<string, List<string>> errors = null;
-            if (exception is Application.Exceptions.ValidationException validationException)
-            {
-                errors = validationException.Errors;
-            }
-            return errors;
-        
     }
 
     // Extension method used to add the middleware to the HTTP request pipeline.

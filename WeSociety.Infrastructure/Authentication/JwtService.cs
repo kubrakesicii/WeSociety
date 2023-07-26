@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WeSociety.Domain.Interfaces;
 
-namespace WeSociety.Persistence.Authentication
+namespace WeSociety.Infrastructure.Authentication
 {
     public class JwtService : IJwtService
     {

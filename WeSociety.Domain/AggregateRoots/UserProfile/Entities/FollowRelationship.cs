@@ -10,10 +10,10 @@ namespace WeSociety.Domain.AggregateRoots.Profile.Entities
     public class FollowRelationship : Entity
     {
         public int FollowerId { get; private set; }
-        public Profile Follower { get; private set; }
+        public UserProfile Follower { get; private set; }
 
         public int FollowingId { get; private set; }
-        public Profile Following { get; private set; }
+        public UserProfile Following { get; private set; }
 
         public FollowRelationship(int followerId, int followingId)
         {
