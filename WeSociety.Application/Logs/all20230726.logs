@@ -415,3 +415,4 @@ System.InvalidOperationException: BeginExecuteReader requires an open and availa
 2023-07-26 16:21:21.537 +03:00 [WRN] Failed to determine the https port for redirect.
 2023-07-26 16:22:24.989 +03:00 [WRN] Failed to determine the https port for redirect.
 2023-07-26 16:49:14.382 +03:00 [WRN] Failed to determine the https port for redirect.
+2023-07-26 17:20:18.427 +03:00 [WRN] Failed to determine the https port for redirect.

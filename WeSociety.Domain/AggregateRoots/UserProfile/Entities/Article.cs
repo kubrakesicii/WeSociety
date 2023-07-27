@@ -16,7 +16,7 @@ namespace WeSociety.Domain.AggregateRoots.UserProfile.Entities
 
         //public IList<ArticleComment> ArticleComments { get; set; }
 
-        public Article(string title, string domain, string content, int profileId)
+        public Article(string title, string content,int isPublished, int profileId)
         {
             if (string.IsNullOrEmpty(title)) throw new ArgumentNullException(nameof(title));
             Title = title;
@@ -24,6 +24,11 @@ namespace WeSociety.Domain.AggregateRoots.UserProfile.Entities
             Content = content;
 
             ProfileId = profileId == 0 ? throw new Exception("Profile must be exists") : profileId;
+        }
+
+        public void Publish()
+        {
+            IsPublished = 1;
         }
 
     }

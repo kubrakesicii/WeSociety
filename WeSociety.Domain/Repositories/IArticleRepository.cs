@@ -10,5 +10,7 @@ namespace WeSociety.Domain.Repositories
 {
     public interface IArticleRepository : IGenericRepository<Article>
     {
+        Task<List<Article>> GetAllWithUserProfile(string searchKey);
+        Task<List<Article>> GetAllWithUserProfileByProfile(int currentUserId, int userProfileId);
     }
 }

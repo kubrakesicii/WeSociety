@@ -33,11 +33,24 @@ namespace WeSociety.Domain.AggregateRoots.UserProfile
             Followers = new List<FollowRelationship> { };
         }
 
-        public void UpdateUserProfile(byte[] image, string fullName, string bio)
+        public void Update(byte[] image, string fullName, string bio)
         {
             Image = image;
             FullName = fullName;
             Bio = bio;
+        }
+
+        //Article bahavior methoda
+        public Article AddArticle(string title, string content, int isPublished)
+        {
+            Article article = new Article(title, content, isPublished, Id);
+            Articles.Add(article);
+            return article;
+        }
+
+        public void DeleteArticle(Article article)
+        {
+            Articles.Remove(article);
         }
 
         // Bir profili takip etme işlemi
@@ -66,18 +79,5 @@ namespace WeSociety.Domain.AggregateRoots.UserProfile
         //    FollowRelationships.Remove(followingProfile);
         //}
 
-
-        //Article bahavior methoda
-        public void AddArticle(string title, string domain, string content)
-        {
-            Article article = new Article(title, domain, content, Id);
-            Articles.Add(article);
-        }
-
-        public void RemoveArticle(Article artice)
-        {
-            Article article = Articles.FirstOrDefault(x => x.Id == artice.Id);
-            Articles.Remove(article);
-        }
     }
 }

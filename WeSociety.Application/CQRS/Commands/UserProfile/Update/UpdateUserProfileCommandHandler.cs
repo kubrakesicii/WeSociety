@@ -25,7 +25,7 @@ namespace WeSociety.Application.CQRS.Commands.UserProfile.Update
             var profile = await _uow.UserProfiles.Get(x => x.Id ==  request.Id);
             if (profile == null) throw new NotfoundException();
 
-            profile.UpdateUserProfile(
+            profile.Update(
                 FileHelper.ConvertFileToByteArray(request.Image),
                 request.FullName,
                 request.Bio);
