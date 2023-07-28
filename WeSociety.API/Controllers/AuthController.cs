@@ -1,8 +1,7 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WeSociety.Application.CQRS.Commands.User.Login;
-using WeSociety.Application.CQRS.Commands.User.Register;
+using WeSociety.Application.CQRS.Commands.Auth.Login;
+using WeSociety.Application.CQRS.Commands.Auth.Register;
 
 namespace WeSociety.API.Controllers
 {
