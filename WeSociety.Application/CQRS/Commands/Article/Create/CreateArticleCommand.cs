@@ -14,6 +14,5 @@ namespace WeSociety.Application.CQRS.Commands.Article.Create
         public string Title { get; set; }
         public string Content { get; set; }
         public int IsPublished { get; set; }
-        public int UserProfileId { get; set; }
     }
 }

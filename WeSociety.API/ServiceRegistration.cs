@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerUI;
 using WeSociety.API.Middlewares;
 
 namespace WeSociety.API
@@ -8,8 +10,20 @@ namespace WeSociety.API
     {
         public static void AddAPIServices(this IServiceCollection services)
         {
+            //services.AddAuthentication(options =>
+            //{
+            //    // custom scheme defined in .AddPolicyScheme() below
+            //    options.DefaultScheme = "JWT_OR_COOKIE";
+            //    options.DefaultChallengeScheme = "JWT_OR_COOKIE";
+            //});
+            //services.AddAuthorization();
+
             services.AddControllers();
+            //services.AddHttpContextAccessor();
             services.AddEndpointsApiExplorer();
+            //services.AddMvc(opt => opt.EnableEndpointRouting=false);
+
+            //MvcOptions.EnableEndpointRouting = false;
 
             //SWAGGER
             services.AddSwaggerGen(c =>
@@ -50,14 +64,15 @@ namespace WeSociety.API
 
         public static void ConfigureApiServices(this WebApplication app)
         {
+
             app.UseCors();
 
-            app.UseRouting();
             app.UseStaticFiles();
+            app.UseHttpsRedirection();
 
             app.UseAuthentication();
+            app.UseRouting();
             app.UseAuthorization();
-            app.UseHttpsRedirection();
 
 
             //SWAGGER
@@ -66,15 +81,24 @@ namespace WeSociety.API
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Api ServiceV1");
                 c.SwaggerEndpoint("/swagger/v2/swagger.json", "Api ServiceV2");
-                //c.DefaultModelsExpandDepth(-1);
-                //c.DocExpansion(DocExpansion.None);
+                c.DefaultModelsExpandDepth(-1);
+                c.DocExpansion(DocExpansion.None);
             });
 
             //MIDDLEWARES
+
+            //Bu midde her istekte gidecek, token geldiyse claimse ilgili user bilgileri atanacak, gelmediyse boş olacak
+            app.UseWhen(httpContext => (!httpContext.Request.Path.Equals("/Auth/Login") &&
+            !httpContext.Request.Path.Equals("/Auth/Register")),
+            subApp => subApp.UseAuthMiddleware());
+
+
             app.UseCustomExceptionMiddleware();
 
-            app.MapControllers();
-            app.Run();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }

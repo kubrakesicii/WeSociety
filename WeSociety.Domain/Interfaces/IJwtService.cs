@@ -9,7 +9,7 @@ namespace WeSociety.Domain.Interfaces
 {
     public interface IJwtService
     {
-        string CreateToken(string id, string email, string username);
+        string CreateToken(string id, string email, string username,int profileId);
         Task<List<Claim>> GetUserClaims();
     }
 }

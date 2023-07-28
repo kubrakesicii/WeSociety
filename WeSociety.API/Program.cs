@@ -1,8 +1,9 @@
-using WeSociety.Persistence;
+﻿using WeSociety.Persistence;
 using WeSociety.Application;
 using WeSociety.Infrastructure;
 using WeSociety.API.Middlewares;
 using WeSociety.API;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 DotNetEnv.Env.Load();
 
@@ -17,11 +18,5 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
 app.ConfigureApiServices();
+app.Run();

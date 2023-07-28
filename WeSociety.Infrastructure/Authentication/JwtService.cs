@@ -14,18 +14,20 @@ namespace WeSociety.Infrastructure.Authentication
     public class JwtService : IJwtService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly JwtSetting _jwtSetting;
 
-        public JwtService(IHttpContextAccessor httpContextAccessor)
+        public JwtService(IHttpContextAccessor httpContextAccessor, JwtSetting jwtSetting)
         {
             _httpContextAccessor = httpContextAccessor;
+            _jwtSetting = jwtSetting;
         }
 
-        public string CreateToken(string id, string email, string username)
+        public string CreateToken(string id, string email, string username,int profileId)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("JWT_SECURITY_KEY"));
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSetting.SecurityKey));
 
             var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
-            var jwt = CreateJwtSecurityToken(id, email, username, signingCredentials);
+            var jwt = CreateJwtSecurityToken(id, email, username,profileId, signingCredentials);
             var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
             var token = jwtSecurityTokenHandler.WriteToken(jwt);
 
@@ -43,7 +45,7 @@ namespace WeSociety.Infrastructure.Authentication
            );
         }
 
-        private JwtSecurityToken CreateJwtSecurityToken(string id, string email, string username, SigningCredentials signingCredentials)
+        private JwtSecurityToken CreateJwtSecurityToken(string id, string email, string username, int profileId,SigningCredentials signingCredentials)
         {
             var jwt = new JwtSecurityToken(
                 "",
@@ -55,6 +57,7 @@ namespace WeSociety.Infrastructure.Authentication
                     new Claim("id", id),
                     new Claim("email", email),
                     new Claim("username", username),
+                    new Claim("profileId", profileId.ToString())
                 },
                 signingCredentials: signingCredentials
             );

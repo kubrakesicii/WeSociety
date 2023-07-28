@@ -31,5 +31,12 @@ namespace WeSociety.Domain.AggregateRoots.UserProfile.Entities
             IsPublished = 1;
         }
 
+        public void Update(string title, string content)
+        {
+            Title = title;
+            Domain = title.ToLower().Replace(" ", "-");
+            Content = content;
+        }
+
     }
 }

@@ -13,7 +13,6 @@ namespace WeSociety.Application.CQRS.Commands.Article.Create
         {
             RuleFor(x => x.Title).NotEmpty().MaximumLength(128);
             RuleFor(x => x.Content).NotEmpty();
-            RuleFor(x =>x.UserProfileId).NotEmpty().NotEqual(0);
             RuleFor(x => x.IsPublished).NotNull();
         }
     }

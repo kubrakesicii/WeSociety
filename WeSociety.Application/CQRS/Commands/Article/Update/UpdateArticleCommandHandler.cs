@@ -18,10 +18,14 @@ namespace WeSociety.Application.CQRS.Commands.Article.Update
             _uow = uow;
         }
 
-        public Task<Response> Handle(UpdateArticleCommand request, CancellationToken cancellationToken)
+        public async Task<Response> Handle(UpdateArticleCommand request, CancellationToken cancellationToken)
         {
+            var article = await _uow.Articles.Get(x => x.Id == request.Id);
+            article.Update(request.Title,request.Content);
 
-            throw new NotImplementedException();
+            //await _uow.Articles.Update(article);   //EF Core change track edildigi icin update etmeye gerek duymadan degisikligi yansıtıyor
+            await _uow.SaveChangesAsync();
+            return new SuccessResponse();
         }
     }
 }

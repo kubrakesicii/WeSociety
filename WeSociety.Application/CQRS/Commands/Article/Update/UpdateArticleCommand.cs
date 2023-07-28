@@ -13,6 +13,5 @@ namespace WeSociety.Application.CQRS.Commands.Article.Update
         public int Id { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
-        public int IsPublished { get; set; }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using WeSociety.Application.CQRS.BaseModels;
@@ -19,12 +21,13 @@ namespace WeSociety.Application.CQRS.Commands.User.Login
         private readonly UserManager<AppUser> _userManager;
         private readonly IMapper _mapper;
         private readonly IJwtService _jwtService;
-
-        public LoginCommandHandler(UserManager<AppUser> userManager, IMapper mapper, IJwtService jwtService)
+        private readonly IUnitOfWork _uow;
+        public LoginCommandHandler(UserManager<AppUser> userManager, IMapper mapper, IJwtService jwtService, IUnitOfWork uow)
         {
             _userManager = userManager;
             _mapper = mapper;
             _jwtService = jwtService;
+            _uow = uow;
         }
 
         public async Task<DataResponse<GetLoginUserDto>> Handle(LoginCommand request, CancellationToken cancellationToken)
@@ -35,7 +38,11 @@ namespace WeSociety.Application.CQRS.Commands.User.Login
             var signinRes = await _userManager.CheckPasswordAsync(signInUser,request.Password);
             if(!signinRes) throw new LoginException();
 
-            string token = _jwtService.CreateToken(signInUser.Id, signInUser.Email, signInUser.UserName);
+            var userProfile = await _uow.UserProfiles.Get(x => x.UserId == signInUser.Id);
+
+            var userIdentity = new ClaimsIdentity("Custom");
+
+            string token = _jwtService.CreateToken(signInUser.Id, signInUser.Email, signInUser.UserName,userProfile.Id);
             var loggedUser = _mapper.Map<GetLoginUserDto>(signInUser);
             loggedUser.Token = token;
 

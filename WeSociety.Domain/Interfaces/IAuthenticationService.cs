@@ -8,9 +8,16 @@ namespace WeSociety.Domain.Interfaces
 {
     public interface IAuthenticationService
     {
+        //Task<string> GetId();
+        //Task<string> GetEmail();
+        //Task<string> GetUserName();
+        //Task<int> GetProfileId();
+        //bool IsAuthenticated { get; }
+
         bool IsAuthenticated { get; }
         string Id { get; }
-        string FullName { get; }
         string Email { get; }
+        string Username { get; }
+        Task<int> GetProfileId();
     }
 }

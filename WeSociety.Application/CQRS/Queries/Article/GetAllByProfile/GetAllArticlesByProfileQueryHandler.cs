@@ -31,7 +31,7 @@ namespace WeSociety.Application.CQRS.Queries.Article.GetAllByProfile
             int curProfileId = 0;
             if(_authService.IsAuthenticated)
             {
-                var curUserId = _authService.Id;
+                var curUserId = "";
                 curProfileId = (await _uow.UserProfiles.Get(x => x.UserId == curUserId)).Id;
             }
 

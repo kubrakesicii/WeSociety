@@ -11,6 +11,7 @@ namespace WeSociety.Domain.Interfaces
     {
         public IUserProfileRepository UserProfiles { get; }
         public IArticleRepository Articles { get; }
+        public IFollowRelationshipRepository FollowRelationships { get; }
         Task<int> SaveChangesAsync();
     }
 }

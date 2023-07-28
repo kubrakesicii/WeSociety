@@ -53,6 +53,23 @@ namespace WeSociety.Domain.AggregateRoots.UserProfile
             Articles.Remove(article);
         }
 
+
+        // FOLLOW RELATION BEHAVIOR METHODS
+        public FollowRelationship Follow(int followingId)
+        {
+            FollowRelationship followRel = new FollowRelationship(Id, followingId);
+            Followings.Add(followRel);
+            return followRel;
+        }
+
+        public void UnFollow(int followingId)
+        {
+            FollowRelationship followRel = new FollowRelationship(Id, followingId);
+            if(followRel != null) Followings.Remove(followRel);
+        }
+
+
+
         // Bir profili takip etme işlemi
         //public void FollowProfile(int followingId)
         //{
