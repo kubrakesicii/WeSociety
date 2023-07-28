@@ -8,10 +8,11 @@ using WeSociety.Application.CQRS.BaseModels;
 using WeSociety.Application.DTO.FollowRelationship;
 using WeSociety.Application.Responses;
 using WeSociety.Domain.Interfaces;
+using WeSociety.Domain.Pagination;
 
 namespace WeSociety.Application.CQRS.Queries.FollowRelationship.GetAllFollowings
 {
-    public class GetAllFollowingsQueryHandler : IQueryHandler<GetAllFollowingsQuery, DataResponse<List<GetFollowingDto>>>
+    public class GetAllFollowingsQueryHandler : IQueryHandler<GetAllFollowingsQuery, DataResponse<PaginatedList<GetFollowingDto>>>
     {
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
@@ -22,11 +23,13 @@ namespace WeSociety.Application.CQRS.Queries.FollowRelationship.GetAllFollowings
             _mapper = mapper;
         }
 
-        public async Task<DataResponse<List<GetFollowingDto>>> Handle(GetAllFollowingsQuery request, CancellationToken cancellationToken)
+        public async Task<DataResponse<PaginatedList<GetFollowingDto>>> Handle(GetAllFollowingsQuery request, CancellationToken cancellationToken)
         {
             var followings = await _uow.FollowRelationships.GetAllFollowingsByUserProfile(request.UserProfileId);
             var followingsDto = _mapper.Map<List<GetFollowingDto>>(followings);
-            return new SuccessDataResponse<List<GetFollowingDto>>(followingsDto);
+
+            var paginatedRes = PaginatedResponse<GetFollowingDto>.Create(followingsDto, request.PageIndex, request.PageSize);
+            return new SuccessDataResponse<PaginatedList<GetFollowingDto>>(paginatedRes);
         }
     }
 }

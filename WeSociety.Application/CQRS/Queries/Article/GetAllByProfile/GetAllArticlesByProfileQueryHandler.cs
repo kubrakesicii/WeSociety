@@ -10,10 +10,11 @@ using WeSociety.Application.DTO.Article;
 using WeSociety.Application.Responses;
 using WeSociety.Domain.AggregateRoots.Users;
 using WeSociety.Domain.Interfaces;
+using WeSociety.Domain.Pagination;
 
 namespace WeSociety.Application.CQRS.Queries.Article.GetAllByProfile
 {
-    public class GetAllArticlesByProfileQueryHandler : IQueryHandler<GetAllArticlesByProfileQuery, DataResponse<List<GetArticleDto>>>
+    public class GetAllArticlesByProfileQueryHandler : IQueryHandler<GetAllArticlesByProfileQuery, DataResponse<PaginatedList<GetArticleDto>>>
     {
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
@@ -26,7 +27,7 @@ namespace WeSociety.Application.CQRS.Queries.Article.GetAllByProfile
             _authService = authService;
         }
 
-        public async Task<DataResponse<List<GetArticleDto>>> Handle(GetAllArticlesByProfileQuery request, CancellationToken cancellationToken)
+        public async Task<DataResponse<PaginatedList<GetArticleDto>>> Handle(GetAllArticlesByProfileQuery request, CancellationToken cancellationToken)
         {
             int curProfileId = 0;
             if(_authService.IsAuthenticated)
@@ -35,10 +36,11 @@ namespace WeSociety.Application.CQRS.Queries.Article.GetAllByProfile
                 curProfileId = (await _uow.UserProfiles.Get(x => x.UserId == curUserId)).Id;
             }
 
-            var articles = await _uow.Articles.GetAllWithUserProfileByProfile(curProfileId, request.ProfileId);
-
+            var articles = await _uow.Articles.GetAllWithUserProfileByProfile(curProfileId, request.UserProfileId);
             var articleDtos = _mapper.Map<List<GetArticleDto>>(articles);
-            return new SuccessDataResponse<List<GetArticleDto>>(articleDtos);
+
+            var paginatedRes = PaginatedResponse<GetArticleDto>.Create(articleDtos, request.PageIndex, request.PageSize);
+            return new SuccessDataResponse<PaginatedList<GetArticleDto>>(paginatedRes);
         }
     }
 }

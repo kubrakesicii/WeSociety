@@ -14,9 +14,9 @@ namespace WeSociety.Persistence.Configurations
             builder.Property(x => x.Domain).IsRequired().HasMaxLength(256);
             builder.Property(x => x.IsPublished).HasMaxLength(1).HasDefaultValueSql("1");
 
-            builder.HasOne<UserProfile>(a => a.Profile)
+            builder.HasOne<UserProfile>(a => a.UserProfile)
                 .WithMany(p => p.Articles)
-                .HasForeignKey(a => a.ProfileId);
+                .HasForeignKey(a => a.UserProfileId);
 
 
             builder.Property(x => x.IsActive).HasMaxLength(1).HasDefaultValueSql("1");

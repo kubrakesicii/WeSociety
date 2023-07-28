@@ -26,15 +26,15 @@ namespace WeSociety.API.Controllers
         }
 
         [HttpGet("Followers")]
-        public async Task<IActionResult> GetAllFollowers([FromQuery,Required] int userProfileId)
+        public async Task<IActionResult> GetAllFollowers([FromQuery,Required] int userProfileId, [FromQuery] int pageIndex, [FromQuery] int pageSize)
         {
-            return Ok(await _mediator.Send(new GetAllFollowersQuery { UserProfileId = userProfileId }));
+            return Ok(await _mediator.Send(new GetAllFollowersQuery { UserProfileId = userProfileId, PageIndex = pageIndex, PageSize = pageSize }));
         }
 
         [HttpGet("Followings")]
-        public async Task<IActionResult> GetAllFollowings([FromQuery, Required] int userProfileId)
+        public async Task<IActionResult> GetAllFollowings([FromQuery, Required] int userProfileId, [FromQuery] int pageIndex, [FromQuery] int pageSize)
         {
-            return Ok(await _mediator.Send(new GetAllFollowingsQuery { UserProfileId = userProfileId }));
+            return Ok(await _mediator.Send(new GetAllFollowingsQuery { UserProfileId = userProfileId, PageIndex = pageIndex, PageSize = pageSize }));
         }
     }
 }

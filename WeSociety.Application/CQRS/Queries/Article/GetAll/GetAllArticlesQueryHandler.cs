@@ -8,10 +8,11 @@ using WeSociety.Application.CQRS.BaseModels;
 using WeSociety.Application.DTO.Article;
 using WeSociety.Application.Responses;
 using WeSociety.Domain.Interfaces;
+using WeSociety.Domain.Pagination;
 
 namespace WeSociety.Application.CQRS.Queries.Article.GetAll
 {
-    public class GetAllArticlesQueryHandler : IQueryHandler<GetAllArticlesQuery, DataResponse<List<GetArticleDto>>>
+    public class GetAllArticlesQueryHandler : IQueryHandler<GetAllArticlesQuery, DataResponse<PaginatedList<GetArticleDto>>>
     {
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
@@ -22,12 +23,14 @@ namespace WeSociety.Application.CQRS.Queries.Article.GetAll
             _mapper = mapper;
         }
 
-        public async Task<DataResponse<List<GetArticleDto>>> Handle(GetAllArticlesQuery request, CancellationToken cancellationToken)
+        public async Task<DataResponse<PaginatedList<GetArticleDto>>> Handle(GetAllArticlesQuery request, CancellationToken cancellationToken)
         {
             var articles = await _uow.Articles.GetAllWithUserProfile(request.SearchKey);
 
             var articleDtos = _mapper.Map<List<GetArticleDto>>(articles);
-            return new SuccessDataResponse<List<GetArticleDto>>(articleDtos);
+            var paginatedRes = PaginatedResponse<GetArticleDto>.Create(articleDtos, request.PageIndex, request.PageSize);
+
+            return new SuccessDataResponse<PaginatedList<GetArticleDto>>(paginatedRes);
         }
     }
 }

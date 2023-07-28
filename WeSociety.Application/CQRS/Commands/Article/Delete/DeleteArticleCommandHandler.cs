@@ -24,7 +24,7 @@ namespace WeSociety.Application.CQRS.Commands.Article.Delete
             var article = await _uow.Articles.Get(x => x.Id == request.Id);
             if (article == null) throw new NotfoundException();
 
-            var userProfile = await _uow.UserProfiles.Get(x => x.Id == article.ProfileId);
+            var userProfile = await _uow.UserProfiles.Get(x => x.Id == article.UserProfileId);
             userProfile.DeleteArticle(article);
 
             await _uow.SaveChangesAsync();

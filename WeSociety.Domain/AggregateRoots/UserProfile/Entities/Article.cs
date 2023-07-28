@@ -10,20 +10,20 @@ namespace WeSociety.Domain.AggregateRoots.UserProfile.Entities
         public string Content { get; private set; }
         public int IsPublished { get; private set; }
 
-        public int ProfileId { get; private set; }
-        public UserProfile Profile { get; private set; }
+        public int UserProfileId { get; private set; }
+        public UserProfile UserProfile { get; private set; }
 
 
         //public IList<ArticleComment> ArticleComments { get; set; }
 
-        public Article(string title, string content,int isPublished, int profileId)
+        public Article(string title, string content,int isPublished, int userProfileId)
         {
             if (string.IsNullOrEmpty(title)) throw new ArgumentNullException(nameof(title));
             Title = title;
             Domain = title.ToLower().Replace(" ", "-");
             Content = content;
 
-            ProfileId = profileId == 0 ? throw new Exception("Profile must be exists") : profileId;
+            UserProfileId = userProfileId == 0 ? throw new Exception("Profile must be exists") : userProfileId;
         }
 
         public void Publish()

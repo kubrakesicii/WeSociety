@@ -36,21 +36,20 @@ namespace WeSociety.API.Controllers
 
         [HttpGet]
         //[Authorize]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] string? searchKey, [FromQuery] int pageIndex, [FromQuery] int pageSize)
         {
             var curUser = await _userManager.GetUserAsync(HttpContext.User);
             var name = User.Identity.Name;
             var auth = HttpContext.User.Identity.IsAuthenticated;
             var email = HttpContext.User.FindFirstValue("email");
 
-            //return Ok(await _mediator.Send(new GetAllArticlesQuery() {SearchKey="" }));
-            return Ok(new {email=email});
+            return Ok(await _mediator.Send(new GetAllArticlesQuery() {SearchKey=searchKey, PageIndex=pageIndex,PageSize=pageSize}));
         }
 
         [HttpGet("ByUser")]
-        public async Task<IActionResult> GetAllByUser([FromQuery,Required] int userProfileId)
+        public async Task<IActionResult> GetAllByUser([FromQuery,Required] int userProfileId, [FromQuery] int pageIndex, [FromQuery] int pageSize)
         {
-            return Ok(await _mediator.Send(new GetAllArticlesByProfileQuery {ProfileId=userProfileId }));
+            return Ok(await _mediator.Send(new GetAllArticlesByProfileQuery {UserProfileId=userProfileId, PageIndex = pageIndex, PageSize = pageSize }));
         }
 
         [HttpPut]

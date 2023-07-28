@@ -9,7 +9,7 @@ namespace WeSociety.Persistence.Configurations
         public void Configure(EntityTypeBuilder<UserProfile> builder)
         {
             builder.Property(x => x.Bio).IsRequired(false).HasMaxLength(256);
-            builder.Property(x => x.FullName).IsRequired().HasMaxLength(128);
+            builder.Property(x => x.FullName).IsRequired(false).HasMaxLength(128);
             builder.Property(x => x.Image).IsRequired(false);
 
             builder.HasOne(x => x.User).WithOne();

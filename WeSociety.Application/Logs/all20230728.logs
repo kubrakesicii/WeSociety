@@ -378,3 +378,116 @@ System.InvalidOperationException: StatusCode cannot be set because the response 
 2023-07-28 12:28:50.991 +03:00 [WRN] Failed to determine the https port for redirect.
 2023-07-28 12:29:23.751 +03:00 [WRN] Failed to determine the https port for redirect.
 2023-07-28 12:32:27.015 +03:00 [WRN] Failed to determine the https port for redirect.
+2023-07-28 12:52:57.700 +03:00 [WRN] Failed to determine the https port for redirect.
+2023-07-28 12:53:52.245 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+System.ArgumentNullException: Value cannot be null. (Parameter 'user')
+   at Microsoft.AspNetCore.Identity.UserManager`1.CreateAsync(TUser user, String password)
+   at WeSociety.Application.CQRS.Commands.User.Register.RegisterCommandHandler.Handle(RegisterCommand request, CancellationToken cancellationToken) in C:\Users\kesici\Desktop\WeSociety\WeSociety.Application\CQRS\Commands\User\Register\RegisterCommandHandler.cs:line 38
+   at WeSociety.Application.CQRS.Behaviors.ValidationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\kesici\Desktop\WeSociety\WeSociety.Application\CQRS\Behaviors\ValidationBehavior.cs:line 34
+   at WeSociety.API.Controllers.AuthController.Register(RegisterCommand registerCommand) in C:\Users\kesici\Desktop\WeSociety\WeSociety.API\Controllers\AuthController.cs:line 23
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at WeSociety.API.Middlewares.CustomExceptionMiddleware.Invoke(HttpContext httpContext) in C:\Users\kesici\Desktop\WeSociety\WeSociety.API\Middlewares\CustomExceptionMiddleware.cs:line 21
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2023-07-28 12:54:09.232 +03:00 [WRN] Failed to determine the https port for redirect.
+2023-07-28 12:55:41.972 +03:00 [WRN] Failed to determine the https port for redirect.
+2023-07-28 12:56:15.069 +03:00 [WRN] Failed to determine the https port for redirect.
+2023-07-28 12:56:26.675 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+RegisterCommand -> AppUser
+WeSociety.Application.CQRS.Commands.User.Register.RegisterCommand -> WeSociety.Domain.AggregateRoots.Users.AppUser
+   at lambda_method26(Closure, Object, AppUser, ResolutionContext)
+   at WeSociety.Application.CQRS.Commands.User.Register.RegisterCommandHandler.Handle(RegisterCommand request, CancellationToken cancellationToken) in C:\Users\kesici\Desktop\WeSociety\WeSociety.Application\CQRS\Commands\User\Register\RegisterCommandHandler.cs:line 36
+   at WeSociety.Application.CQRS.Behaviors.ValidationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\kesici\Desktop\WeSociety\WeSociety.Application\CQRS\Behaviors\ValidationBehavior.cs:line 34
+   at WeSociety.API.Controllers.AuthController.Register(RegisterCommand registerCommand) in C:\Users\kesici\Desktop\WeSociety\WeSociety.API\Controllers\AuthController.cs:line 23
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at WeSociety.API.Middlewares.CustomExceptionMiddleware.Invoke(HttpContext httpContext) in C:\Users\kesici\Desktop\WeSociety\WeSociety.API\Middlewares\CustomExceptionMiddleware.cs:line 21
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2023-07-28 12:59:20.040 +03:00 [WRN] Failed to determine the https port for redirect.
+2023-07-28 12:59:32.126 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+RegisterCommand -> AppUser
+WeSociety.Application.CQRS.Commands.User.Register.RegisterCommand -> WeSociety.Domain.AggregateRoots.Users.AppUser
+   at lambda_method26(Closure, Object, AppUser, ResolutionContext)
+   at WeSociety.Application.CQRS.Commands.User.Register.RegisterCommandHandler.Handle(RegisterCommand request, CancellationToken cancellationToken) in C:\Users\kesici\Desktop\WeSociety\WeSociety.Application\CQRS\Commands\User\Register\RegisterCommandHandler.cs:line 36
+   at WeSociety.Application.CQRS.Behaviors.ValidationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\kesici\Desktop\WeSociety\WeSociety.Application\CQRS\Behaviors\ValidationBehavior.cs:line 34
+   at WeSociety.API.Controllers.AuthController.Register(RegisterCommand registerCommand) in C:\Users\kesici\Desktop\WeSociety\WeSociety.API\Controllers\AuthController.cs:line 23
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at WeSociety.API.Middlewares.CustomExceptionMiddleware.Invoke(HttpContext httpContext) in C:\Users\kesici\Desktop\WeSociety\WeSociety.API\Middlewares\CustomExceptionMiddleware.cs:line 21
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2023-07-28 13:01:54.194 +03:00 [WRN] Failed to determine the https port for redirect.
+2023-07-28 13:37:20.009 +03:00 [WRN] Failed to determine the https port for redirect.
+2023-07-28 13:40:55.219 +03:00 [WRN] Failed to determine the https port for redirect.
+2023-07-28 13:41:56.098 +03:00 [WRN] Failed to determine the https port for redirect.
+2023-07-28 13:43:02.455 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at WeSociety.Domain.Pagination.PaginatedList`1..ctor(List`1 items, Int32 count) in C:\Users\kesici\Desktop\WeSociety\WeSociety.Domain\Pagination\PaginatedList.cs:line 17
+   at WeSociety.Domain.Pagination.PaginatedList`1.Create(IEnumerable`1 source, Int32 pageIndex, Int32 pageSize) in C:\Users\kesici\Desktop\WeSociety\WeSociety.Domain\Pagination\PaginatedList.cs:line 28
+   at WeSociety.Application.CQRS.Queries.Article.GetAll.GetAllArticlesQueryHandler.Handle(GetAllArticlesQuery request, CancellationToken cancellationToken) in C:\Users\kesici\Desktop\WeSociety\WeSociety.Application\CQRS\Queries\Article\GetAll\GetAllArticlesQueryHandler.cs:line 31
+   at WeSociety.Application.CQRS.Behaviors.ValidationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\kesici\Desktop\WeSociety\WeSociety.Application\CQRS\Behaviors\ValidationBehavior.cs:line 15
+   at WeSociety.API.Controllers.ArticlesController.GetAll(String searchKey, Int32 pageIndex, Int32 pageSize) in C:\Users\kesici\Desktop\WeSociety\WeSociety.API\Controllers\ArticlesController.cs:line 46
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at WeSociety.API.Middlewares.CustomExceptionMiddleware.Invoke(HttpContext httpContext) in C:\Users\kesici\Desktop\WeSociety\WeSociety.API\Middlewares\CustomExceptionMiddleware.cs:line 21
+   at WeSociety.API.Middlewares.AuthMiddleware.Invoke(HttpContext httpContext) in C:\Users\kesici\Desktop\WeSociety\WeSociety.API\Middlewares\AuthMiddleware.cs:line 65
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2023-07-28 13:43:12.174 +03:00 [WRN] Failed to determine the https port for redirect.
+2023-07-28 13:44:56.635 +03:00 [WRN] Failed to determine the https port for redirect.
+2023-07-28 13:46:11.725 +03:00 [WRN] Failed to determine the https port for redirect.
+2023-07-28 13:48:31.317 +03:00 [WRN] Failed to determine the https port for redirect.
+2023-07-28 13:51:31.909 +03:00 [WRN] Failed to determine the https port for redirect.
+2023-07-28 14:03:23.773 +03:00 [WRN] Failed to determine the https port for redirect.

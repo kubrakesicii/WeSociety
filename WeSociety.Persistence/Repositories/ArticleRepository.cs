@@ -22,7 +22,7 @@ namespace WeSociety.Persistence.Repositories
         {
             Expression<Func<Article, bool>> searchCond = x => true;
             if(searchKey != null) searchCond = x => x.Title.Contains(searchKey.ToUpper(new CultureInfo("tr-TR", false)))  || x.Content.Contains(searchKey.ToUpper(new CultureInfo("tr-TR", false)));
-            return await _context.Articles.Include(x => x.Profile).Where(x => x.IsPublished == 1).Where(searchCond).ToListAsync();
+            return await _context.Articles.Include(x => x.UserProfile).Where(x => x.IsPublished == 1).Where(searchCond).ToListAsync();
         }
 
         public async Task<List<Article>> GetAllWithUserProfileByProfile(int currentUserId, int userProfileId)
@@ -30,7 +30,7 @@ namespace WeSociety.Persistence.Repositories
             Expression<Func<Article, bool>> publishCond = x => true;
             if (userProfileId != currentUserId) publishCond = x => x.IsPublished == 1;
 
-            return await _context.Articles.Include(x => x.Profile).Where(publishCond).ToListAsync();
+            return await _context.Articles.Include(x => x.UserProfile).Where(publishCond).ToListAsync();
         }
     }
 }

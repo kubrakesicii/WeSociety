@@ -21,12 +21,22 @@ namespace WeSociety.Domain.AggregateRoots.UserProfile
 
 
 
-        public UserProfile(byte[] image, string fullName, string bio, string userId)
+        public UserProfile(byte[]? image, string? fullName, string? bio, string userId)
         {
-            Console.WriteLine("Created from user prof constructur");
             Image = image;
             FullName = fullName;
             Bio = bio;
+            UserId = userId;
+            Articles = new List<Article> { };
+            Followings = new List<FollowRelationship> { };
+            Followers = new List<FollowRelationship> { };
+        }
+
+        public UserProfile(string userId)
+        {
+            Image = null;
+            FullName = null;
+            Bio = null;
             UserId = userId;
             Articles = new List<Article> { };
             Followings = new List<FollowRelationship> { };

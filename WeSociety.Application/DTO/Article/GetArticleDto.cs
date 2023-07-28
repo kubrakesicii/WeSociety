@@ -14,6 +14,6 @@ namespace WeSociety.Application.DTO.Article
         public string Domain { get; set; }
         public string Content { get; set; }
         public DateTime CreatedAt { get; set; }
-        public GetUserProfileDto Profile { get; set; }
+        public GetUserProfileDto UserProfile { get; set; }
     }
 }

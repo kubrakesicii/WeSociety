@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 using WeSociety.Application.CQRS.BaseModels;
 using WeSociety.Application.DTO.Article;
 using WeSociety.Application.Responses;
+using WeSociety.Domain.Pagination;
 
 namespace WeSociety.Application.CQRS.Queries.Article.GetAllByProfile
 {
-    public class GetAllArticlesByProfileQuery : IQuery<DataResponse<List<GetArticleDto>>>
+    public class GetAllArticlesByProfileQuery : IQuery<DataResponse<PaginatedList<GetArticleDto>>>
     {
-        public int ProfileId { get; set; }
+        public int PageIndex { get; set; }
+        public int PageSize { get; set; }
+        public int UserProfileId { get; set; }
     }
 }

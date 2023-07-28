@@ -13,7 +13,7 @@ using WeSociety.Application.Responses;
 using WeSociety.Domain.AggregateRoots.Users;
 using WeSociety.Domain.Interfaces;
 
-namespace WeSociety.Application.CQRS.Commands.User.Register
+namespace WeSociety.Application.CQRS.Commands.Auth.Register
 {
     public class RegisterCommandHandler : ICommandHandler<RegisterCommand, DataResponse<GetUserDto>>
     {
@@ -33,28 +33,18 @@ namespace WeSociety.Application.CQRS.Commands.User.Register
             var existingUser = await _userManager.FindByEmailAsync(request.Email);
             if (existingUser != null) throw new UserExistsException();   //Email must be unique
 
-            var newUser = new AppUser
-            {
-                UserName = request.UserName,
-                Email = request.Email
-            };
+            var newUser = _mapper.Map<AppUser>(request);
 
             IdentityResult res = await _userManager.CreateAsync(newUser,request.Password);
-            if(res.Succeeded) { }
-            // User added successfully, user Id.
-
-            //var userProfile = await _uow.UserProfiles.Get(x => x.UserId == newUser.Id);
-
-            //_userManager.AddClaimsAsync(newUser, new List<Claim>
-            //    {
-            //        new Claim("id", newUser.Id),
-            //        new Claim("email", newUser.Email),
-            //        new Claim("username", newUser.UserName),
-            //        new Claim("profileId", userProfile.Id.ToString())
-            //    });
-
+            if(res.Succeeded) {
+                // User added successfully, user Id.
+                // Create empty profile for registered user
+                var userProfile = new Domain.AggregateRoots.UserProfile.UserProfile(newUser.Id);
+                await _uow.UserProfiles.Insert(userProfile);
+                await _uow.SaveChangesAsync();
+            }
+      
             return new SuccessDataResponse<GetUserDto>(_mapper.Map<GetUserDto>(newUser));
-
         }
     }
 }

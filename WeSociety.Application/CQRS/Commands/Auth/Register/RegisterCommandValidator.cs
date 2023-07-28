@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WeSociety.Application.CQRS.Commands.User.Register
+namespace WeSociety.Application.CQRS.Commands.Auth.Register
 {
     public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
     {

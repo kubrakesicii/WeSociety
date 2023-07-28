@@ -1,12 +1,6 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 using WeSociety.Application.CQRS.BaseModels;
 using WeSociety.Application.DTO.User;
 using WeSociety.Application.Exceptions;
@@ -14,7 +8,7 @@ using WeSociety.Application.Responses;
 using WeSociety.Domain.AggregateRoots.Users;
 using WeSociety.Domain.Interfaces;
 
-namespace WeSociety.Application.CQRS.Commands.User.Login
+namespace WeSociety.Application.CQRS.Commands.Auth.Login
 {
     public class LoginCommandHandler : ICommandHandler<LoginCommand, DataResponse<GetLoginUserDto>>
     {
