@@ -16,6 +16,8 @@ namespace WeSociety.Infrastructure.Authentication
             _httpContextAccessor = httpContextAccessor;
             _userManager = userManager;
             _uow = uow;
+
+            var token = _httpContextAccessor.HttpContext.Items["token"];
         }
 
         //public async Task<string> GetId()
@@ -44,7 +46,6 @@ namespace WeSociety.Infrastructure.Authentication
         public bool IsAuthenticated => _httpContextAccessor?.HttpContext?.User?.Identity?.IsAuthenticated ?? false;
 
         public string Id => _httpContextAccessor?.HttpContext?.User?.Claims.FirstOrDefault(x => x.Type.Equals("id"))?.Value;
-
 
         public string UserName => _httpContextAccessor?.HttpContext?.User?.Claims.FirstOrDefault(x => x.Type.Equals("username"))?.Value;
 

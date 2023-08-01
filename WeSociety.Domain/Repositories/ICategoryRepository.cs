@@ -8,9 +8,7 @@ using WeSociety.Domain.Repository;
 
 namespace WeSociety.Domain.Repositories
 {
-    public interface IArticleRepository : IGenericRepository<Article>
+    public interface ICategoryRepository : IGenericRepository<Category>
     {
-        Task<List<Article>> GetAllWithUserProfile(string searchKey,int? categoryId);
-        Task<List<Article>> GetAllWithUserProfileByProfile(int currentUserId, int userProfileId);
     }
 }

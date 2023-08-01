@@ -13,7 +13,7 @@ namespace WeSociety.Application.CQRS.Queries.Article.GetAll
     public class GetAllArticlesQuery : IQuery<DataResponse<PaginatedList<GetArticleDto>>>
     {
         public string? SearchKey { get; set; }
-
+        public int? CategoryId { get; set; }
         public int PageIndex { get; set; }
         public int PageSize { get; set; }
     }

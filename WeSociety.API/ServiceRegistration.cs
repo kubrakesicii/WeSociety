@@ -10,20 +10,13 @@ namespace WeSociety.API
     {
         public static void AddAPIServices(this IServiceCollection services)
         {
-            //services.AddAuthentication(options =>
-            //{
-            //    // custom scheme defined in .AddPolicyScheme() below
-            //    options.DefaultScheme = "JWT_OR_COOKIE";
-            //    options.DefaultChallengeScheme = "JWT_OR_COOKIE";
-            //});
-            //services.AddAuthorization();
+            services.AddCors(options =>
+                options.AddDefaultPolicy(builder =>
+                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 
             services.AddControllers();
-            //services.AddHttpContextAccessor();
             services.AddEndpointsApiExplorer();
-            //services.AddMvc(opt => opt.EnableEndpointRouting=false);
-
-            //MvcOptions.EnableEndpointRouting = false;
+            services.AddMvc(opt => opt.EnableEndpointRouting=false);
 
             //SWAGGER
             services.AddSwaggerGen(c =>
@@ -32,19 +25,12 @@ namespace WeSociety.API
                 {
                     Title = $"WeSociety API",
                     Version = "v1.0",
-                    Description = ".NET Core 6.0.100",
-                    TermsOfService = new Uri("https://Example.com/terms"),
-                    License = new OpenApiLicense
-                    {
-                        Name = "License",
-                        Url = new Uri("https://example.com/license")
-                    }
+                    Description = ".NET Core 7.0.304"
                 });
 
                 var securitySchema = new OpenApiSecurityScheme
                 {
-                    Description =
-                        "JWT Authorization by using Bearer Scheme. For example: \"Authorization: Bearer {token}\"",
+                    Description ="JWT Authorization by using Bearer Scheme. For example: \"Authorization: Bearer {token}\"",
                     Name = "Authorization",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.Http,
@@ -66,13 +52,12 @@ namespace WeSociety.API
         {
 
             app.UseCors();
-
+            app.UseRouting();
             app.UseStaticFiles();
-            app.UseHttpsRedirection();
 
             app.UseAuthentication();
-            app.UseRouting();
             app.UseAuthorization();
+            app.UseHttpsRedirection();
 
 
             //SWAGGER
@@ -80,7 +65,6 @@ namespace WeSociety.API
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Api ServiceV1");
-                c.SwaggerEndpoint("/swagger/v2/swagger.json", "Api ServiceV2");
                 c.DefaultModelsExpandDepth(-1);
                 c.DocExpansion(DocExpansion.None);
             });

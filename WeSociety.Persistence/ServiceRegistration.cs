@@ -33,7 +33,7 @@ namespace WeSociety.Persistence
                 _.Password.RequireUppercase = false; //Büyük harf zorunluluğunu kaldırıyoruz.
                 _.Password.RequireDigit = false;
             })
-                .AddEntityFrameworkStores<WeSocietyDbContext>();
+                .AddEntityFrameworkStores<WeSocietyDbContext>().AddDefaultTokenProviders();
         }
     }
 }

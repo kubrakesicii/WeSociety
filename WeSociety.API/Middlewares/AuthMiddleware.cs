@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Threading.Tasks;
@@ -52,6 +53,10 @@ namespace WeSociety.API.Middlewares
                         var email = jwtToken.Claims.First(x => x.Type.Equals("email")).Value;
                         var username = jwtToken.Claims.First(x => x.Type.Equals("username")).Value;
                         var profileId = jwtToken.Claims.First(x => x.Type.Equals("profileId")).Value;
+
+                        httpContext.Items["token"] = JsonConvert.SerializeObject(token);
+                        await _next(httpContext);
+
                     }
                     else
                     {

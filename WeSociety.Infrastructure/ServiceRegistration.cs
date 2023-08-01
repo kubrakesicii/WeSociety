@@ -16,8 +16,8 @@ namespace WeSociety.Infrastructure
             //JWT SETTINGS
             var jwtSettings = new JwtSetting
             {
-                Issuer = "healandmoreacademy.com",
-                Audience = "healandmoreacademy.com",
+                Issuer = "wesociety",
+                Audience = "wesociety",
                 SecurityKey = config["JWT_SECURITY_KEY"],
                 AccessTokenExpiration = 60 * 60 * 24 * 7    ///7 DAYS
             };
@@ -43,6 +43,7 @@ namespace WeSociety.Infrastructure
                 };
             });
 
+            services.AddHttpContextAccessor();
             services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

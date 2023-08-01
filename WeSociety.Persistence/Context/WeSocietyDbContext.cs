@@ -21,6 +21,7 @@ namespace WeSociety.Persistence.Context
 
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<Article> Articles { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<FollowRelationship> FollowRelationships { get; set; }
 
 
@@ -29,6 +30,7 @@ namespace WeSociety.Persistence.Context
             modelBuilder.ApplyConfiguration(new UserProfileConfig());
             modelBuilder.ApplyConfiguration(new ArticleConfig());
             modelBuilder.ApplyConfiguration(new FollowRelationshipConfig());
+            modelBuilder.ApplyConfiguration(new CategoryConfig());
 
             base.OnModelCreating(modelBuilder);
         }

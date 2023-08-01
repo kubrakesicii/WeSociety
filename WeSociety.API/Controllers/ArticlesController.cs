@@ -1,15 +1,14 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
-using System.Security.Claims;
 using WeSociety.Application.CQRS.Commands.Article.Create;
 using WeSociety.Application.CQRS.Commands.Article.Delete;
 using WeSociety.Application.CQRS.Commands.Article.Update;
 using WeSociety.Application.CQRS.Queries.Article.GetAll;
 using WeSociety.Application.CQRS.Queries.Article.GetAllByProfile;
+using WeSociety.Application.CQRS.Queries.Article.GetById;
 using WeSociety.Domain.AggregateRoots.Users;
 
 namespace WeSociety.API.Controllers
@@ -35,15 +34,24 @@ namespace WeSociety.API.Controllers
         }
 
         [HttpGet]
-        //[Authorize]
-        public async Task<IActionResult> GetAll([FromQuery] string? searchKey, [FromQuery] int pageIndex, [FromQuery] int pageSize)
+        [Helpers.Authorize]
+
+        public async Task<IActionResult> GetAll([FromQuery] string? searchKey, [FromQuery] int? categoryId, [FromQuery] int pageIndex, [FromQuery] int pageSize)
         {
-            var curUser = await _userManager.GetUserAsync(HttpContext.User);
+            AppUser user = await _userManager.GetUserAsync(HttpContext.User);
             var name = User.Identity.Name;
             var auth = HttpContext.User.Identity.IsAuthenticated;
-            var email = HttpContext.User.FindFirstValue("email");
+            //var email = HttpContext.User.Claims.FirstOrDefault(x => x.Type.Equals("email")).Value;
 
-            return Ok(await _mediator.Send(new GetAllArticlesQuery() {SearchKey=searchKey, PageIndex=pageIndex,PageSize=pageSize}));
+            var savedToken = await HttpContext.GetTokenAsync("Bearer","token");
+
+            return Ok(await _mediator.Send(new GetAllArticlesQuery() {SearchKey=searchKey, CategoryId=categoryId, PageIndex=pageIndex,PageSize=pageSize}));
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get([FromRoute] int id)
+        {
+            return Ok(await _mediator.Send(new GetArticleByIdQuery() { Id=id }));
         }
 
         [HttpGet("ByUser")]

@@ -13,6 +13,9 @@ namespace WeSociety.Domain.AggregateRoots.UserProfile.Entities
         public int UserProfileId { get; private set; }
         public UserProfile UserProfile { get; private set; }
 
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
+
 
         //public IList<ArticleComment> ArticleComments { get; set; }
 
