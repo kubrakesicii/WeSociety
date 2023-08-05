@@ -10,8 +10,11 @@ namespace WeSociety.Domain.AggregateRoots.UserProfile.Entities
         public string Content { get; private set; }
         public int IsPublished { get; private set; }
 
+        public int ViewCount { get; set; }
         public int UserProfileId { get; private set; }
         public UserProfile UserProfile { get; private set; }
+
+        public byte[] MainImage { get; set; }
 
         public int CategoryId { get; set; }
         public Category Category { get; set; }
@@ -19,14 +22,16 @@ namespace WeSociety.Domain.AggregateRoots.UserProfile.Entities
 
         //public IList<ArticleComment> ArticleComments { get; set; }
 
-        public Article(string title, string content,int isPublished, int userProfileId)
+        public Article(string title, string content,int isPublished, byte[]? mainImage, int userProfileId)
         {
             if (string.IsNullOrEmpty(title)) throw new ArgumentNullException(nameof(title));
             Title = title;
             Domain = title.ToLower().Replace(" ", "-");
             Content = content;
-
+            IsPublished = isPublished;
+            MainImage = mainImage;
             UserProfileId = userProfileId == 0 ? throw new Exception("Profile must be exists") : userProfileId;
+            ViewCount = 0;
         }
 
         public void Publish()
@@ -39,6 +44,11 @@ namespace WeSociety.Domain.AggregateRoots.UserProfile.Entities
             Title = title;
             Domain = title.ToLower().Replace(" ", "-");
             Content = content;
+        }
+
+        public void IncreaseViewCount()
+        {
+            ViewCount =  ViewCount + 1;
         }
 
     }

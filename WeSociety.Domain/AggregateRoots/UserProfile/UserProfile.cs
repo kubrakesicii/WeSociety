@@ -16,7 +16,10 @@ namespace WeSociety.Domain.AggregateRoots.UserProfile
 
         public IList<Article> Articles { get; private set; }
 
+        // Takip ettiğim kullanıcılar - burada ben FolllowerId olurum
         public IList<FollowRelationship> Followings { get; private set; }
+
+        // Beni takip eden kullanıcılar - burada ben FolllowingId olurum
         public IList<FollowRelationship> Followers { get; private set; }
 
 
@@ -43,17 +46,17 @@ namespace WeSociety.Domain.AggregateRoots.UserProfile
             Followers = new List<FollowRelationship> { };
         }
 
-        public void Update(byte[] image, string fullName, string bio)
+        public void Update(byte[]? image, string fullName, string bio)
         {
-            Image = image;
+            Image = image == null ? Image : image;
             FullName = fullName;
             Bio = bio;
         }
 
         //Article bahavior methoda
-        public Article AddArticle(string title, string content, int isPublished)
+        public Article AddArticle(string title, string content, int isPublished, byte[]? mainImage)
         {
-            Article article = new Article(title, content, isPublished, Id);
+            Article article = new Article(title, content, isPublished, mainImage,Id);
             Articles.Add(article);
             return article;
         }
@@ -72,12 +75,20 @@ namespace WeSociety.Domain.AggregateRoots.UserProfile
             return followRel;
         }
 
-        public void UnFollow(int followingId)
+        public FollowRelationship UnFollow(int followingId)
         {
             FollowRelationship followRel = new FollowRelationship(Id, followingId);
-            if(followRel != null) Followings.Remove(followRel);
+            var removedFollowRel = Followings.FirstOrDefault(x => x.FollowingId == followingId);
+            Followings.Remove(removedFollowRel);
+            return removedFollowRel;
         }
 
+
+        //Ben bu user'ı takip ediyor muyum?
+        public bool IsFollowing(int userProfileId)
+        {
+            return Followings.Any(x => x.FollowingId == userProfileId);
+        }
 
 
         // Bir profili takip etme işlemi

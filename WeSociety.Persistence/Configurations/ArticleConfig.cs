@@ -13,6 +13,8 @@ namespace WeSociety.Persistence.Configurations
             builder.Property(x => x.Content).IsRequired();  //will be html content
             builder.Property(x => x.Domain).IsRequired().HasMaxLength(256);
             builder.Property(x => x.IsPublished).HasMaxLength(1).HasDefaultValueSql("1");
+            builder.Property(x => x.ViewCount).HasDefaultValueSql("0");
+            builder.Property(x => x.MainImage).IsRequired(false);
 
             builder.HasOne<UserProfile>(a => a.UserProfile)
                 .WithMany(p => p.Articles)

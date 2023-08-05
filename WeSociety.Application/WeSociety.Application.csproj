@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="CQRS\Queries\UserProfile\GetByToken\" />
     <Folder Include="Logs\" />
   </ItemGroup>
 

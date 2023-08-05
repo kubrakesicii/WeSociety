@@ -36,7 +36,7 @@ namespace WeSociety.Application.CQRS.Queries.Article.GetAllByProfile
                 curProfileId = (await _uow.UserProfiles.Get(x => x.UserId == curUserId)).Id;
             }
 
-            var articles = await _uow.Articles.GetAllWithUserProfileByProfile(curProfileId, request.UserProfileId);
+            var articles = await _uow.Articles.GetAllWithUserProfileByProfile(1, request.UserProfileId);
             var articleDtos = _mapper.Map<List<GetArticleDto>>(articles);
 
             var paginatedRes = PaginatedResponse<GetArticleDto>.Create(articleDtos, request.PageIndex, request.PageSize);

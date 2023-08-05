@@ -192,6 +192,9 @@ namespace WeSociety.Persistence.Migrations
                         .HasColumnType("int")
                         .HasDefaultValueSql("1");
 
+                    b.Property<byte[]>("MainImage")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(256)
@@ -204,6 +207,11 @@ namespace WeSociety.Persistence.Migrations
 
                     b.Property<int>("UserProfileId")
                         .HasColumnType("int");
+
+                    b.Property<int>("ViewCount")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValueSql("0");
 
                     b.HasKey("Id");
 
@@ -471,14 +479,14 @@ namespace WeSociety.Persistence.Migrations
 
             modelBuilder.Entity("WeSociety.Domain.AggregateRoots.UserProfile.Entities.FollowRelationship", b =>
                 {
-                    b.HasOne("WeSociety.Domain.AggregateRoots.UserProfile.UserProfile", "Follower")
-                        .WithMany("Followers")
+                    b.HasOne("WeSociety.Domain.AggregateRoots.UserProfile.UserProfile", "Following")
+                        .WithMany("Followings")
                         .HasForeignKey("FollowerId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("WeSociety.Domain.AggregateRoots.UserProfile.UserProfile", "Following")
-                        .WithMany("Followings")
+                    b.HasOne("WeSociety.Domain.AggregateRoots.UserProfile.UserProfile", "Follower")
+                        .WithMany("Followers")
                         .HasForeignKey("FollowingId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();

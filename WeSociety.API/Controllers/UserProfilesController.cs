@@ -30,7 +30,7 @@ namespace WeSociety.API.Controllers
             return Ok(await _mediator.Send(new GetUserProfileByIdQuery() { Id = id }));
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromForm] UpdateUserProfileCommand updateUserProfileCommand)
         {
             return Ok(await _mediator.Send(updateUserProfileCommand));

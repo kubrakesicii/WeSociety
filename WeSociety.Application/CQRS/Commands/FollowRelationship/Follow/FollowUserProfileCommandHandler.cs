@@ -21,12 +21,9 @@ namespace WeSociety.Application.CQRS.Commands.FollowRelationship.Follow
 
         public async Task<Response> Handle(FollowUserProfileCommand request, CancellationToken cancellationToken)
         {
-            var userProfile = await _uow.UserProfiles.Get(x => x.Id == 2);
+            var userProfile = await _uow.UserProfiles.Get(x => x.Id == request.FollowerId);
             var newFollowRel = userProfile.Follow(request.FollowingId);
 
-            var x = userProfile.Followings;
-
-            await _uow.FollowRelationships.Insert(newFollowRel);
             await _uow.SaveChangesAsync();
             return new SuccessResponse();
         }

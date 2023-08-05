@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WeSociety.Application.CQRS.BaseModels;
+using WeSociety.Application.Helpers;
 using WeSociety.Application.Responses;
 using WeSociety.Domain.Interfaces;
 
@@ -25,7 +26,12 @@ namespace WeSociety.Application.CQRS.Commands.Article.Create
         {
             //var profileId = await _authService.GetProfileId();
             var userProfile = await _uow.UserProfiles.Get(x => x.Id == 1);
-            var newArticle = userProfile.AddArticle(request.Title, request.Content, request.IsPublished);
+            var newArticle = userProfile.AddArticle(
+                request.Title,
+                request.Content,
+                request.IsPublished,
+                FileHelper.ConvertFileToByteArray(request.MainImage)
+            );
 
             //await _uow.Articles.Insert(newArticle);
             await _uow.UserProfiles.Update(userProfile);

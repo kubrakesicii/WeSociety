@@ -10,6 +10,7 @@ namespace WeSociety.Application.CQRS.Commands.FollowRelationship.Follow
 {
     public class FollowUserProfileCommand : ICommand<Response>
     {
+        public int FollowerId { get; set; }  //current user olacak
         public int FollowingId { get; set; }
     }
 }

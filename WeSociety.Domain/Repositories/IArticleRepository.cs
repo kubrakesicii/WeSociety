@@ -10,7 +10,10 @@ namespace WeSociety.Domain.Repositories
 {
     public interface IArticleRepository : IGenericRepository<Article>
     {
-        Task<List<Article>> GetAllWithUserProfile(string searchKey,int? categoryId);
+        Task<List<Article>> GetAllWithUserProfile(string searchKey,int categoryId);
         Task<List<Article>> GetAllWithUserProfileByProfile(int currentUserId, int userProfileId);
+        Task<Article> GetByIdWithIncludes(int id);
+        Task<List<Article>> GetAllPopulars(int categoryId);
+
     }
 }

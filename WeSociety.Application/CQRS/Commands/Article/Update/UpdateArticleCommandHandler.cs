@@ -20,7 +20,7 @@ namespace WeSociety.Application.CQRS.Commands.Article.Update
 
         public async Task<Response> Handle(UpdateArticleCommand request, CancellationToken cancellationToken)
         {
-            var article = await _uow.Articles.Get(x => x.Id == request.Id);
+            var article = await _uow.Articles.Get(x => x.Id == request.id);
             article.Update(request.Title,request.Content);
 
             //await _uow.Articles.Update(article);   //EF Core change track edildigi icin update etmeye gerek duymadan degisikligi yansıtıyor

@@ -9,7 +9,7 @@ using WeSociety.Application.Responses;
 
 namespace WeSociety.Application.CQRS.Queries.Category.GetAll
 {
-    public class GetAllCategoriesQuery : IQuery<DataResponse<List<GetCategoryDto>>
+    public class GetAllCategoriesQuery : IQuery<DataResponse<List<GetCategoryDto>>>
     {
     }
 }

@@ -8,6 +8,7 @@ using WeSociety.Application.CQRS.Commands.Article.Delete;
 using WeSociety.Application.CQRS.Commands.Article.Update;
 using WeSociety.Application.CQRS.Queries.Article.GetAll;
 using WeSociety.Application.CQRS.Queries.Article.GetAllByProfile;
+using WeSociety.Application.CQRS.Queries.Article.GetAllPopulars;
 using WeSociety.Application.CQRS.Queries.Article.GetById;
 using WeSociety.Domain.AggregateRoots.Users;
 
@@ -27,16 +28,15 @@ namespace WeSociety.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Insert([FromBody] CreateArticleCommand createArticleCommand)
+        public async Task<IActionResult> Insert([FromForm] CreateArticleCommand createArticleCommand)
         {
-
             return Ok(await _mediator.Send(createArticleCommand));
         }
 
         [HttpGet]
         [Helpers.Authorize]
 
-        public async Task<IActionResult> GetAll([FromQuery] string? searchKey, [FromQuery] int? categoryId, [FromQuery] int pageIndex, [FromQuery] int pageSize)
+        public async Task<IActionResult> GetAll([FromQuery] string? searchKey, [FromQuery] int categoryId, [FromQuery] int pageIndex, [FromQuery] int pageSize)
         {
             AppUser user = await _userManager.GetUserAsync(HttpContext.User);
             var name = User.Identity.Name;
@@ -46,6 +46,12 @@ namespace WeSociety.API.Controllers
             var savedToken = await HttpContext.GetTokenAsync("Bearer","token");
 
             return Ok(await _mediator.Send(new GetAllArticlesQuery() {SearchKey=searchKey, CategoryId=categoryId, PageIndex=pageIndex,PageSize=pageSize}));
+        }
+
+        [HttpGet("Popular")]
+        public async Task<IActionResult> GetAllPopulars([FromQuery] int categoryId)
+        {
+            return Ok(await _mediator.Send(new GetAllPopularArticlesQuery() { CategoryId = categoryId }));
         }
 
         [HttpGet("{id}")]
@@ -60,7 +66,7 @@ namespace WeSociety.API.Controllers
             return Ok(await _mediator.Send(new GetAllArticlesByProfileQuery {UserProfileId=userProfileId, PageIndex = pageIndex, PageSize = pageSize }));
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromBody] UpdateArticleCommand updateArticleCommand)
         {
             return Ok(await _mediator.Send(updateArticleCommand));

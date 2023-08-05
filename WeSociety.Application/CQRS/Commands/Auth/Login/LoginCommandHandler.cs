@@ -39,6 +39,9 @@ namespace WeSociety.Application.CQRS.Commands.Auth.Login
             string token = _jwtService.CreateToken(signInUser.Id, signInUser.Email, signInUser.UserName,userProfile.Id);
             var loggedUser = _mapper.Map<GetLoginUserDto>(signInUser);
             loggedUser.Token = token;
+            loggedUser.FullName = userProfile.FullName;
+            loggedUser.UserProfileId = userProfile.Id;
+            loggedUser.Image = userProfile.Image;
 
             return new SuccessDataResponse<GetLoginUserDto>(loggedUser);
         }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using WeSociety.Application.CQRS.Commands.FollowRelationship.Follow;
+using WeSociety.Application.CQRS.Commands.FollowRelationship.UnfollowUser;
 using WeSociety.Application.CQRS.Queries.FollowRelationship.GetAllFollowers;
 using WeSociety.Application.CQRS.Queries.FollowRelationship.GetAllFollowings;
 
@@ -23,6 +24,12 @@ namespace WeSociety.API.Controllers
         public async Task<IActionResult> Insert([FromBody] FollowUserProfileCommand followUserProfileCommand)
         {
             return Ok(await _mediator.Send(followUserProfileCommand));
+        }
+
+        [HttpPost("UnFollow")]
+        public async Task<IActionResult> Delete([FromBody] UnfollowUserProfileCommand unfollowUserProfileCommand)
+        {
+            return Ok(await _mediator.Send(unfollowUserProfileCommand));
         }
 
         [HttpGet("Followers")]

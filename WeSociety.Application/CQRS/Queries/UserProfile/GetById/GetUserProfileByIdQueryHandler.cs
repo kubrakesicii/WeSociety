@@ -26,7 +26,10 @@ namespace WeSociety.Application.CQRS.Queries.UserProfile.GetById
         public async Task<DataResponse<GetUserProfileDto>> Handle(GetUserProfileByIdQuery request, CancellationToken cancellationToken)
         {
             var userProfile = await _uow.UserProfiles.GetWithUserAsync(request.Id);
-            return new SuccessDataResponse<GetUserProfileDto>(_mapper.Map<GetUserProfileDto>(userProfile));
+            var userProfileDto = _mapper.Map<GetUserProfileDto>(userProfile);
+            userProfileDto.FollowingsCount = userProfile.Followings.Count();
+            userProfileDto.FollowersCount = userProfile.Followers.Count();
+            return new SuccessDataResponse<GetUserProfileDto>(userProfileDto);
         }
     }
 }

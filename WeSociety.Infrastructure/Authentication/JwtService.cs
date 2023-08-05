@@ -22,12 +22,12 @@ namespace WeSociety.Infrastructure.Authentication
             _jwtSetting = jwtSetting;
         }
 
-        public string CreateToken(string id, string email, string username,int profileId)
+        public string CreateToken(string id, string email, string username, int profileId)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSetting.SecurityKey));
 
             var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
-            var jwt = CreateJwtSecurityToken(id, email, username,profileId, signingCredentials);
+            var jwt = CreateJwtSecurityToken(id, email, username, profileId, signingCredentials);
             var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
             var token = jwtSecurityTokenHandler.WriteToken(jwt);
 

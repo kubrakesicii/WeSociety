@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +13,11 @@ namespace WeSociety.Application.CQRS.Commands.UserProfile.Update
 {
     public class UpdateUserProfileCommand : ICommand<Response>
     {
-        public int Id { get; set; }
+        [FromRoute]
+        public int id { get; set; }
 
-        public string UserName { get; set;}
         public string FullName { get; set; }
-        public string Email { get; set; }
-        public IFormFile Image { get; set; }
+        public IFormFile? Image { get; set; }
         public string Bio { get; set;}
     }
 }

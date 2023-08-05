@@ -11,13 +11,13 @@ namespace WeSociety.Persistence.Configurations
         {
             builder.HasOne<UserProfile>(followRel => followRel.Follower)
                 .WithMany(p => p.Followers)
-                .HasForeignKey(followRel => followRel.FollowerId)
+                .HasForeignKey(followRel => followRel.FollowingId)
                 .OnDelete(DeleteBehavior.NoAction);
 
 
             builder.HasOne<UserProfile>(followRel => followRel.Following)
                 .WithMany(p => p.Followings)
-                .HasForeignKey(followRel => followRel.FollowingId)
+                .HasForeignKey(followRel => followRel.FollowerId)
                 .OnDelete(DeleteBehavior.NoAction);
 
 

@@ -22,11 +22,11 @@ namespace WeSociety.Application.CQRS.Commands.UserProfile.Update
 
         public async Task<Response> Handle(UpdateUserProfileCommand request, CancellationToken cancellationToken)
         {
-            var profile = await _uow.UserProfiles.Get(x => x.Id ==  request.Id);
+            var profile = await _uow.UserProfiles.Get(x => x.Id ==  request.id);
             if (profile == null) throw new NotfoundException();
 
             profile.Update(
-                FileHelper.ConvertFileToByteArray(request.Image),
+                request.Image == null ? null : FileHelper.ConvertFileToByteArray(request.Image),
                 request.FullName,
                 request.Bio);
             await _uow.UserProfiles.Update(profile);

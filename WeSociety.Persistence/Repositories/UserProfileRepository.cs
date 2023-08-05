@@ -18,7 +18,10 @@ namespace WeSociety.Persistence.Repositories
 
         public async Task<UserProfile> GetWithUserAsync(int id)
         {
-            return await _context.UserProfiles.Include(x => x.User).Where(x => x.Id == id).FirstOrDefaultAsync();
+            return await _context.UserProfiles.
+                Include(x => x.Followers)
+                .Include(x => x.Followings)
+                .Include(x => x.User).Where(x => x.Id == id).FirstOrDefaultAsync();
         }
     }
 }

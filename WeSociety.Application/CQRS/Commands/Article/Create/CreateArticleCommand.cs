@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,6 @@ namespace WeSociety.Application.CQRS.Commands.Article.Create
         public string Title { get; set; }
         public string Content { get; set; }
         public int IsPublished { get; set; }
+        public IFormFile MainImage { get; set; }
     }
 }
