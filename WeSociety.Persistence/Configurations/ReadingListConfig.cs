@@ -13,7 +13,7 @@ namespace WeSociety.Persistence.Configurations
 
             builder.HasOne<UserProfile>(r => r.UserProfile)
              .WithMany(p => p.ReadingLists)
-             .HasForeignKey(r => r.UserProfileId);
+             .HasForeignKey(r => r.UserProfileId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

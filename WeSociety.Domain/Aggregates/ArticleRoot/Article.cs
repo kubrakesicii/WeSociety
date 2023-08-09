@@ -1,5 +1,6 @@
 ﻿using WeSociety.Domain.Aggregates.ArticleRoot.Entities;
 using WeSociety.Domain.Aggregates.CategoryRoot;
+using WeSociety.Domain.Aggregates.ReadingListRoot.Entities;
 using WeSociety.Domain.Aggregates.UserProfileRoot;
 using WeSociety.Domain.Base;
 
@@ -24,6 +25,11 @@ namespace WeSociety.Domain.Aggregates.ArticleRoot
 
 
         public IList<ArticleComment> ArticleComments { get; set; }
+
+
+        //İçerisinde lis-article bağlantı listesi vardır
+        public IList<ReadingListArticle> ReadingListArticles { get; private set; }
+
 
         public Article(string title, string content, int isPublished, int categoryId, byte[]? mainImage, int userProfileId)
         {

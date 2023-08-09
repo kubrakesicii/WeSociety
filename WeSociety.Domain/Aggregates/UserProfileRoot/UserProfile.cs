@@ -1,4 +1,5 @@
 ﻿using WeSociety.Domain.Aggregates.ArticleRoot;
+using WeSociety.Domain.Aggregates.ArticleRoot.Entities;
 using WeSociety.Domain.Aggregates.ReadingListRoot;
 using WeSociety.Domain.Aggregates.UserProfileRoot.Entities;
 using WeSociety.Domain.Aggregates.UserRoot;
@@ -26,6 +27,8 @@ namespace WeSociety.Domain.Aggregates.UserProfileRoot
 
         //Kullancıı birden fazla okuma listesi olabilir
         public IList<ReadingList> ReadingLists { get; set; }
+
+        public IList<ArticleComment> ArticleComments { get; set; }
 
 
 

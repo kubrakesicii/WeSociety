@@ -5,6 +5,7 @@ using WeSociety.Domain.Aggregates.ArticleRoot;
 using WeSociety.Domain.Aggregates.ArticleRoot.Entities;
 using WeSociety.Domain.Aggregates.CategoryRoot;
 using WeSociety.Domain.Aggregates.ReadingListRoot;
+using WeSociety.Domain.Aggregates.ReadingListRoot.Entities;
 using WeSociety.Domain.Aggregates.UserProfileRoot;
 using WeSociety.Domain.Aggregates.UserProfileRoot.Entities;
 using WeSociety.Domain.Aggregates.UserRoot;
@@ -29,6 +30,7 @@ namespace WeSociety.Persistence.Context
         public DbSet<FollowRelationship> FollowRelationships { get; set; }
         public DbSet<ArticleComment> ArticleComments { get; set; }
         public DbSet<ReadingList> ReadingLists { get; set; }
+        public DbSet<ReadingListArticle> ReadingListArticles { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -39,6 +41,7 @@ namespace WeSociety.Persistence.Context
             modelBuilder.ApplyConfiguration(new CategoryConfig());
             modelBuilder.ApplyConfiguration(new ArticleCommentConfig());
             modelBuilder.ApplyConfiguration(new ReadingListConfig());
+            modelBuilder.ApplyConfiguration(new ReadingListArticleConfig());
 
             base.OnModelCreating(modelBuilder);
         }
