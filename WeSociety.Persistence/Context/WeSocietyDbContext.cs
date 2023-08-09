@@ -1,9 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using WeSociety.Domain.AggregateRoots.UserProfile;
-using WeSociety.Domain.AggregateRoots.UserProfile.Entities;
-using WeSociety.Domain.AggregateRoots.Users;
+using WeSociety.Domain.Aggregates.ArticleRoot;
+using WeSociety.Domain.Aggregates.ArticleRoot.Entities;
+using WeSociety.Domain.Aggregates.CategoryRoot;
+using WeSociety.Domain.Aggregates.ReadingListRoot;
+using WeSociety.Domain.Aggregates.UserProfileRoot;
+using WeSociety.Domain.Aggregates.UserProfileRoot.Entities;
+using WeSociety.Domain.Aggregates.UserRoot;
 using WeSociety.Persistence.Configurations;
 
 namespace WeSociety.Persistence.Context
@@ -23,6 +27,8 @@ namespace WeSociety.Persistence.Context
         public DbSet<Article> Articles { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<FollowRelationship> FollowRelationships { get; set; }
+        public DbSet<ArticleComment> ArticleComments { get; set; }
+        public DbSet<ReadingList> ReadingLists { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -31,6 +37,8 @@ namespace WeSociety.Persistence.Context
             modelBuilder.ApplyConfiguration(new ArticleConfig());
             modelBuilder.ApplyConfiguration(new FollowRelationshipConfig());
             modelBuilder.ApplyConfiguration(new CategoryConfig());
+            modelBuilder.ApplyConfiguration(new ArticleCommentConfig());
+            modelBuilder.ApplyConfiguration(new ReadingListConfig());
 
             base.OnModelCreating(modelBuilder);
         }

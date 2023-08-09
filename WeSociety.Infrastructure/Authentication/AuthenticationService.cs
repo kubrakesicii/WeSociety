@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using WeSociety.Domain.AggregateRoots.Users;
+using WeSociety.Domain.Aggregates.UserRoot;
 using WeSociety.Domain.Interfaces;
 
 namespace WeSociety.Infrastructure.Authentication

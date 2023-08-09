@@ -30,16 +30,16 @@ namespace WeSociety.Application
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
             //SERILOG
-            var logger = new LoggerConfiguration()
-           .WriteTo.File(new JsonFormatter(), "../WeSociety.Application/Logs/logger.json")
-           .WriteTo.Console()
-           .WriteTo.File("../WeSociety.Application/Logs/all.logs",
-               restrictedToMinimumLevel: LogEventLevel.Warning,
-               rollingInterval: RollingInterval.Day)
-           .MinimumLevel.Information()
-           .CreateLogger();
+           // var logger = new LoggerConfiguration()
+           //.WriteTo.File(new JsonFormatter(), "../WeSociety.Application/Logs/logger.json")
+           //.WriteTo.Console()
+           //.WriteTo.File("../WeSociety.Application/Logs/all.logs",
+           //    restrictedToMinimumLevel: LogEventLevel.Warning,
+           //    rollingInterval: RollingInterval.Day)
+           //.MinimumLevel.Information()
+           //.CreateLogger();
 
-            services.AddSerilog(logger);
+           // services.AddSerilog(logger);
         }
     }
 }

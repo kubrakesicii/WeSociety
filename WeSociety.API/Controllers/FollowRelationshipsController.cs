@@ -6,6 +6,7 @@ using WeSociety.Application.CQRS.Commands.FollowRelationship.Follow;
 using WeSociety.Application.CQRS.Commands.FollowRelationship.UnfollowUser;
 using WeSociety.Application.CQRS.Queries.FollowRelationship.GetAllFollowers;
 using WeSociety.Application.CQRS.Queries.FollowRelationship.GetAllFollowings;
+using WeSociety.Application.CQRS.Queries.FollowRelationship.GetIsFollowing;
 
 namespace WeSociety.API.Controllers
 {
@@ -42,6 +43,13 @@ namespace WeSociety.API.Controllers
         public async Task<IActionResult> GetAllFollowings([FromQuery, Required] int userProfileId, [FromQuery] int pageIndex, [FromQuery] int pageSize)
         {
             return Ok(await _mediator.Send(new GetAllFollowingsQuery { UserProfileId = userProfileId, PageIndex = pageIndex, PageSize = pageSize }));
+        }
+
+
+        [HttpGet("IsFollow")]
+        public async Task<IActionResult> GetIsFollowing([FromQuery, Required] int followerId, [FromQuery, Required] int followingId)
+        {
+            return Ok(await _mediator.Send(new GetIsFollowingQuery { FollowerId = followerId, FollowingId = followingId }));
         }
     }
 }

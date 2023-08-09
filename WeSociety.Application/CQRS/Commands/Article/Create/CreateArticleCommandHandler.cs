@@ -30,7 +30,8 @@ namespace WeSociety.Application.CQRS.Commands.Article.Create
                 request.Title,
                 request.Content,
                 request.IsPublished,
-                FileHelper.ConvertFileToByteArray(request.MainImage)
+                request.CategoryId,
+                request.MainImage == null ? null : FileHelper.ConvertFileToByteArray(request.MainImage)
             );
 
             //await _uow.Articles.Insert(newArticle);

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using WeSociety.Domain.AggregateRoots.UserProfile;
-using WeSociety.Domain.AggregateRoots.UserProfile.Entities;
+using WeSociety.Domain.Aggregates.ArticleRoot;
+using WeSociety.Domain.Aggregates.UserProfileRoot;
 
 namespace WeSociety.Persistence.Configurations
 {
@@ -19,6 +19,10 @@ namespace WeSociety.Persistence.Configurations
             builder.HasOne<UserProfile>(a => a.UserProfile)
                 .WithMany(p => p.Articles)
                 .HasForeignKey(a => a.UserProfileId);
+
+            builder.HasMany(a => a.ArticleComments)
+                .WithOne(c => c.Article)
+                .HasForeignKey(c => c.ArticleId);
 
             builder.Property(x => x.IsActive).HasMaxLength(1).HasDefaultValueSql("1");
             builder.Property(x => x.CreatedTime).ValueGeneratedOnAdd().HasDefaultValueSql("GETUTCDATE()");

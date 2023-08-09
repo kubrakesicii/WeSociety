@@ -1,8 +1,8 @@
 ﻿using WeSociety.Application.CQRS.BaseModels;
 using WeSociety.Application.Helpers;
 using WeSociety.Application.Responses;
-using WeSociety.Domain.AggregateRoots.UserProfile.Entities;
 using WeSociety.Domain.Interfaces;
+
 
 namespace WeSociety.Application.CQRS.Commands.UserProfile.Create
 {
@@ -19,7 +19,7 @@ namespace WeSociety.Application.CQRS.Commands.UserProfile.Create
         {
             var bytearr = FileHelper.ConvertFileToByteArray(request.Image);
 
-            Domain.AggregateRoots.UserProfile.UserProfile newUserProfile = new Domain.AggregateRoots.UserProfile.UserProfile(
+            Domain.Aggregates.UserProfileRoot.UserProfile newUserProfile = new Domain.Aggregates.UserProfileRoot.UserProfile(
                 FileHelper.ConvertFileToByteArray(request.Image),
                 request.FullName,
                 request.Bio,

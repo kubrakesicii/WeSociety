@@ -9,10 +9,12 @@ namespace WeSociety.Application.DTO.FollowRelationship
 {
     public class GetFollowingDto
     {
+        public int Id { get; set; }
         public int UserProfileId { get; set; }
         public string FullName { get; set; }
         public byte[] Image { get; set; }
         public string UserName { get; set; }
+        public string Bio { get; set; }
         public string Email { get; set; }
         public DateTime CreatedTime { get; set; }
     }

@@ -5,7 +5,7 @@ using WeSociety.Application.CQRS.BaseModels;
 using WeSociety.Application.DTO.User;
 using WeSociety.Application.Exceptions;
 using WeSociety.Application.Responses;
-using WeSociety.Domain.AggregateRoots.Users;
+using WeSociety.Domain.Aggregates.UserRoot;
 using WeSociety.Domain.Interfaces;
 
 namespace WeSociety.Application.CQRS.Commands.Auth.Login

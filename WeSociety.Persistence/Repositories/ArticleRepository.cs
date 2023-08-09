@@ -1,12 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using WeSociety.Domain.AggregateRoots.UserProfile.Entities;
+using WeSociety.Domain.Aggregates.ArticleRoot;
 using WeSociety.Domain.Repositories;
 using WeSociety.Persistence.Context;
 
@@ -16,6 +11,15 @@ namespace WeSociety.Persistence.Repositories
     {
         public ArticleRepository(WeSocietyDbContext context) : base(context)
         {
+        }
+
+        public async Task<List<Article>> GetAllDraftsWithUserProfileByProfile(int userProfileId)
+        {
+            return await _context.Articles.Include(x => x.UserProfile).Include(x => x.Category)
+                .Where(x => x.UserProfileId == userProfileId)
+                .Where(x => x.IsPublished == 0)
+                .OrderByDescending(x => x.CreatedTime)
+                .ToListAsync();
         }
 
         public async Task<List<Article>> GetAllPopulars(int categoryId)

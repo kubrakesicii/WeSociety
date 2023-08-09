@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WeSociety.Domain.AggregateRoots.UserProfile.Entities;
+﻿using WeSociety.Domain.Aggregates.UserProfileRoot.Entities;
 using WeSociety.Domain.Repository;
 
 namespace WeSociety.Domain.Repositories
@@ -12,5 +7,6 @@ namespace WeSociety.Domain.Repositories
     {
         Task<List<FollowRelationship>> GetAllFollowersByUserProfile(int userProfileId);
         Task<List<FollowRelationship>> GetAllFollowingsByUserProfile(int userProfileId);
+        Task<bool> IsFollowing(int followerId, int followingId);
     }
 }

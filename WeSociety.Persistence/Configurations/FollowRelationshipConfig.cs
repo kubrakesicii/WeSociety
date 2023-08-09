@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using WeSociety.Domain.AggregateRoots.UserProfile;
-using WeSociety.Domain.AggregateRoots.UserProfile.Entities;
+using WeSociety.Domain.Aggregates.UserProfileRoot.Entities;
 
 namespace WeSociety.Persistence.Configurations
 {
@@ -9,15 +8,15 @@ namespace WeSociety.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<FollowRelationship> builder)
         {
-            builder.HasOne<UserProfile>(followRel => followRel.Follower)
-                .WithMany(p => p.Followers)
-                .HasForeignKey(followRel => followRel.FollowingId)
+            builder.HasOne(followRel => followRel.Follower)
+                .WithMany(p => p.Followings)
+                .HasForeignKey(followRel => followRel.FollowerId)
                 .OnDelete(DeleteBehavior.NoAction);
 
 
-            builder.HasOne<UserProfile>(followRel => followRel.Following)
-                .WithMany(p => p.Followings)
-                .HasForeignKey(followRel => followRel.FollowerId)
+            builder.HasOne(followRel => followRel.Following)
+                .WithMany(p => p.Followers)
+                .HasForeignKey(followRel => followRel.FollowingId)
                 .OnDelete(DeleteBehavior.NoAction);
 
 

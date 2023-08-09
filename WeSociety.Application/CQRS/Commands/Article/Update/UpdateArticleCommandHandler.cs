@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WeSociety.Application.CQRS.BaseModels;
+using WeSociety.Application.Helpers;
 using WeSociety.Application.Responses;
 using WeSociety.Domain.Interfaces;
 
@@ -21,7 +22,11 @@ namespace WeSociety.Application.CQRS.Commands.Article.Update
         public async Task<Response> Handle(UpdateArticleCommand request, CancellationToken cancellationToken)
         {
             var article = await _uow.Articles.Get(x => x.Id == request.id);
-            article.Update(request.Title,request.Content);
+            article.Update(request.Title,
+                request.Content,
+                request.CategoryId,
+                request.MainImage == null ? article.MainImage : FileHelper.ConvertFileToByteArray(request.MainImage)
+            );
 
             //await _uow.Articles.Update(article);   //EF Core change track edildigi icin update etmeye gerek duymadan degisikligi yansıtıyor
             await _uow.SaveChangesAsync();

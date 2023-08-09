@@ -219,7 +219,7 @@ namespace WeSociety.Persistence.Migrations
 
                     b.HasIndex("UserProfileId");
 
-                    b.ToTable("Articles");
+                    b.ToTable("Articles", (string)null);
                 });
 
             modelBuilder.Entity("WeSociety.Domain.AggregateRoots.UserProfile.Entities.Category", b =>
@@ -253,7 +253,7 @@ namespace WeSociety.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("WeSociety.Domain.AggregateRoots.UserProfile.Entities.FollowRelationship", b =>
@@ -292,7 +292,7 @@ namespace WeSociety.Persistence.Migrations
 
                     b.HasIndex("FollowingId");
 
-                    b.ToTable("FollowRelationships");
+                    b.ToTable("FollowRelationships", (string)null);
                 });
 
             modelBuilder.Entity("WeSociety.Domain.AggregateRoots.UserProfile.UserProfile", b =>
@@ -339,7 +339,7 @@ namespace WeSociety.Persistence.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("UserProfiles");
+                    b.ToTable("UserProfiles", (string)null);
                 });
 
             modelBuilder.Entity("WeSociety.Domain.AggregateRoots.Users.AppUser", b =>

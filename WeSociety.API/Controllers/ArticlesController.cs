@@ -8,9 +8,10 @@ using WeSociety.Application.CQRS.Commands.Article.Delete;
 using WeSociety.Application.CQRS.Commands.Article.Update;
 using WeSociety.Application.CQRS.Queries.Article.GetAll;
 using WeSociety.Application.CQRS.Queries.Article.GetAllByProfile;
+using WeSociety.Application.CQRS.Queries.Article.GetAllDrafts;
 using WeSociety.Application.CQRS.Queries.Article.GetAllPopulars;
 using WeSociety.Application.CQRS.Queries.Article.GetById;
-using WeSociety.Domain.AggregateRoots.Users;
+using WeSociety.Domain.Aggregates.UserRoot;
 
 namespace WeSociety.API.Controllers
 {
@@ -54,6 +55,13 @@ namespace WeSociety.API.Controllers
             return Ok(await _mediator.Send(new GetAllPopularArticlesQuery() { CategoryId = categoryId }));
         }
 
+        [HttpGet("Drafts")]
+        public async Task<IActionResult> GetAllDrafts([FromQuery, Required] int userProfileId,[FromQuery] int pageIndex, [FromQuery] int pageSize)
+        {
+            return Ok(await _mediator.Send(new GetAllArticleDraftsByUserQuery() { UserProfileId=userProfileId,PageIndex = pageIndex,PageSize=pageSize }));
+        }
+
+
         [HttpGet("{id}")]
         public async Task<IActionResult> Get([FromRoute] int id)
         {
@@ -67,7 +75,7 @@ namespace WeSociety.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update([FromBody] UpdateArticleCommand updateArticleCommand)
+        public async Task<IActionResult> Update([FromForm] UpdateArticleCommand updateArticleCommand)
         {
             return Ok(await _mediator.Send(updateArticleCommand));
         }

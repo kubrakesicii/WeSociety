@@ -1,16 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 using WeSociety.Application.CQRS.BaseModels;
 using WeSociety.Application.DTO.User;
 using WeSociety.Application.Exceptions;
 using WeSociety.Application.Responses;
-using WeSociety.Domain.AggregateRoots.Users;
+using WeSociety.Domain.Aggregates.UserRoot;
 using WeSociety.Domain.Interfaces;
 
 namespace WeSociety.Application.CQRS.Commands.Auth.Register
@@ -39,7 +33,7 @@ namespace WeSociety.Application.CQRS.Commands.Auth.Register
             if(res.Succeeded) {
                 // User added successfully, user Id.
                 // Create empty profile for registered user
-                var userProfile = new Domain.AggregateRoots.UserProfile.UserProfile(newUser.Id);
+                var userProfile = new Domain.Aggregates.UserProfileRoot.UserProfile(newUser.Id);
                 await _uow.UserProfiles.Insert(userProfile);
                 await _uow.SaveChangesAsync();
             }

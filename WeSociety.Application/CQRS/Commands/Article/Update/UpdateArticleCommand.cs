@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,7 @@ namespace WeSociety.Application.CQRS.Commands.Article.Update
         public int id { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
+        public int CategoryId { get; set; }
+        public IFormFile? MainImage { get; set; }
     }
 }

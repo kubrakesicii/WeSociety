@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using WeSociety.Application.CQRS.Commands.Auth.Register;
 using WeSociety.Application.DTO.User;
-using WeSociety.Domain.AggregateRoots.Users;
+using WeSociety.Domain.Aggregates.UserRoot;
 
 namespace WeSociety.Application.Mapping
 {
