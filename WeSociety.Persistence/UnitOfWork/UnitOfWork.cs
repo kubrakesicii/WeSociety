@@ -18,6 +18,8 @@ namespace WeSociety.Persistence.UnitOfWork
         private readonly IArticleRepository _articleRepository;
         private readonly IFollowRelationshipRepository _followRelationshipRepository;
         private readonly ICategoryRepository _categoryRepository;
+        private readonly IArticleCommentRepository _articleCommentRepository;
+        private readonly IReadingListRepository _readingListRepository;
         public UnitOfWork(WeSocietyDbContext context)
         {
             _context = context;
@@ -26,8 +28,9 @@ namespace WeSociety.Persistence.UnitOfWork
         public IUserProfileRepository UserProfiles => _profileRepository ?? new UserProfileRepository(_context);
         public IArticleRepository Articles => _articleRepository ?? new ArticleRepository(_context);
         public IFollowRelationshipRepository FollowRelationships => _followRelationshipRepository ?? new FollowRelationshipRepository(_context);
-
         public ICategoryRepository Categories => _categoryRepository ?? new CategoryRepository(_context);
+        public IArticleCommentRepository ArticleComments => _articleCommentRepository ?? new ArticleCommentRepository(_context);
+        public IReadingListRepository ReadingLists => _readingListRepository ?? new ReadingListRepository(_context);
 
         public void Dispose()
         {

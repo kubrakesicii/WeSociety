@@ -5,5 +5,6 @@ namespace WeSociety.Domain.Repositories
 {
     public interface IArticleCommentRepository : IGenericRepository<ArticleComment>
     {
+        Task<List<ArticleComment>> GetAllByArticleWithUser(int articleId);
     }
 }

@@ -42,6 +42,7 @@ namespace WeSociety.Domain.Aggregates.ArticleRoot
             CategoryId = categoryId;
             UserProfileId = userProfileId == 0 ? throw new Exception("Profile must be exists") : userProfileId;
             ViewCount = 0;
+            ArticleComments = new List<ArticleComment>();
         }
 
         public void Publish()

@@ -60,7 +60,7 @@ namespace WeSociety.API.Middlewares
                     }
                     else
                     {
-                        //auth err
+                        throw new AuthenticationException();
                     }
                 } catch(Exception e) {
                     throw new AuthenticationException();

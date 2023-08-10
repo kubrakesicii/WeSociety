@@ -20,9 +20,9 @@ namespace WeSociety.Persistence.Migrations
                     Text = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     UserProfileId = table.Column<int>(type: "int", nullable: false),
                     ArticleId = table.Column<int>(type: "int", nullable: false),
-                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsActive = table.Column<int>(type: "int", nullable: false)
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()"),
+                    UpdatedTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()"),
+                    IsActive = table.Column<int>(type: "int", maxLength: 1, nullable: false, defaultValueSql: "1")
                 },
                 constraints: table =>
                 {
@@ -48,9 +48,9 @@ namespace WeSociety.Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     UserProfileId = table.Column<int>(type: "int", nullable: false),
-                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsActive = table.Column<int>(type: "int", nullable: false)
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()"),
+                    UpdatedTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()"),
+                    IsActive = table.Column<int>(type: "int", maxLength: 1, nullable: false, defaultValueSql: "1")
                 },
                 constraints: table =>
                 {
@@ -70,9 +70,9 @@ namespace WeSociety.Persistence.Migrations
                     ReadingListId = table.Column<int>(type: "int", nullable: false),
                     ArticleId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false),
-                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsActive = table.Column<int>(type: "int", nullable: false)
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()"),
+                    UpdatedTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()"),
+                    IsActive = table.Column<int>(type: "int", maxLength: 1, nullable: false, defaultValueSql: "1")
                 },
                 constraints: table =>
                 {

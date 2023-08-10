@@ -9,6 +9,7 @@ namespace WeSociety.Application.Mapping
         public UserProfileMapping()
         {
             CreateMap<GetUserProfileDto, UserProfile>().ReverseMap();
+            CreateMap<GetCommentUserProfileDto, UserProfile>().ReverseMap();
         }
     }
 }

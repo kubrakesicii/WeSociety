@@ -36,7 +36,7 @@ namespace WeSociety.API.Middlewares
                 messsage = ex.Message,
                 errors = ex.Errors
             };
-
+             
             httpContext.Response.ContentType = "application/json";
             httpContext.Response.StatusCode = (int)ex.StatusCode;
             await httpContext.Response.WriteAsync(JsonConvert.SerializeObject(response));

@@ -13,6 +13,8 @@ namespace WeSociety.Domain.Interfaces
         public IArticleRepository Articles { get; }
         public IFollowRelationshipRepository FollowRelationships { get; }
         public ICategoryRepository Categories { get; }
+        public IArticleCommentRepository ArticleComments { get; }
+        public IReadingListRepository ReadingLists { get; }
         Task<int> SaveChangesAsync();
     }
 }

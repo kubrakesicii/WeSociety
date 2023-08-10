@@ -41,6 +41,7 @@ namespace WeSociety.Domain.Aggregates.UserProfileRoot
             Articles = new List<Article> { };
             Followings = new List<FollowRelationship> { };
             Followers = new List<FollowRelationship> { };
+            ReadingLists=new List<ReadingList> { };
         }
 
         public UserProfile(string userId)
@@ -52,6 +53,7 @@ namespace WeSociety.Domain.Aggregates.UserProfileRoot
             Articles = new List<Article> { };
             Followings = new List<FollowRelationship> { };
             Followers = new List<FollowRelationship> { };
+            ReadingLists = new List<ReadingList> { };
         }
 
         public void Update(byte[]? image, string fullName, string bio)
