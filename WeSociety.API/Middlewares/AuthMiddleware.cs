@@ -55,15 +55,14 @@ namespace WeSociety.API.Middlewares
                         var profileId = jwtToken.Claims.First(x => x.Type.Equals("profileId")).Value;
 
                         httpContext.Items["token"] = JsonConvert.SerializeObject(token);
+                        httpContext.Items["userId"] = id;
                         await _next(httpContext);
 
                     }
                     else
                     {
-                        throw new AuthenticationException();
                     }
                 } catch(Exception e) {
-                    throw new AuthenticationException();
                 }
             } else
             {
