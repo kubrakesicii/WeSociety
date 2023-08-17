@@ -222,6 +222,45 @@ namespace WeSociety.Persistence.Migrations
                     b.ToTable("Articles");
                 });
 
+            modelBuilder.Entity("WeSociety.Domain.Aggregates.ArticleRoot.Entities.ArticleClap", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ArticleId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETUTCDATE()");
+
+                    b.Property<int>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(1)
+                        .HasColumnType("int")
+                        .HasDefaultValueSql("1");
+
+                    b.Property<DateTime>("UpdatedTime")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETUTCDATE()");
+
+                    b.Property<int>("UserProfileId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticleId");
+
+                    b.HasIndex("UserProfileId");
+
+                    b.ToTable("ArticleClaps");
+                });
+
             modelBuilder.Entity("WeSociety.Domain.Aggregates.ArticleRoot.Entities.ArticleComment", b =>
                 {
                     b.Property<int>("Id")
@@ -302,10 +341,13 @@ namespace WeSociety.Persistence.Migrations
 
             modelBuilder.Entity("WeSociety.Domain.Aggregates.ReadingListRoot.Entities.ReadingListArticle", b =>
                 {
-                    b.Property<int>("ArticleId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("ReadingListId")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ArticleId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedTime")
@@ -313,21 +355,23 @@ namespace WeSociety.Persistence.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETUTCDATE()");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
                     b.Property<int>("IsActive")
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(1)
                         .HasColumnType("int")
                         .HasDefaultValueSql("1");
 
+                    b.Property<int>("ReadingListId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("UpdatedTime")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETUTCDATE()");
 
-                    b.HasKey("ArticleId", "ReadingListId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticleId");
 
                     b.HasIndex("ReadingListId");
 
@@ -346,6 +390,10 @@ namespace WeSociety.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETUTCDATE()");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("IsActive")
                         .ValueGeneratedOnAdd()
@@ -433,6 +481,10 @@ namespace WeSociety.Persistence.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
+                    b.Property<string>("Github")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
                     b.Property<byte[]>("Image")
                         .HasColumnType("varbinary(max)");
 
@@ -441,6 +493,10 @@ namespace WeSociety.Persistence.Migrations
                         .HasMaxLength(1)
                         .HasColumnType("int")
                         .HasDefaultValueSql("1");
+
+                    b.Property<string>("Linkedin")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<DateTime>("UpdatedTime")
                         .ValueGeneratedOnAddOrUpdate()
@@ -594,6 +650,25 @@ namespace WeSociety.Persistence.Migrations
                     b.Navigation("UserProfile");
                 });
 
+            modelBuilder.Entity("WeSociety.Domain.Aggregates.ArticleRoot.Entities.ArticleClap", b =>
+                {
+                    b.HasOne("WeSociety.Domain.Aggregates.ArticleRoot.Article", "Article")
+                        .WithMany("ArticleClaps")
+                        .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("WeSociety.Domain.Aggregates.UserProfileRoot.UserProfile", "UserProfile")
+                        .WithMany("ArticleClaps")
+                        .HasForeignKey("UserProfileId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Article");
+
+                    b.Navigation("UserProfile");
+                });
+
             modelBuilder.Entity("WeSociety.Domain.Aggregates.ArticleRoot.Entities.ArticleComment", b =>
                 {
                     b.HasOne("WeSociety.Domain.Aggregates.ArticleRoot.Article", "Article")
@@ -675,6 +750,8 @@ namespace WeSociety.Persistence.Migrations
 
             modelBuilder.Entity("WeSociety.Domain.Aggregates.ArticleRoot.Article", b =>
                 {
+                    b.Navigation("ArticleClaps");
+
                     b.Navigation("ArticleComments");
 
                     b.Navigation("ReadingListArticles");
@@ -687,6 +764,8 @@ namespace WeSociety.Persistence.Migrations
 
             modelBuilder.Entity("WeSociety.Domain.Aggregates.UserProfileRoot.UserProfile", b =>
                 {
+                    b.Navigation("ArticleClaps");
+
                     b.Navigation("ArticleComments");
 
                     b.Navigation("Articles");

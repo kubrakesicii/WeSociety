@@ -17,7 +17,7 @@ namespace WeSociety.Persistence.Repositories
         {
             return await _context.Articles.Include(x => x.UserProfile).Include(x => x.Category)
                 .Where(x => x.UserProfileId == userProfileId)
-                .Where(x => x.IsPublished == 0)
+                .Where(x => x.IsPublished == -1)
                 .OrderByDescending(x => x.CreatedTime)
                 .ToListAsync();
         }
@@ -66,6 +66,8 @@ namespace WeSociety.Persistence.Repositories
         public async Task<Article> GetByIdWithIncludes(int id)
         {
             return await _context.Articles.Include(x => x.UserProfile).Include(x => x.Category)
+                .Include(x => x.ArticleClaps)
+                .Include(x => x.ArticleComments)
                 .Where(x => x.Id==id)
                 .FirstOrDefaultAsync();
         }

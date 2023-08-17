@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using WeSociety.Application.CQRS.Commands.ReadingListArticle.Create;
+using WeSociety.Application.CQRS.Commands.ReadingListArticle.Delete;
 using WeSociety.Application.CQRS.Queries.ReadingListArticle.GetAll;
 using WeSociety.Application.CQRS.Queries.ReadingListArticle.GetIsSaved;
 
@@ -37,6 +38,12 @@ namespace WeSociety.API.Controllers
             return Ok(await _mediator.Send(new GetArticleIsSavedQuery { UserProfileId = userProfileId, ArticleId=articleId }));
         }
 
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteReadingArticle([FromRoute] int id)
+        {
+            return Ok(await _mediator.Send(new DeleteReadingListArticleCommand { Id=id}));
+        }
 
     }
 }

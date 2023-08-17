@@ -27,6 +27,8 @@ namespace WeSociety.Application.CQRS.Queries.UserProfile.GetById
         {
             var userProfile = await _uow.UserProfiles.GetWithUserAsync(request.Id);
             var userProfileDto = _mapper.Map<GetUserProfileDto>(userProfile);
+
+            if (userProfileDto.Image.Length == 0) userProfileDto.Image = null;
             userProfileDto.FollowingsCount = userProfile.Followings.Count();
             userProfileDto.FollowersCount = userProfile.Followers.Count();
             return new SuccessDataResponse<GetUserProfileDto>(userProfileDto);

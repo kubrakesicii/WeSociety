@@ -8,6 +8,7 @@ namespace WeSociety.Domain.Aggregates.ReadingListRoot
     public class ReadingList : Entity
     {
         public string Name { get; private set; }
+        public string Description { get; set; }
 
         //Bir kullanıcıya bağlı liste
         public int UserProfileId { get; private set; }
@@ -22,6 +23,18 @@ namespace WeSociety.Domain.Aggregates.ReadingListRoot
             Name = name;
             UserProfileId = userProfileId;
             ReadingListArticles = new List<ReadingListArticle>();
+        }
+
+
+        public void SaveArticle(int articleId)
+        {
+            ReadingListArticle listArticle = new ReadingListArticle(Id, articleId);
+            ReadingListArticles.Add(listArticle);
+        }
+
+        public void UndoSaveArticle(ReadingListArticle listArticle)
+        {
+            ReadingListArticles.Remove(listArticle);
         }
 
         //// Add selected article to the Reading List of user

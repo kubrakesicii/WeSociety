@@ -13,7 +13,7 @@ namespace WeSociety.Persistence.Repositories
 
         public async Task<List<ReadingList>> GetAllReadingLists(int userProfileId)
         {
-            return await _context.ReadingLists.Include(x => x.ReadingListArticles)
+            return await _context.ReadingLists.Include(x => x.ReadingListArticles).ThenInclude(x => x.Article)
                 .Where(x => x.UserProfileId == userProfileId)
                 .ToListAsync();
         }

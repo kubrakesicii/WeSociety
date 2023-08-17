@@ -12,7 +12,9 @@ namespace WeSociety.Application.DTO.UserProfile
         public string FullName { get; set; }
         public string Bio { get; set; }
         public string Email { get; set; }
-        public byte[] Image { get; set; }
+        public string? Github { get; set; }
+        public string? Linkedin { get; set; }
+        public byte[]? Image { get; set; }
         public int FollowersCount { get; set; }
         public int FollowingsCount { get; set; }
         public int IsFollowing { get; set; }

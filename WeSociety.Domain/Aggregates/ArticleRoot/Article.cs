@@ -18,7 +18,7 @@ namespace WeSociety.Domain.Aggregates.ArticleRoot
         public int UserProfileId { get; private set; }
         public UserProfile UserProfile { get; private set; }
 
-        public byte[] MainImage { get; set; }
+        public byte[]? MainImage { get; set; }
 
         public int CategoryId { get; set; }
         public Category Category { get; set; }
@@ -29,6 +29,9 @@ namespace WeSociety.Domain.Aggregates.ArticleRoot
 
         //İçerisinde lis-article bağlantı listesi vardır
         public IList<ReadingListArticle> ReadingListArticles { get; private set; }
+
+        //Many-to-many user article clapler
+        public IList<ArticleClap> ArticleClaps { get; private set; }
 
 
         public Article(string title, string content, int isPublished, int categoryId, byte[]? mainImage, int userProfileId)
@@ -43,6 +46,7 @@ namespace WeSociety.Domain.Aggregates.ArticleRoot
             UserProfileId = userProfileId == 0 ? throw new Exception("Profile must be exists") : userProfileId;
             ViewCount = 0;
             ArticleComments = new List<ArticleComment>();
+            ArticleClaps = new List<ArticleClap>();
         }
 
         public void Publish()
@@ -71,6 +75,5 @@ namespace WeSociety.Domain.Aggregates.ArticleRoot
             ArticleComment comment = new ArticleComment(userProfileId, text, Id);
             ArticleComments.Add(comment);
         }
-
     }
 }

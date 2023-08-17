@@ -12,6 +12,7 @@ namespace WeSociety.Application.CQRS.Commands.Article.Create
 {
     public class CreateArticleCommand : ICommand<Response>
     {
+        public int UserProfileId { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
         public int CategoryId { get; set; }

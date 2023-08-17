@@ -15,6 +15,9 @@ namespace WeSociety.Domain.Interfaces
         public ICategoryRepository Categories { get; }
         public IArticleCommentRepository ArticleComments { get; }
         public IReadingListRepository ReadingLists { get; }
+        public IReadingListArticleRepository ReadingListArticles { get; }
+        public IArticleClapRepository ArticleClaps { get; }
+
         Task<int> SaveChangesAsync();
     }
 }

@@ -50,7 +50,7 @@ namespace WeSociety.Infrastructure.Authentication
             var jwt = new JwtSecurityToken(
                 "",
                 "",
-                expires: DateTime.Now.AddHours(1),
+                expires: DateTime.Now.AddMinutes(_jwtSetting.AccessTokenExpiration),
                 notBefore: DateTime.Now,
                 claims: new List<Claim>
                 {

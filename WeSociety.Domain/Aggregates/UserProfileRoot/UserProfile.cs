@@ -10,9 +10,12 @@ namespace WeSociety.Domain.Aggregates.UserProfileRoot
     public class UserProfile : AggregateRoot
     {
 
-        public byte[] Image { get; private set; }
+        public byte[]? Image { get; private set; }
         public string FullName { get; private set; }
         public string Bio { get; private set; }
+
+        public string Github { get; set; }
+        public string Linkedin { get; set; }
 
         public string UserId { get; private set; }
         public AppUser User { get; private set; }
@@ -25,6 +28,9 @@ namespace WeSociety.Domain.Aggregates.UserProfileRoot
         // Beni takip eden kullanıcılar - burada ben FolllowingId olurum
         public IList<FollowRelationship> Followers { get; private set; }
 
+        //Many-to-many user article clapler
+        public IList<ArticleClap> ArticleClaps { get; private set; }
+
         //Kullancıı birden fazla okuma listesi olabilir
         public IList<ReadingList> ReadingLists { get; set; }
 
@@ -32,16 +38,20 @@ namespace WeSociety.Domain.Aggregates.UserProfileRoot
 
 
 
-        public UserProfile(byte[]? image, string? fullName, string? bio, string userId)
+        public UserProfile(byte[]? image, string? fullName, string? bio, string? github, string? linkedin,string userId)
         {
             Image = image;
             FullName = fullName;
             Bio = bio;
+            Github = github;
+            Linkedin = linkedin;
             UserId = userId;
             Articles = new List<Article> { };
             Followings = new List<FollowRelationship> { };
             Followers = new List<FollowRelationship> { };
             ReadingLists=new List<ReadingList> { };
+            ArticleComments=new List<ArticleComment> { };
+            ArticleClaps=new List<ArticleClap> { };
         }
 
         public UserProfile(string userId)
@@ -49,18 +59,23 @@ namespace WeSociety.Domain.Aggregates.UserProfileRoot
             Image = null;
             FullName = null;
             Bio = null;
+            Github = null;
+            Linkedin = null;
             UserId = userId;
             Articles = new List<Article> { };
             Followings = new List<FollowRelationship> { };
             Followers = new List<FollowRelationship> { };
             ReadingLists = new List<ReadingList> { };
+            ArticleClaps = new List<ArticleClap> { };
         }
 
-        public void Update(byte[]? image, string fullName, string bio)
+        public void Update(byte[]? image, string fullName, string bio, string github, string linkedin)
         {
             Image = image == null ? Image : image;
             FullName = fullName;
             Bio = bio;
+            Github = github; 
+            Linkedin = linkedin;
         }
 
         //Article bahavior methoda
@@ -110,6 +125,14 @@ namespace WeSociety.Domain.Aggregates.UserProfileRoot
         public void RemoveReadingList(ReadingList readingList)
         {
             ReadingLists.Remove(readingList);
+        }
+
+
+        //Clap Article
+        public void ClapArticle(int articleId)
+        {
+            ArticleClap clap = new ArticleClap(Id, articleId);
+            ArticleClaps.Add(clap);
         }
 
     }

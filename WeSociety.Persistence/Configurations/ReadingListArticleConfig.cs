@@ -15,8 +15,6 @@ namespace WeSociety.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<ReadingListArticle> builder)
         {
-            builder.HasKey(listArt => new { listArt.ArticleId, listArt.ReadingListId });
-
             builder.HasOne(la => la.Article)
                 .WithMany(a => a.ReadingListArticles)
                 .HasForeignKey(la => la.ArticleId)

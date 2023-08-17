@@ -19,7 +19,7 @@ namespace WeSociety.Infrastructure
                 Issuer = "wesociety",
                 Audience = "wesociety",
                 SecurityKey = config["JWT_SECURITY_KEY"],
-                AccessTokenExpiration = 60 * 60 * 24 * 7    ///7 DAYS
+                AccessTokenExpiration = 60 * 24 * 7    ///7 DAYS
             };
             services.AddSingleton(jwtSettings);
             services.AddAuthentication(x =>

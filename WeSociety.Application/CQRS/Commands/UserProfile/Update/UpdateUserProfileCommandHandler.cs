@@ -1,9 +1,11 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WeSociety.Application.CQRS.BaseModels;
+using WeSociety.Application.DTO.User;
 using WeSociety.Application.Exceptions;
 using WeSociety.Application.Helpers;
 using WeSociety.Application.Responses;
@@ -11,27 +13,33 @@ using WeSociety.Domain.Interfaces;
 
 namespace WeSociety.Application.CQRS.Commands.UserProfile.Update
 {
-    public class UpdateUserProfileCommandHandler : ICommandHandler<UpdateUserProfileCommand, Response>
+    public class UpdateUserProfileCommandHandler : ICommandHandler<UpdateUserProfileCommand, DataResponse<GetUpdateUserDto>>
     {
         private readonly IUnitOfWork _uow;
+        private readonly IMapper _mapper;
 
-        public UpdateUserProfileCommandHandler(IUnitOfWork uow)
+        public UpdateUserProfileCommandHandler(IUnitOfWork uow, IMapper mapper)
         {
             _uow = uow;
+            _mapper = mapper;
         }
 
-        public async Task<Response> Handle(UpdateUserProfileCommand request, CancellationToken cancellationToken)
+        public async Task<DataResponse<GetUpdateUserDto>> Handle(UpdateUserProfileCommand request, CancellationToken cancellationToken)
         {
-            var profile = await _uow.UserProfiles.Get(x => x.Id ==  request.id);
+            var profile = await _uow.UserProfiles.GetWithUserAsync(request.id);
             if (profile == null) throw new NotfoundException();
 
             profile.Update(
                 request.Image == null ? null : FileHelper.ConvertFileToByteArray(request.Image),
                 request.FullName,
-                request.Bio);
+                request.Bio,
+                request.Github,
+                request.Linkedin);
             await _uow.UserProfiles.Update(profile);
             await _uow.SaveChangesAsync();
-            return new SuccessResponse();
+
+            var returnDto = _mapper.Map<GetUpdateUserDto>(profile);
+            return new SuccessDataResponse<GetUpdateUserDto>(returnDto);
         }
     }
 }

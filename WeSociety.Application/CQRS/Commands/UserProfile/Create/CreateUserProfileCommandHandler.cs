@@ -23,6 +23,8 @@ namespace WeSociety.Application.CQRS.Commands.UserProfile.Create
                 FileHelper.ConvertFileToByteArray(request.Image),
                 request.FullName,
                 request.Bio,
+                request.Github,
+                request.Linkedin,
                 request.UserId
                 );
 

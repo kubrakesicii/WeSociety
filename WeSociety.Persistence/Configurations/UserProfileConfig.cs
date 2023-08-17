@@ -12,6 +12,9 @@ namespace WeSociety.Persistence.Configurations
             builder.Property(x => x.FullName).IsRequired(false).HasMaxLength(128);
             builder.Property(x => x.Image).IsRequired(false);
 
+            builder.Property(x => x.Github).IsRequired(false).HasMaxLength(128);
+            builder.Property(x => x.Linkedin).IsRequired(false).HasMaxLength(128);
+
             builder.HasOne(x => x.User).WithOne();
 
             builder.Property(x => x.IsActive).HasMaxLength(1).HasDefaultValueSql("1");

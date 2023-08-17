@@ -15,7 +15,9 @@ namespace WeSociety.Application.DTO.Article
         public string Domain { get; set; }
         public string Content { get; set; }
         public byte[] MainImage { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public int ClapCount { get; set; }
+        public int CommentCount { get; set; }
+        public int IsPublished { get; set; }
         public GetUserProfileDto UserProfile { get; set; }
         public GetCategoryDto Category { get; set; }
         public DateTime CreatedTime { get; set; }

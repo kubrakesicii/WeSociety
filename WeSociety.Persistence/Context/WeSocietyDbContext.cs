@@ -31,6 +31,7 @@ namespace WeSociety.Persistence.Context
         public DbSet<ArticleComment> ArticleComments { get; set; }
         public DbSet<ReadingList> ReadingLists { get; set; }
         public DbSet<ReadingListArticle> ReadingListArticles { get; set; }
+        public DbSet<ArticleClap> ArticleClaps { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -42,6 +43,7 @@ namespace WeSociety.Persistence.Context
             modelBuilder.ApplyConfiguration(new ArticleCommentConfig());
             modelBuilder.ApplyConfiguration(new ReadingListConfig());
             modelBuilder.ApplyConfiguration(new ReadingListArticleConfig());
+            modelBuilder.ApplyConfiguration(new ArticleClapConfig());
 
             base.OnModelCreating(modelBuilder);
         }

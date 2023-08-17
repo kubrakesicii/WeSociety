@@ -7,8 +7,10 @@ namespace WeSociety.Application.Mapping
     public class ArticleMapping : Profile
     {
         public ArticleMapping() {
-            CreateMap<Article, GetArticleDto>();            
-            
+            CreateMap<Article, GetArticleDto>()
+                .ForMember(dest => dest.ClapCount, opt => opt.MapFrom(src => src.ArticleClaps.Count))
+                .ForMember(dest => dest.CommentCount, opt => opt.MapFrom(src => src.ArticleComments.Count));
+
         }
     }
 }
