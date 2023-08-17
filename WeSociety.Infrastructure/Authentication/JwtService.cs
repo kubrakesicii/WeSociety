@@ -26,7 +26,7 @@ namespace WeSociety.Infrastructure.Authentication
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSetting.SecurityKey));
 
-            var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
+            var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var jwt = CreateJwtSecurityToken(id, email, username, profileId, signingCredentials);
             var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
             var token = jwtSecurityTokenHandler.WriteToken(jwt);
