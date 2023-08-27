@@ -19,7 +19,7 @@ namespace WeSociety.Persistence.Configurations
             builder.HasOne(cl => cl.Article)
                 .WithMany(a => a.ArticleClaps)
                 .HasForeignKey(cl => cl.ArticleId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
 
             builder.HasOne(cl => cl.UserProfile)

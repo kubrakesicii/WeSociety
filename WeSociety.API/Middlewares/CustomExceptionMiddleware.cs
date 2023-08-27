@@ -39,7 +39,7 @@ namespace WeSociety.API.Middlewares
              
             httpContext.Response.ContentType = "application/json";
             httpContext.Response.StatusCode = (int)ex.StatusCode;
-            await httpContext.Response.WriteAsync(JsonConvert.SerializeObject(response));
+            await httpContext.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(response));
         }
     }
 

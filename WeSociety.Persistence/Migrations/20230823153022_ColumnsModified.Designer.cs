@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WeSociety.Persistence.Context;
 
@@ -11,9 +12,11 @@ using WeSociety.Persistence.Context;
 namespace WeSociety.Persistence.Migrations
 {
     [DbContext(typeof(WeSocietyDbContext))]
-    partial class WeSocietyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230823153022_ColumnsModified")]
+    partial class ColumnsModified
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -651,7 +654,7 @@ namespace WeSociety.Persistence.Migrations
                     b.HasOne("WeSociety.Domain.Aggregates.ArticleRoot.Article", "Article")
                         .WithMany("ArticleClaps")
                         .HasForeignKey("ArticleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("WeSociety.Domain.Aggregates.UserProfileRoot.UserProfile", "UserProfile")
@@ -689,7 +692,7 @@ namespace WeSociety.Persistence.Migrations
                     b.HasOne("WeSociety.Domain.Aggregates.ArticleRoot.Article", "Article")
                         .WithMany("ReadingListArticles")
                         .HasForeignKey("ArticleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("WeSociety.Domain.Aggregates.ReadingListRoot.ReadingList", "ReadingList")

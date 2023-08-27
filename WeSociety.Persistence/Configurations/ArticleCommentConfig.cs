@@ -11,6 +11,11 @@ namespace WeSociety.Persistence.Configurations
         {
             builder.Property(x => x.Text).IsRequired().HasMaxLength(200);
 
+            builder.HasOne(cl => cl.Article)
+              .WithMany(a => a.ArticleComments)
+              .HasForeignKey(cl => cl.ArticleId)
+              .OnDelete(DeleteBehavior.Cascade);
+
             builder.HasOne<UserProfile>(a => a.UserProfile)
                 .WithMany(p => p.ArticleComments)
                 .HasForeignKey(a => a.UserProfileId)

@@ -10,7 +10,6 @@ namespace WeSociety.Persistence.Configurations
         public void Configure(EntityTypeBuilder<ReadingList> builder)
         {
             builder.Property(x => x.Name).IsRequired().HasMaxLength(128);
-            builder.Property(x => x.Description).IsRequired(false).HasMaxLength(200);
 
             builder.HasOne<UserProfile>(r => r.UserProfile)
              .WithMany(p => p.ReadingLists)

@@ -8,8 +8,6 @@ namespace WeSociety.Domain.Aggregates.ReadingListRoot
     public class ReadingList : Entity
     {
         public string Name { get; private set; }
-        public string Description { get; set; }
-
         //Bir kullanıcıya bağlı liste
         public int UserProfileId { get; private set; }
         public UserProfile UserProfile { get; private set; }

@@ -27,6 +27,9 @@ namespace WeSociety.Application.CQRS.Commands.Auth.Register
             var existingUser = await _userManager.FindByEmailAsync(request.Email);
             if (existingUser != null) throw new UserExistsException();   //Email must be unique
 
+            var userNameCheck = await _userManager.FindByNameAsync(request.UserName);
+            if (userNameCheck != null) throw new UserExistsException();   //UserName must be unique
+
             var newUser = _mapper.Map<AppUser>(request);
 
             IdentityResult res = await _userManager.CreateAsync(newUser,request.Password);

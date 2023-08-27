@@ -18,7 +18,8 @@ namespace WeSociety.Persistence.Configurations
 
             builder.HasOne<UserProfile>(a => a.UserProfile)
                 .WithMany(p => p.Articles)
-                .HasForeignKey(a => a.UserProfileId);
+                .HasForeignKey(a => a.UserProfileId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasMany(a => a.ArticleComments)
                 .WithOne(c => c.Article)

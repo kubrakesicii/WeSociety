@@ -18,7 +18,7 @@ namespace WeSociety.Persistence.Configurations
             builder.HasOne(la => la.Article)
                 .WithMany(a => a.ReadingListArticles)
                 .HasForeignKey(la => la.ArticleId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
 
             builder.HasOne(la => la.ReadingList)
