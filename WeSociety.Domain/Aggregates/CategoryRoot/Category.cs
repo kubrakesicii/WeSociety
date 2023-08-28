@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WeSociety.Domain.Base;
+﻿using WeSociety.Domain.Common;
 
 namespace WeSociety.Domain.Aggregates.CategoryRoot
 {

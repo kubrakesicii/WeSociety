@@ -17,8 +17,6 @@ namespace WeSociety.Application.CQRS.Commands.UserProfile.Create
 
         public async Task<Response> Handle(CreateUserProfileCommand request, CancellationToken cancellationToken)
         {
-            var bytearr = FileHelper.ConvertFileToByteArray(request.Image);
-
             Domain.Aggregates.UserProfileRoot.UserProfile newUserProfile = new Domain.Aggregates.UserProfileRoot.UserProfile(
                 FileHelper.ConvertFileToByteArray(request.Image),
                 request.FullName,
@@ -29,7 +27,6 @@ namespace WeSociety.Application.CQRS.Commands.UserProfile.Create
                 );
 
             await _uow.UserProfiles.Insert(newUserProfile);
-            await _uow.SaveChangesAsync();
             return new SuccessResponse();
         }
     }

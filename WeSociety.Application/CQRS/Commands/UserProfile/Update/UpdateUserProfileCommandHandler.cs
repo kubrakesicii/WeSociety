@@ -36,8 +36,6 @@ namespace WeSociety.Application.CQRS.Commands.UserProfile.Update
                 request.Github,
                 request.Linkedin);
             await _uow.UserProfiles.Update(profile);
-            await _uow.SaveChangesAsync();
-
             var returnDto = _mapper.Map<GetUpdateUserDto>(profile);
             return new SuccessDataResponse<GetUpdateUserDto>(returnDto);
         }

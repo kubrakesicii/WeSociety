@@ -23,7 +23,6 @@ namespace WeSociety.Application.CQRS.Commands.ReadingList.Create
             var userProfile = await _uow.UserProfiles.Get(x => x.Id == request.UserProfileId);
             userProfile.AddReadingList(request.Name);
 
-            await _uow.SaveChangesAsync();
             return new SuccessResponse();
         }
     }

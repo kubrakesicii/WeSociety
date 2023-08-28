@@ -2,7 +2,7 @@
 using WeSociety.Domain.Aggregates.CategoryRoot;
 using WeSociety.Domain.Aggregates.ReadingListRoot.Entities;
 using WeSociety.Domain.Aggregates.UserProfileRoot;
-using WeSociety.Domain.Base;
+using WeSociety.Domain.Common;
 
 namespace WeSociety.Domain.Aggregates.ArticleRoot
 {

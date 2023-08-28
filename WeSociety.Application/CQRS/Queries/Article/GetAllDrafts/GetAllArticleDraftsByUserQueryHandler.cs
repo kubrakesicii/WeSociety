@@ -16,24 +16,15 @@ namespace WeSociety.Application.CQRS.Queries.Article.GetAllDrafts
     {
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
-        private readonly IAuthenticationService _authService;
 
-        public GetAllArticleDraftsByUserQueryHandler(IUnitOfWork uow, IMapper mapper, IAuthenticationService authService)
+        public GetAllArticleDraftsByUserQueryHandler(IUnitOfWork uow, IMapper mapper)
         {
             _uow = uow;
             _mapper = mapper;
-            _authService = authService;
         }
 
         public async Task<DataResponse<PaginatedList<GetArticleDto>>> Handle(GetAllArticleDraftsByUserQuery request, CancellationToken cancellationToken)
         {
-            int curProfileId = 0;
-            if (_authService.IsAuthenticated)
-            {
-                var curUserId = "";
-                curProfileId = (await _uow.UserProfiles.Get(x => x.UserId == curUserId)).Id;
-            }
-
             var articles = await _uow.Articles.GetAllDraftsWithUserProfileByProfile(request.UserProfileId);
             var articleDtos = _mapper.Map<List<GetArticleDto>>(articles);
 

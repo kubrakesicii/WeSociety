@@ -24,7 +24,6 @@ namespace WeSociety.Application.CQRS.Commands.FollowRelationship.UnfollowUser
             var userProfile = await _uow.UserProfiles.GetWithUserAsync(request.FollowerId);
             var removedFollowRel = userProfile.UnFollow(request.FollowingId);
             await _uow.FollowRelationships.Delete(removedFollowRel);
-            await _uow.SaveChangesAsync();
             return new SuccessResponse();
         }
     }

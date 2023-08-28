@@ -38,7 +38,6 @@ namespace WeSociety.Application.CQRS.Commands.Auth.Register
                 // Create empty profile for registered user
                 var userProfile = new Domain.Aggregates.UserProfileRoot.UserProfile(newUser.Id);
                 await _uow.UserProfiles.Insert(userProfile);
-                await _uow.SaveChangesAsync();
             }
       
             return new SuccessDataResponse<GetUserDto>(_mapper.Map<GetUserDto>(newUser));

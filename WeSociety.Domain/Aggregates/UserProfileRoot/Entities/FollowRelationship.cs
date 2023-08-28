@@ -1,4 +1,4 @@
-﻿using WeSociety.Domain.Base;
+﻿using WeSociety.Domain.Common;
 
 namespace WeSociety.Domain.Aggregates.UserProfileRoot.Entities
 {

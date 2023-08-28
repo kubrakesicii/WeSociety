@@ -16,13 +16,11 @@ namespace WeSociety.Application.CQRS.Queries.Article.GetAll
     {
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
-        private readonly IAuthenticationService _authService;
 
-        public GetAllArticlesQueryHandler(IUnitOfWork uow, IMapper mapper, IAuthenticationService authService)
+        public GetAllArticlesQueryHandler(IUnitOfWork uow, IMapper mapper)
         {
             _uow = uow;
             _mapper = mapper;
-            _authService = authService;
         }
 
         public async Task<DataResponse<PaginatedList<GetArticleDto>>> Handle(GetAllArticlesQuery request, CancellationToken cancellationToken)

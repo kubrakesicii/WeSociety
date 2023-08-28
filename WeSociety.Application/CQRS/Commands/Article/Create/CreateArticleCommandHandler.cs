@@ -14,12 +14,10 @@ namespace WeSociety.Application.CQRS.Commands.Article.Create
     public class CreateArticleCommandHandler : ICommandHandler<CreateArticleCommand, Response>
     {
         private readonly IUnitOfWork _uow;
-        private readonly IAuthenticationService _authService;
 
-        public CreateArticleCommandHandler(IUnitOfWork uow, IAuthenticationService authService)
+        public CreateArticleCommandHandler(IUnitOfWork uow)
         {
             _uow = uow;
-            _authService = authService;
         }
 
         public async Task<Response> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
@@ -36,7 +34,6 @@ namespace WeSociety.Application.CQRS.Commands.Article.Create
 
             //await _uow.Articles.Insert(newArticle);
             await _uow.UserProfiles.Update(userProfile);
-            await _uow.SaveChangesAsync();
 
             return new SuccessResponse();
         }

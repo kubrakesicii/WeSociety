@@ -17,8 +17,6 @@ namespace WeSociety.Application.CQRS.Commands.FollowRelationship.Follow
         {
             var userProfile = await _uow.UserProfiles.Get(x => x.Id == request.FollowerId);
             var newFollowRel = userProfile.Follow(request.FollowingId);
-
-            await _uow.SaveChangesAsync();
             return new SuccessResponse();
         }
     }

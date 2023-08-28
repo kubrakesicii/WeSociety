@@ -45,7 +45,6 @@ namespace WeSociety.Infrastructure
 
             services.AddHttpContextAccessor();
             services.AddScoped<IJwtService, JwtService>();
-            services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
         }

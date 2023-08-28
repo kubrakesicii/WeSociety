@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WeSociety.Domain.Base
+namespace WeSociety.Domain.Common
 {
-    public interface IRepository
+    public abstract class AggregateRoot : Entity
     {
     }
 }

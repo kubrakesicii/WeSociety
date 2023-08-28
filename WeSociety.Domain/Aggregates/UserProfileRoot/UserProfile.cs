@@ -3,7 +3,7 @@ using WeSociety.Domain.Aggregates.ArticleRoot.Entities;
 using WeSociety.Domain.Aggregates.ReadingListRoot;
 using WeSociety.Domain.Aggregates.UserProfileRoot.Entities;
 using WeSociety.Domain.Aggregates.UserRoot;
-using WeSociety.Domain.Base;
+using WeSociety.Domain.Common;
 
 namespace WeSociety.Domain.Aggregates.UserProfileRoot
 {

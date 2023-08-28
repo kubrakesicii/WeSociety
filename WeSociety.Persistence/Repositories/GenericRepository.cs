@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using WeSociety.Domain.Base;
+using WeSociety.Domain.Common;
 using WeSociety.Domain.Repository;
 using WeSociety.Persistence.Context;
 

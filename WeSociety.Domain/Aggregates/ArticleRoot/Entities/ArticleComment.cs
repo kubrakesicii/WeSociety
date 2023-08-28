@@ -1,5 +1,5 @@
 ﻿using WeSociety.Domain.Aggregates.UserProfileRoot;
-using WeSociety.Domain.Base;
+using WeSociety.Domain.Common;
 
 namespace WeSociety.Domain.Aggregates.ArticleRoot.Entities
 {

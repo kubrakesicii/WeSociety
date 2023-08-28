@@ -1,7 +1,6 @@
-﻿using WeSociety.Domain.Aggregates.ArticleRoot;
-using WeSociety.Domain.Aggregates.ReadingListRoot.Entities;
+﻿using WeSociety.Domain.Aggregates.ReadingListRoot.Entities;
 using WeSociety.Domain.Aggregates.UserProfileRoot;
-using WeSociety.Domain.Base;
+using WeSociety.Domain.Common;
 
 namespace WeSociety.Domain.Aggregates.ReadingListRoot
 {
