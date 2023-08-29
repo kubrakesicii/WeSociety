@@ -69,6 +69,13 @@ namespace WeSociety.Domain.Aggregates.UserProfileRoot
             ArticleClaps = new List<ArticleClap> { };
         }
 
+        public UserProfile(string fullname, string bio, string userId)
+        {
+            FullName = fullname;
+            Bio = bio;          
+            UserId=userId;
+        }
+
         public void Update(byte[]? image, string fullName, string bio, string github, string linkedin)
         {
             Image = image == null ? Image : image;
@@ -79,9 +86,9 @@ namespace WeSociety.Domain.Aggregates.UserProfileRoot
         }
 
         //Article bahavior methoda
-        public Article AddArticle(string title, string content, int isPublished,int categoryId, byte[]? mainImage)
+        public Article AddArticle(string title,string domain, string content, int isPublished,int categoryId, byte[]? mainImage)
         {
-            Article article = new Article(title, content, isPublished,categoryId, mainImage,Id);
+            Article article = new Article(title,domain, content, isPublished,categoryId, mainImage,Id);
             Articles.Add(article);
             return article;
         }

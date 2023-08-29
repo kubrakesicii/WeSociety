@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using WeSociety.Application.CQRS.BaseModels;
 using WeSociety.Application.DTO.User;
 using WeSociety.Application.Exceptions;
+using WeSociety.Application.Interfaces;
 using WeSociety.Application.Responses;
 using WeSociety.Domain.Aggregates.UserRoot;
 using WeSociety.Domain.Interfaces;
@@ -14,12 +15,14 @@ namespace WeSociety.Application.CQRS.Commands.Auth.Register
         private readonly UserManager<AppUser> _userManager;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _uow;
-
-        public RegisterCommandHandler(UserManager<AppUser> userManager, IMapper mapper, IUnitOfWork uow)
+        private readonly IElasticSearchService<Domain.Aggregates.UserProfileRoot.UserProfile> _elasticSearchService;
+        public RegisterCommandHandler(UserManager<AppUser> userManager, IMapper mapper,
+            IUnitOfWork uow, IElasticSearchService<Domain.Aggregates.UserProfileRoot.UserProfile> elasticSearchService)
         {
             _userManager = userManager;
             _mapper = mapper;
             _uow = uow;
+            _elasticSearchService = elasticSearchService;
         }
 
         public async Task<DataResponse<GetUserDto>> Handle(RegisterCommand request, CancellationToken cancellationToken)
@@ -38,6 +41,9 @@ namespace WeSociety.Application.CQRS.Commands.Auth.Register
                 // Create empty profile for registered user
                 var userProfile = new Domain.Aggregates.UserProfileRoot.UserProfile(newUser.Id);
                 await _uow.UserProfiles.Insert(userProfile);
+
+                //ELK INDEXING
+                var createRes = await _elasticSearchService.CreateIndex("userProfiles", userProfile);
             }
       
             return new SuccessDataResponse<GetUserDto>(_mapper.Map<GetUserDto>(newUser));

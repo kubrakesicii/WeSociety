@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WeSociety.Application.CQRS.BaseModels;
 using WeSociety.Application.DTO.UserProfile;
+using WeSociety.Application.Interfaces;
 using WeSociety.Application.Responses;
 using WeSociety.Domain.Interfaces;
 
@@ -16,11 +17,12 @@ namespace WeSociety.Application.CQRS.Queries.UserProfile.GetById
     {
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
-
-        public GetUserProfileByIdQueryHandler(IUnitOfWork uow, IMapper mapper)
+        private readonly IElasticSearchService<Domain.Aggregates.UserProfileRoot.UserProfile> _elasticSearchService;
+        public GetUserProfileByIdQueryHandler(IUnitOfWork uow, IMapper mapper, IElasticSearchService<Domain.Aggregates.UserProfileRoot.UserProfile> elasticSearchService)
         {
             _uow = uow;
             _mapper = mapper;
+            _elasticSearchService = elasticSearchService;
         }
 
         public async Task<DataResponse<GetUserProfileDto>> Handle(GetUserProfileByIdQuery request, CancellationToken cancellationToken)
@@ -31,6 +33,10 @@ namespace WeSociety.Application.CQRS.Queries.UserProfile.GetById
             if (userProfileDto.Image.Length == 0) userProfileDto.Image = null;
             userProfileDto.FollowingsCount = userProfile.Followings.Count();
             userProfileDto.FollowersCount = userProfile.Followers.Count();
+
+            //ELK INDEX
+            await _elasticSearchService.CreateIndex("users", new Domain.Aggregates.UserProfileRoot.UserProfile(userProfile.FullName,userProfile.Bio,userProfile.UserId));
+
             return new SuccessDataResponse<GetUserProfileDto>(userProfileDto);
         }
     }

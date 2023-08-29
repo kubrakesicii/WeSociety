@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using WeSociety.Application.CQRS.Commands.Auth.Register;
 using WeSociety.Application.DTO.User;
+using WeSociety.Application.DTO.UserProfile;
+using WeSociety.Domain.Aggregates.UserProfileRoot;
 using WeSociety.Domain.Aggregates.UserRoot;
 
 namespace WeSociety.Application.Mapping
@@ -15,6 +17,8 @@ namespace WeSociety.Application.Mapping
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
                 .ForSourceMember(dest => dest.Password, opt => opt.DoNotValidate());
+
+            CreateMap<UserProfile, GetSearchUserProfileDto>().ReverseMap();
         }
     }
 }

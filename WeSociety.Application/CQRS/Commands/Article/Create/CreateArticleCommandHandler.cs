@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Nest;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WeSociety.Application.CQRS.BaseModels;
 using WeSociety.Application.Helpers;
+using WeSociety.Application.Interfaces;
 using WeSociety.Application.Responses;
+using WeSociety.Domain.Aggregates.ArticleRoot;
 using WeSociety.Domain.Interfaces;
 
 namespace WeSociety.Application.CQRS.Commands.Article.Create
@@ -14,10 +12,12 @@ namespace WeSociety.Application.CQRS.Commands.Article.Create
     public class CreateArticleCommandHandler : ICommandHandler<CreateArticleCommand, Response>
     {
         private readonly IUnitOfWork _uow;
+        private readonly IElasticSearchService<Domain.Aggregates.ArticleRoot.Article> _elasticSearchService;
 
-        public CreateArticleCommandHandler(IUnitOfWork uow)
+        public CreateArticleCommandHandler(IUnitOfWork uow, IElasticSearchService<Domain.Aggregates.ArticleRoot.Article> elasticSearchService)
         {
             _uow = uow;
+            _elasticSearchService = elasticSearchService;
         }
 
         public async Task<Response> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
@@ -26,14 +26,17 @@ namespace WeSociety.Application.CQRS.Commands.Article.Create
             var userProfile = await _uow.UserProfiles.Get(x => x.Id == request.UserProfileId);
             var newArticle = userProfile.AddArticle(
                 request.Title,
+                Guid.NewGuid().ToString(),
                 request.Content,
                 request.IsPublished,
                 request.CategoryId,
                 request.MainImage == null ? null : FileHelper.ConvertFileToByteArray(request.MainImage)
             );
 
-            //await _uow.Articles.Insert(newArticle);
             await _uow.UserProfiles.Update(userProfile);
+
+            //ELK INDEXING
+            var createRes = await _elasticSearchService.CreateIndex("articles", newArticle);
 
             return new SuccessResponse();
         }

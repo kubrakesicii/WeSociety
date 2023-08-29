@@ -1,4 +1,5 @@
-﻿using WeSociety.Domain.Aggregates.ArticleRoot.Entities;
+﻿using System.Collections.Specialized;
+using WeSociety.Domain.Aggregates.ArticleRoot.Entities;
 using WeSociety.Domain.Aggregates.CategoryRoot;
 using WeSociety.Domain.Aggregates.ReadingListRoot.Entities;
 using WeSociety.Domain.Aggregates.UserProfileRoot;
@@ -6,7 +7,7 @@ using WeSociety.Domain.Common;
 
 namespace WeSociety.Domain.Aggregates.ArticleRoot
 {
-    public class Article : Entity
+    public class Article : AggregateRoot
     {
 
         public string Title { get; private set; }
@@ -34,19 +35,26 @@ namespace WeSociety.Domain.Aggregates.ArticleRoot
         public IList<ArticleClap> ArticleClaps { get; private set; }
 
 
-        public Article(string title, string content, int isPublished, int categoryId, byte[]? mainImage, int userProfileId)
+        public Article(string title,string domain, string content, int isPublished, int categoryId, byte[]? mainImage, int userProfileId)
         {
             if (string.IsNullOrEmpty(title)) throw new ArgumentNullException(nameof(title));
             Title = title;
-            Domain = title.ToLower().Replace(" ", "-");
+            Domain = domain;
             Content = content;
             IsPublished = isPublished;
             MainImage = mainImage;
             CategoryId = categoryId;
-            UserProfileId = userProfileId == 0 ? throw new Exception("Profile must be exists") : userProfileId;
+            UserProfileId = userProfileId;
             ViewCount = 0;
             ArticleComments = new List<ArticleComment>();
             ArticleClaps = new List<ArticleClap>();
+        }
+
+        public Article(string title,string domain, string content)
+        {
+            Title = title;
+            Domain = domain;
+            Content = content;         
         }
 
         public void Publish()
@@ -57,7 +65,6 @@ namespace WeSociety.Domain.Aggregates.ArticleRoot
         public void Update(string title, string content, int categoryId, byte[]? mainImage)
         {
             Title = title;
-            Domain = title.ToLower().Replace(" ", "-");
             Content = content;
             MainImage = mainImage;
             CategoryId = categoryId;

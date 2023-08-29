@@ -13,7 +13,6 @@ namespace WeSociety.Application.Decorators
     {
         private readonly ICommandHandler<TCommand, TResponse> _commandHandler;
         private readonly IUnitOfWork _uow;
-
         public CommandHandlerDecorator(ICommandHandler<TCommand, TResponse> commandHandler, IUnitOfWork uow)
         {
             _commandHandler = commandHandler;

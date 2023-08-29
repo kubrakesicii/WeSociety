@@ -4,7 +4,7 @@ using WeSociety.Domain.Common;
 
 namespace WeSociety.Domain.Aggregates.ReadingListRoot
 {
-    public class ReadingList : Entity
+    public class ReadingList : AggregateRoot
     {
         public string Name { get; private set; }
         //Bir kullanıcıya bağlı liste

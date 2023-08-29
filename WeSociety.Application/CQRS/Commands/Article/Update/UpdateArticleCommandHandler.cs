@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Nest;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WeSociety.Application.CQRS.BaseModels;
 using WeSociety.Application.Helpers;
+using WeSociety.Application.Interfaces;
 using WeSociety.Application.Responses;
 using WeSociety.Domain.Interfaces;
 
@@ -13,10 +15,12 @@ namespace WeSociety.Application.CQRS.Commands.Article.Update
     public class UpdateArticleCommandHandler : ICommandHandler<UpdateArticleCommand, Response>
     {
         private readonly IUnitOfWork _uow;
+        private readonly IElasticSearchService<Domain.Aggregates.ArticleRoot.Article> _elasticSearchService;
 
-        public UpdateArticleCommandHandler(IUnitOfWork uow)
+        public UpdateArticleCommandHandler(IUnitOfWork uow,IElasticSearchService<Domain.Aggregates.ArticleRoot.Article> elasticSearchService)
         {
             _uow = uow;
+            _elasticSearchService = elasticSearchService;
         }
 
         public async Task<Response> Handle(UpdateArticleCommand request, CancellationToken cancellationToken)
@@ -28,8 +32,12 @@ namespace WeSociety.Application.CQRS.Commands.Article.Update
                 request.MainImage == null ? article.MainImage : FileHelper.ConvertFileToByteArray(request.MainImage)
             );
 
-            //await _uow.Articles.Update(article);   //EF Core change track edildigi icin update etmeye gerek duymadan degisikligi yansıtıyor
-            await _uow.SaveChangesAsync();
+
+            //ELK UPD
+            var query = new TermQuery { Field = "domain", Value = article.Domain };
+
+            await _elasticSearchService.GetDocument("articles", query); 
+
             return new SuccessResponse();
         }
     }

@@ -11,6 +11,8 @@ namespace WeSociety.Application.Mapping
                 .ForMember(dest => dest.ClapCount, opt => opt.MapFrom(src => src.ArticleClaps.Count))
                 .ForMember(dest => dest.CommentCount, opt => opt.MapFrom(src => src.ArticleComments.Count));
 
+            CreateMap<Article, GetSearchArticleDto>().ReverseMap();
+
         }
     }
 }

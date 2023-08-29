@@ -11,6 +11,7 @@ using WeSociety.Application.CQRS.Queries.Article.GetAllByProfile;
 using WeSociety.Application.CQRS.Queries.Article.GetAllDrafts;
 using WeSociety.Application.CQRS.Queries.Article.GetAllPopulars;
 using WeSociety.Application.CQRS.Queries.Article.GetById;
+using WeSociety.Application.CQRS.Queries.Search.SearchELK;
 using WeSociety.Domain.Aggregates.UserRoot;
 
 namespace WeSociety.API.Controllers
@@ -74,6 +75,7 @@ namespace WeSociety.API.Controllers
             return Ok(await _mediator.Send(new GetAllArticlesByProfileQuery {UserProfileId=userProfileId, PageIndex = pageIndex, PageSize = pageSize }));
         }
 
+        
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromForm] UpdateArticleCommand updateArticleCommand)
         {
