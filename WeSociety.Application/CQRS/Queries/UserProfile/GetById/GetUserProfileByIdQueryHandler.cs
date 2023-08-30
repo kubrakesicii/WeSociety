@@ -34,9 +34,6 @@ namespace WeSociety.Application.CQRS.Queries.UserProfile.GetById
             userProfileDto.FollowingsCount = userProfile.Followings.Count();
             userProfileDto.FollowersCount = userProfile.Followers.Count();
 
-            //ELK INDEX
-            await _elasticSearchService.CreateIndex("users", new Domain.Aggregates.UserProfileRoot.UserProfile(userProfile.FullName,userProfile.Bio,userProfile.UserId));
-
             return new SuccessDataResponse<GetUserProfileDto>(userProfileDto);
         }
     }

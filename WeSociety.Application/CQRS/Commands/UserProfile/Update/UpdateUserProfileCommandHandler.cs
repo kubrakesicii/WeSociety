@@ -10,6 +10,7 @@ using WeSociety.Application.Exceptions;
 using WeSociety.Application.Helpers;
 using WeSociety.Application.Interfaces;
 using WeSociety.Application.Responses;
+using WeSociety.Domain.Aggregates.UserProfileRoot;
 using WeSociety.Domain.Interfaces;
 
 namespace WeSociety.Application.CQRS.Commands.UserProfile.Update
@@ -41,6 +42,11 @@ namespace WeSociety.Application.CQRS.Commands.UserProfile.Update
                 request.Linkedin);
             await _uow.UserProfiles.Update(profile);
             var returnDto = _mapper.Map<GetUpdateUserDto>(profile);
+
+
+            //ELK UPDATE
+            await _elasticSearchService.AddOrUpdateAsync("users",profile.UserId,
+                new Domain.Aggregates.UserProfileRoot.UserProfile(profile.FullName, profile.Bio, profile.UserId));
 
 
             return new SuccessDataResponse<GetUpdateUserDto>(returnDto);

@@ -34,9 +34,9 @@ namespace WeSociety.Application.CQRS.Commands.Article.Update
 
 
             //ELK UPD
-            var query = new TermQuery { Field = "domain", Value = article.Domain };
+            await _elasticSearchService.AddOrUpdateAsync("articles",article.Domain,
+                new Domain.Aggregates.ArticleRoot.Article(article.Title, article.Domain, article.Content));
 
-            await _elasticSearchService.GetDocument("articles", query); 
 
             return new SuccessResponse();
         }

@@ -26,11 +26,11 @@ namespace WeSociety.Application.CQRS.Queries.Search.SearchELK
         public async Task<DataResponse<GetSearchResultDto>> Handle(SearchELKQuery request, CancellationToken cancellationToken)
         {
             var searchResults = new GetSearchResultDto();
-            var artResponse = await _elasticSearchArticleService.Search("articles", request.SearchKey);
+            var artResponse = await _elasticSearchArticleService.SearchAsync("articles", request.SearchKey);
             var articleDtos = _mapper.Map<List<GetSearchArticleDto>>(artResponse);
             searchResults.Articles = articleDtos;
 
-            var userResponse = await _elasticSearchUserService.Search("users", request.SearchKey);
+            var userResponse = await _elasticSearchUserService.SearchAsync("users", request.SearchKey);
             var userDtos = _mapper.Map<List<GetSearchUserProfileDto>>(userResponse);
             searchResults.Users = userDtos;
 

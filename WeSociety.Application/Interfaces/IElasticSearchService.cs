@@ -10,11 +10,11 @@ namespace WeSociety.Application.Interfaces
 {
     public interface IElasticSearchService<T> where T : AggregateRoot
     {
-        Task<bool> CheckIndex(string indexName);
-        Task<IndexResponse> CreateIndex(string indexName, T doc);
-        Task<IndexResponse> IndexDocument(string indexName, T doc);
-        Task<List<T>> Search(string indexName, string searchKey);
+        Task<bool> CheckIndexAsync(string indexName);
+        Task<IndexResponse> CreateIndexAsync(string indexName,string docId, T doc);
+        Task<IndexResponse> IndexDocumentAsync(string indexName, string docId, T doc);
+        Task<List<T>> SearchAsync(string indexName, string searchKey);
 
-        Task GetDocument(string indexName, QueryContainer predicate);
+        Task AddOrUpdateAsync(string indexName, string docId, T doc);
     }
 }

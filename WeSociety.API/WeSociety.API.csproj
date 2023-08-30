@@ -19,7 +19,6 @@
   <ItemGroup>
     <ProjectReference Include="..\WeSociety.Application\WeSociety.Application.csproj" />
     <ProjectReference Include="..\WeSociety.Infrastructure\WeSociety.Infrastructure.csproj" />
-    <ProjectReference Include="..\WeSociety.Persistence\WeSociety.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

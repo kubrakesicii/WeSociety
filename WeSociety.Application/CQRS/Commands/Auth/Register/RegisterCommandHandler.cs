@@ -43,7 +43,7 @@ namespace WeSociety.Application.CQRS.Commands.Auth.Register
                 await _uow.UserProfiles.Insert(userProfile);
 
                 //ELK INDEXING
-                var createRes = await _elasticSearchService.CreateIndex("userProfiles", userProfile);
+                var createRes = await _elasticSearchService.CreateIndexAsync("users", newUser.Id, new Domain.Aggregates.UserProfileRoot.UserProfile("","",newUser.Id));
             }
       
             return new SuccessDataResponse<GetUserDto>(_mapper.Map<GetUserDto>(newUser));

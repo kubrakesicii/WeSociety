@@ -1,9 +1,7 @@
 ﻿using WeSociety.Persistence;
 using WeSociety.Application;
 using WeSociety.Infrastructure;
-using WeSociety.API.Middlewares;
 using WeSociety.API;
-using Swashbuckle.AspNetCore.SwaggerUI;
 
 DotNetEnv.Env.Load();
 

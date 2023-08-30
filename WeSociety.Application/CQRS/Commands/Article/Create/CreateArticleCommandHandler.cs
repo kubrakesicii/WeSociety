@@ -36,7 +36,7 @@ namespace WeSociety.Application.CQRS.Commands.Article.Create
             await _uow.UserProfiles.Update(userProfile);
 
             //ELK INDEXING
-            var createRes = await _elasticSearchService.CreateIndex("articles", newArticle);
+            var createRes = await _elasticSearchService.CreateIndexAsync("articles", newArticle.Domain, newArticle);
 
             return new SuccessResponse();
         }
