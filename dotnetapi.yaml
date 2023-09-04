@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: dotnetapi
-        image: kubraakesici/dotnet-api:1.0
+        image: kubraakesici/dotnet-api:1.1
         ports:
         - containerPort: 5000
         env:
@@ -45,6 +45,26 @@ spec:
             secretKeyRef:
               name: dotnetapi-secret
               key: db-password
+        - name: ELK_BASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: dotnetapi-secret
+              key: elk-base-url
+        - name: ELK_DEFAULT_IND
+          valueFrom:
+            secretKeyRef:
+              name: dotnetapi-secret
+              key: elk-default-ind
+        - name: ELK_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: dotnetapi-secret
+              key: elk-username
+        - name: ELK_PASS
+          valueFrom:
+            secretKeyRef:
+              name: dotnetapi-secret
+              key: elk-password
           
 ---
 apiVersion: v1

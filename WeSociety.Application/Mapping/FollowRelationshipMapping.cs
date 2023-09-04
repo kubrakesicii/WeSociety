@@ -4,7 +4,7 @@ using WeSociety.Domain.Aggregates.UserProfileRoot.Entities;
 
 namespace WeSociety.Application.Mapping
 {
-    internal class FollowRelationshipMapping : Profile
+    public class FollowRelationshipMapping : Profile
     {
         public FollowRelationshipMapping() {
             CreateMap<FollowRelationship, GetFollowerDto>()

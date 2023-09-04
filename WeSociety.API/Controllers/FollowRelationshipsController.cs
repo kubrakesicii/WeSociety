@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
@@ -22,12 +23,14 @@ namespace WeSociety.API.Controllers
         }
 
         [HttpPost("Follow")]
+        [Authorize]
         public async Task<IActionResult> Insert([FromBody] FollowUserProfileCommand followUserProfileCommand)
         {
             return Ok(await _mediator.Send(followUserProfileCommand));
         }
 
         [HttpPost("UnFollow")]
+        [Authorize]
         public async Task<IActionResult> Delete([FromBody] UnfollowUserProfileCommand unfollowUserProfileCommand)
         {
             return Ok(await _mediator.Send(unfollowUserProfileCommand));

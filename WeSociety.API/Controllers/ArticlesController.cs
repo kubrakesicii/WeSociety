@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
@@ -21,32 +22,22 @@ namespace WeSociety.API.Controllers
     public class ArticlesController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly UserManager<AppUser> _userManager;
 
-        public ArticlesController(IMediator mediator, UserManager<AppUser> userManager)
+        public ArticlesController(IMediator mediator)
         {
             _mediator = mediator;
-            _userManager = userManager;
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Insert([FromForm] CreateArticleCommand createArticleCommand)
         {
             return Ok(await _mediator.Send(createArticleCommand));
         }
 
         [HttpGet]
-        [Helpers.Authorize]
-
         public async Task<IActionResult> GetAll([FromQuery] string? searchKey, [FromQuery] int categoryId, [FromQuery] int pageIndex, [FromQuery] int pageSize)
         {
-            AppUser user = await _userManager.GetUserAsync(HttpContext.User);
-            var name = User.Identity.Name;
-            var auth = HttpContext.User.Identity.IsAuthenticated;
-            //var email = HttpContext.User.Claims.FirstOrDefault(x => x.Type.Equals("email")).Value;
-
-            var savedToken = await HttpContext.GetTokenAsync("Bearer","token");
-
             return Ok(await _mediator.Send(new GetAllArticlesQuery() {SearchKey=searchKey, CategoryId=categoryId, PageIndex=pageIndex,PageSize=pageSize}));
         }
 
@@ -77,12 +68,14 @@ namespace WeSociety.API.Controllers
 
         
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> Update([FromForm] UpdateArticleCommand updateArticleCommand)
         {
             return Ok(await _mediator.Send(updateArticleCommand));
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             return Ok(await _mediator.Send(new DeleteArticleCommand() { Id=id }));

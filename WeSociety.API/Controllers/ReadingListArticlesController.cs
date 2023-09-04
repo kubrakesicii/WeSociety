@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
@@ -21,6 +22,7 @@ namespace WeSociety.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> InsertReadingArticle([FromBody] CreateReadingListArticleCommand command)
         {
             return Ok(await _mediator.Send(command));
@@ -40,6 +42,7 @@ namespace WeSociety.API.Controllers
 
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteReadingArticle([FromRoute] int id)
         {
             return Ok(await _mediator.Send(new DeleteReadingListArticleCommand { Id=id}));

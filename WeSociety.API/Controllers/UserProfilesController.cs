@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WeSociety.Application.CQRS.Commands.UserProfile.Create;
@@ -19,6 +20,7 @@ namespace WeSociety.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Insert([FromForm] CreateUserProfileCommand createUserProfileCommand)
         {
             return Ok(await _mediator.Send(createUserProfileCommand));
@@ -31,6 +33,7 @@ namespace WeSociety.API.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> Update([FromForm] UpdateUserProfileCommand updateUserProfileCommand)
         {
             return Ok(await _mediator.Send(updateUserProfileCommand));

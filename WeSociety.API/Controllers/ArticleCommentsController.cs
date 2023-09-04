@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using WeSociety.Application.CQRS.Commands.ArticleComment.Create;
@@ -18,6 +19,7 @@ namespace WeSociety.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Insert([FromBody] CreateArticleCommentCommand command)
         {
             return Ok(await _mediator.Send(command));

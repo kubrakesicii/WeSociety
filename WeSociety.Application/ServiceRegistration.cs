@@ -20,7 +20,7 @@ using WeSociety.Domain.Aggregates.ArticleRoot;
 
 namespace WeSociety.Application
 {
-    public static class ServiceRegistrations
+    public static class ServiceRegistration
     {
         public static void AddApplicationServices(this IServiceCollection services)
         {

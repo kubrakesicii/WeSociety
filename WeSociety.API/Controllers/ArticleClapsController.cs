@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
@@ -19,6 +20,7 @@ namespace WeSociety.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Insert([FromBody] CreateArticleClapCommand command)
         {
             return Ok(await _mediator.Send(command));
