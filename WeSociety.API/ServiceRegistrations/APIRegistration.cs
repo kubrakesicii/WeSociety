@@ -4,9 +4,9 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using WeSociety.API.Middlewares;
 
-namespace WeSociety.API
+namespace WeSociety.API.ServiceRegistrations
 {
-    public static class ServiceRegistration
+    public static class APIRegistration
     {
         public static void AddAPIServices(this IServiceCollection services)
         {
@@ -16,7 +16,7 @@ namespace WeSociety.API
 
             services.AddControllers();
             services.AddEndpointsApiExplorer();
-            services.AddMvc(opt => opt.EnableEndpointRouting=false);
+            services.AddMvc(opt => opt.EnableEndpointRouting = false);
 
             //SWAGGER
             services.AddSwaggerGen(c =>
@@ -30,7 +30,7 @@ namespace WeSociety.API
 
                 var securitySchema = new OpenApiSecurityScheme
                 {
-                    Description ="JWT Authorization by using Bearer Scheme. For example: \"Authorization: Bearer {token}\"",
+                    Description = "JWT Authorization by using Bearer Scheme. For example: \"Authorization: Bearer {token}\"",
                     Name = "Authorization",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.Http,
@@ -72,9 +72,7 @@ namespace WeSociety.API
             //MIDDLEWARES
 
             //Bu midde her istekte gidecek, token geldiyse claimse ilgili user bilgileri atanacak, gelmediyse boş olacak
-            app.UseWhen(httpContext => (!httpContext.Request.Path.Equals("/Auth/Login") &&
-            !httpContext.Request.Path.Equals("/Auth/Register")),
-            subApp => subApp.UseAuthMiddleware());
+            app.UseMockResponseMiddleware();
 
 
             app.UseCustomExceptionMiddleware();

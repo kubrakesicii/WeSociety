@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using WeSociety.Application.CQRS.Behaviors;
+using WeSociety.Application.Decorators;
 
 namespace WeSociety.Application.ServiceRegistrations
 {
@@ -21,6 +22,9 @@ namespace WeSociety.Application.ServiceRegistrations
             //To scan and register all the validator classes from the current assembly
             services.AddValidatorsFromAssembly(assembly);
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
+            services.Decorate(typeof(IRequestHandler<,>), typeof(CommandHandlerDecorator<,>));
+
         }
 
     }
