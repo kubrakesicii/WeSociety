@@ -54,7 +54,9 @@ namespace WeSociety.Domain.Aggregates.ArticleRoot
         {
             Title = title;
             Domain = domain;
-            Content = content;         
+            Content = content;
+            ArticleComments = new List<ArticleComment>();
+            ArticleClaps = new List<ArticleClap>();
         }
 
         public void Publish()

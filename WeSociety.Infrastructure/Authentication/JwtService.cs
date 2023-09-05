@@ -57,7 +57,10 @@ namespace WeSociety.Infrastructure.Authentication
                     new Claim("id", id),
                     new Claim("email", email),
                     new Claim("username", username),
-                    new Claim("profileId", profileId.ToString())
+                    new Claim("profileId", profileId.ToString()),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim(JwtRegisteredClaimNames.Aud, _jwtSetting.Audience),
+                    new Claim(JwtRegisteredClaimNames.Iss, _jwtSetting.Issuer)
                 },
                 signingCredentials: signingCredentials
             );

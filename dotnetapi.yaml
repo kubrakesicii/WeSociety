@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: dotnetapi
-        image: kubraakesici/dotnet-api:1.1
+        image: kubraakesici/dotnet-api:1.5
         ports:
         - containerPort: 5000
         env:
