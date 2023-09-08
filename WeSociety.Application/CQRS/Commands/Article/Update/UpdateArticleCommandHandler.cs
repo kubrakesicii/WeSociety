@@ -1,18 +1,12 @@
-﻿using Nest;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 using WeSociety.Application.CQRS.BaseModels;
 using WeSociety.Application.Helpers;
 using WeSociety.Application.Interfaces;
-using WeSociety.Application.Responses;
 using WeSociety.Domain.Interfaces;
 
 namespace WeSociety.Application.CQRS.Commands.Article.Update
 {
-    public class UpdateArticleCommandHandler : ICommandHandler<UpdateArticleCommand, Response>
+    public class UpdateArticleCommandHandler : ICommandHandler<UpdateArticleCommand, Unit>
     {
         private readonly IUnitOfWork _uow;
         private readonly IElasticSearchService<Domain.Aggregates.ArticleRoot.Article> _elasticSearchService;
@@ -23,7 +17,7 @@ namespace WeSociety.Application.CQRS.Commands.Article.Update
             _elasticSearchService = elasticSearchService;
         }
 
-        public async Task<Response> Handle(UpdateArticleCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateArticleCommand request, CancellationToken cancellationToken)
         {
             var article = await _uow.Articles.Get(x => x.Id == request.id);
             article.Update(request.Title,
@@ -32,13 +26,11 @@ namespace WeSociety.Application.CQRS.Commands.Article.Update
                 request.MainImage == null ? article.MainImage : FileHelper.ConvertFileToByteArray(request.MainImage)
             );
 
-
             //ELK UPD
             await _elasticSearchService.AddOrUpdateAsync("articles",article.Domain,
                 new Domain.Aggregates.ArticleRoot.Article(article.Title, article.Domain, article.Content));
 
-
-            return new SuccessResponse();
+            return await Task.FromResult(Unit.Value);
         }
     }
 }

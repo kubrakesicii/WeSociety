@@ -1,30 +1,25 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
+using WeSociety.API.Base;
 using WeSociety.Application.CQRS.Queries.Search.SearchELK;
-using WeSociety.Application.DTO.ReadingList;
 using WeSociety.Application.DTO.Search;
+using WeSociety.Application.Responses;
 
 namespace WeSociety.API.Controllers
 {
-    [Route("[controller]")]
-    [ApiController]
-    public class SearchsController : ControllerBase
+    public class SearchsController : WeSocietyController
     {
-        private readonly IMediator _mediator;
-
-        public SearchsController(IMediator mediator)
+        public SearchsController(IMediator mediator) : base(mediator)
         {
-            _mediator = mediator;
         }
 
         [HttpGet]
-        [SwaggerResponse(200, Type = typeof(GetSearchResultDto))]
-        public async Task<IActionResult> Search([FromQuery, Required] string searchKey)
+        [ProducesResponseType(typeof(DataResponse<GetSearchResultDto>), StatusCodes.Status200OK)]
+        public async Task<DataResponse<GetSearchResultDto>> Search([FromQuery, Required] string searchKey)
         {
-            return Ok(await _mediator.Send(new SearchELKQuery() { SearchKey = searchKey }));
+            var res = await _mediator.Send(new SearchELKQuery() { SearchKey = searchKey });
+            return ProduceResponse(res);
         }
 
     }

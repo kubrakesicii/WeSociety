@@ -1,15 +1,13 @@
 ﻿using AutoMapper;
-using Nest;
 using WeSociety.Application.CQRS.BaseModels;
 using WeSociety.Application.DTO.Article;
 using WeSociety.Application.DTO.Search;
 using WeSociety.Application.DTO.UserProfile;
 using WeSociety.Application.Interfaces;
-using WeSociety.Application.Responses;
 
 namespace WeSociety.Application.CQRS.Queries.Search.SearchELK
 {
-    public class SearchELKQueryHandler : IQueryHandler<SearchELKQuery, DataResponse<GetSearchResultDto>>
+    public class SearchELKQueryHandler : IQueryHandler<SearchELKQuery, GetSearchResultDto>
     {
         private readonly IElasticSearchService<Domain.Aggregates.ArticleRoot.Article> _elasticSearchArticleService;
         private readonly IElasticSearchService<Domain.Aggregates.UserProfileRoot.UserProfile> _elasticSearchUserService;
@@ -23,7 +21,7 @@ namespace WeSociety.Application.CQRS.Queries.Search.SearchELK
             _mapper = mapper;
         }
 
-        public async Task<DataResponse<GetSearchResultDto>> Handle(SearchELKQuery request, CancellationToken cancellationToken)
+        public async Task<GetSearchResultDto> Handle(SearchELKQuery request, CancellationToken cancellationToken)
         {
             var searchResults = new GetSearchResultDto();
             var artResponse = await _elasticSearchArticleService.SearchAsync("articles", request.SearchKey);
@@ -34,7 +32,7 @@ namespace WeSociety.Application.CQRS.Queries.Search.SearchELK
             var userDtos = _mapper.Map<List<GetSearchUserProfileDto>>(userResponse);
             searchResults.Users = userDtos;
 
-            return new SuccessDataResponse<GetSearchResultDto>(searchResults);
+            return searchResults;
 
         }
     }

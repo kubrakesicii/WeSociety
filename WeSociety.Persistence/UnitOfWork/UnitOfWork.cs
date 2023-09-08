@@ -45,5 +45,25 @@ namespace WeSociety.Persistence.UnitOfWork
         {
             return await _context.SaveChangesAsync();
         }
+
+        public bool Save()
+        {
+            bool returnValue = true;
+            using (var dbContextTransaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    _context.SaveChanges();
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception)
+                {
+                    returnValue = false;
+                    dbContextTransaction.Rollback();
+                }
+            }
+
+            return returnValue;
+        }
     }
 }

@@ -1,15 +1,12 @@
-﻿using Nest;
-using System;
+﻿using MediatR;
 using WeSociety.Application.CQRS.BaseModels;
 using WeSociety.Application.Helpers;
 using WeSociety.Application.Interfaces;
-using WeSociety.Application.Responses;
-using WeSociety.Domain.Aggregates.ArticleRoot;
 using WeSociety.Domain.Interfaces;
 
 namespace WeSociety.Application.CQRS.Commands.Article.Create
 {
-    public class CreateArticleCommandHandler : ICommandHandler<CreateArticleCommand, Response>
+    public class CreateArticleCommandHandler : ICommandHandler<CreateArticleCommand, Unit>
     {
         private readonly IUnitOfWork _uow;
         private readonly IElasticSearchService<Domain.Aggregates.ArticleRoot.Article> _elasticSearchService;
@@ -20,7 +17,7 @@ namespace WeSociety.Application.CQRS.Commands.Article.Create
             _elasticSearchService = elasticSearchService;
         }
 
-        public async Task<Response> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
         {
             //var profileId = await _authService.GetProfileId();
             var userProfile = await _uow.UserProfiles.Get(x => x.Id == request.UserProfileId);
@@ -37,8 +34,7 @@ namespace WeSociety.Application.CQRS.Commands.Article.Create
 
             //ELK INDEXING
             var createRes = await _elasticSearchService.CreateIndexAsync("articles", newArticle.Domain, newArticle);
-
-            return new SuccessResponse();
+            return await Task.FromResult(Unit.Value);
         }
     }
 }

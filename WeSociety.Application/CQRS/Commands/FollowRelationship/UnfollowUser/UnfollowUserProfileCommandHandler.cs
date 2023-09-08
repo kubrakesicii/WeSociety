@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 using WeSociety.Application.CQRS.BaseModels;
-using WeSociety.Application.CQRS.Commands.FollowRelationship.Follow;
-using WeSociety.Application.Responses;
 using WeSociety.Domain.Interfaces;
 
 namespace WeSociety.Application.CQRS.Commands.FollowRelationship.UnfollowUser
 {
-    public class UnfollowUserProfileCommandHandler : ICommandHandler<UnfollowUserProfileCommand, Response>
+    public class UnfollowUserProfileCommandHandler : ICommandHandler<UnfollowUserProfileCommand, Unit>
     {
         private readonly IUnitOfWork _uow;
 
@@ -19,12 +13,12 @@ namespace WeSociety.Application.CQRS.Commands.FollowRelationship.UnfollowUser
             _uow = uow;
         }
 
-        public async Task<Response> Handle(UnfollowUserProfileCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UnfollowUserProfileCommand request, CancellationToken cancellationToken)
         {
             var userProfile = await _uow.UserProfiles.GetWithUserAsync(request.FollowerId);
             var removedFollowRel = userProfile.UnFollow(request.FollowingId);
             await _uow.FollowRelationships.Delete(removedFollowRel);
-            return new SuccessResponse();
+            return await Task.FromResult(Unit.Value);
         }
     }
 }

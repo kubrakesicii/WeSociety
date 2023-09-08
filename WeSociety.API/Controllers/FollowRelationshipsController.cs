@@ -1,67 +1,67 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
+using WeSociety.API.Base;
 using WeSociety.Application.CQRS.Commands.FollowRelationship.Follow;
 using WeSociety.Application.CQRS.Commands.FollowRelationship.UnfollowUser;
 using WeSociety.Application.CQRS.Queries.FollowRelationship.GetAllFollowers;
 using WeSociety.Application.CQRS.Queries.FollowRelationship.GetAllFollowings;
 using WeSociety.Application.CQRS.Queries.FollowRelationship.GetIsFollowing;
-using WeSociety.Application.DTO.Category;
 using WeSociety.Application.DTO.FollowRelationship;
+using WeSociety.Application.Responses;
 using WeSociety.Domain.Pagination;
 
 namespace WeSociety.API.Controllers
 {
-    [Route("[controller]")]
-    [ApiController]
-    public class FollowRelationshipsController : ControllerBase
+    public class FollowRelationshipsController : WeSocietyController
     {
-        private readonly IMediator _mediator;
-
-        public FollowRelationshipsController(IMediator mediator)
+        public FollowRelationshipsController(IMediator mediator) : base(mediator)
         {
-            _mediator = mediator;
         }
 
         [HttpPost("Follow")]
         [Authorize]
-        [SwaggerResponse(200, null)]
-        public async Task<IActionResult> Insert([FromBody] FollowUserProfileCommand followUserProfileCommand)
+        [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]
+        public async Task<Response> Insert([FromBody] FollowUserProfileCommand followUserProfileCommand)
         {
-            return Ok(await _mediator.Send(followUserProfileCommand));
+            await _mediator.Send(followUserProfileCommand);
+            return ProduceResponse();
+
         }
 
         [HttpPost("UnFollow")]
         [Authorize]
-        [SwaggerResponse(200, null)]
-        public async Task<IActionResult> Delete([FromBody] UnfollowUserProfileCommand unfollowUserProfileCommand)
+        [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]
+        public async Task<Response> Delete([FromBody] UnfollowUserProfileCommand unfollowUserProfileCommand)
         {
-            return Ok(await _mediator.Send(unfollowUserProfileCommand));
+            await _mediator.Send(unfollowUserProfileCommand);
+            return ProduceResponse();
         }
 
         [HttpGet("Followers")]
-        [SwaggerResponse(200, Type = typeof(PaginatedList<GetFollowerDto>))]
-        public async Task<IActionResult> GetAllFollowers([FromQuery,Required] int userProfileId, [FromQuery] int pageIndex, [FromQuery] int pageSize)
+        [ProducesResponseType(typeof(DataResponse<PaginatedList<GetFollowerDto>>), StatusCodes.Status200OK)]
+        public async Task<DataResponse<PaginatedList<GetFollowerDto>>> GetAllFollowers([FromQuery,Required] int userProfileId, [FromQuery] int pageIndex, [FromQuery] int pageSize)
         {
-            return Ok(await _mediator.Send(new GetAllFollowersQuery { UserProfileId = userProfileId, PageIndex = pageIndex, PageSize = pageSize }));
+            var res = await _mediator.Send(new GetAllFollowersQuery { UserProfileId = userProfileId, PageIndex = pageIndex, PageSize = pageSize });
+            return ProduceResponse(res);
         }
 
         [HttpGet("Followings")]
-        [SwaggerResponse(200, Type = typeof(PaginatedList<GetFollowingDto>))]
-        public async Task<IActionResult> GetAllFollowings([FromQuery, Required] int userProfileId, [FromQuery] int pageIndex, [FromQuery] int pageSize)
+        [ProducesResponseType(typeof(DataResponse<PaginatedList<GetFollowingDto>>), StatusCodes.Status200OK)]
+        public async Task<DataResponse<PaginatedList<GetFollowingDto>>> GetAllFollowings([FromQuery, Required] int userProfileId, [FromQuery] int pageIndex, [FromQuery] int pageSize)
         {
-            return Ok(await _mediator.Send(new GetAllFollowingsQuery { UserProfileId = userProfileId, PageIndex = pageIndex, PageSize = pageSize }));
+            var res = await _mediator.Send(new GetAllFollowingsQuery { UserProfileId = userProfileId, PageIndex = pageIndex, PageSize = pageSize });
+            return ProduceResponse(res);
         }
 
 
         [HttpGet("IsFollow")]
-        [SwaggerResponse(200, Type = typeof(bool))]
-        public async Task<IActionResult> GetIsFollowing([FromQuery, Required] int followerId, [FromQuery, Required] int followingId)
+        [ProducesResponseType(typeof(DataResponse<bool>), StatusCodes.Status200OK)]
+        public async Task<DataResponse<bool>> GetIsFollowing([FromQuery, Required] int followerId, [FromQuery, Required] int followingId)
         {
-            return Ok(await _mediator.Send(new GetIsFollowingQuery { FollowerId = followerId, FollowingId = followingId }));
+            var res = await _mediator.Send(new GetIsFollowingQuery { FollowerId = followerId, FollowingId = followingId });
+            return ProduceResponse(res);
         }
     }
 }

@@ -1,39 +1,36 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
+using WeSociety.API.Base;
 using WeSociety.Application.CQRS.Commands.ArticleComment.Create;
 using WeSociety.Application.CQRS.Queries.ArticleComment.GetAllByArticle;
-using WeSociety.Application.DTO.ArticleClap;
 using WeSociety.Application.DTO.ArticleComment;
+using WeSociety.Application.Responses;
 
 namespace WeSociety.API.Controllers
 {
-    [Route("[controller]")]
-    [ApiController]
-    public class ArticleCommentsController : ControllerBase
+    public class ArticleCommentsController : WeSocietyController
     {
-        private readonly IMediator _mediator;
-
-        public ArticleCommentsController(IMediator mediator)
+        public ArticleCommentsController(IMediator mediator) : base(mediator)
         {
-            _mediator = mediator;
         }
 
         [HttpPost]
         [Authorize]
-        [SwaggerResponse(200, null)]
-        public async Task<IActionResult> Insert([FromBody] CreateArticleCommentCommand command)
+        [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]
+        public async Task<Response> Insert([FromBody] CreateArticleCommentCommand command)
         {
-            return Ok(await _mediator.Send(command));
+            await _mediator.Send(command);
+            return ProduceResponse();
         }
 
         [HttpGet]
-        [SwaggerResponse(200, Type = typeof(List<GetArticleCommentDto>))]
-        public async Task<IActionResult> GetAll([FromQuery, Required] int articleId)
+        [ProducesResponseType(typeof(DataResponse<List<GetArticleCommentDto>>), StatusCodes.Status200OK)]
+        public async Task<DataResponse<List<GetArticleCommentDto>>> GetAll([FromQuery, Required] int articleId)
         {
-            return Ok(await _mediator.Send(new GetAllArticleCommentsByArticleQuery { ArticleId = articleId }));
+            var res = await _mediator.Send(new GetAllArticleCommentsByArticleQuery { ArticleId = articleId });
+            return ProduceResponse(res);
         }
     }
 }

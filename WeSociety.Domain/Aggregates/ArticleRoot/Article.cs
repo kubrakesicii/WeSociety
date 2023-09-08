@@ -19,10 +19,10 @@ namespace WeSociety.Domain.Aggregates.ArticleRoot
         public int UserProfileId { get; private set; }
         public UserProfile UserProfile { get; private set; }
 
-        public byte[]? MainImage { get; set; }
+        public byte[]? MainImage { get; private set; }
 
-        public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public int CategoryId { get; private set; }
+        public Category Category { get; private set; }
 
 
         public IList<ArticleComment> ArticleComments { get; set; }

@@ -30,7 +30,7 @@ namespace WeSociety.Persistence.Repositories
 
         public async Task<T> Get(Expression<Func<T, bool>> filter)
         {
-            return await _dbSet.FirstOrDefaultAsync(filter);
+            return await _dbSet.AsNoTracking().FirstOrDefaultAsync(filter);
         }
 
         public async Task<T> Insert(T entity)
@@ -46,7 +46,7 @@ namespace WeSociety.Persistence.Repositories
 
         public async Task<List<T>> GetAll(Expression<Func<T, bool>> filter = null)
         {
-            return await _dbSet.Where(filter).ToListAsync();
+            return await _dbSet.Where(filter).AsNoTracking().ToListAsync();
         }
     }
 }

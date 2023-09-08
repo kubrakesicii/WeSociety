@@ -19,7 +19,6 @@ namespace WeSociety.Persistence.ServiceRegistrations
         {
             services.AddDbContext<WeSocietyDbContext>(options =>
             {
-                //options.UseSqlServer($"Server={config["DB_SERVER"]}; Database={config["DB_NAME"]}; Trusted_Connection=True;TrustServerCertificate=True;");
                 options.UseSqlServer($"Server={config["DB_SERVER"]}; User={config["DB_USER"]}; Password={config["DB_PASSWORD"]} ;Database={config["DB_NAME"]};TrustServerCertificate=True;");
             });
 

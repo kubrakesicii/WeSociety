@@ -1,10 +1,10 @@
-﻿using WeSociety.Application.CQRS.BaseModels;
-using WeSociety.Application.Responses;
+﻿using MediatR;
+using WeSociety.Application.CQRS.BaseModels;
 using WeSociety.Domain.Interfaces;
 
 namespace WeSociety.Application.CQRS.Commands.FollowRelationship.Follow
 {
-    public class FollowUserProfileCommandHandler : ICommandHandler<FollowUserProfileCommand, Response>
+    public class FollowUserProfileCommandHandler : ICommandHandler<FollowUserProfileCommand, Unit>
     {
         private readonly IUnitOfWork _uow;
 
@@ -13,11 +13,11 @@ namespace WeSociety.Application.CQRS.Commands.FollowRelationship.Follow
             _uow = uow;
         }
 
-        public async Task<Response> Handle(FollowUserProfileCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(FollowUserProfileCommand request, CancellationToken cancellationToken)
         {
             var userProfile = await _uow.UserProfiles.Get(x => x.Id == request.FollowerId);
             var newFollowRel = userProfile.Follow(request.FollowingId);
-            return new SuccessResponse();
+            return await Task.FromResult(Unit.Value);
         }
     }
 }

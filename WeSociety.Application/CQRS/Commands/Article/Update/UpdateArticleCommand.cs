@@ -1,16 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WeSociety.Application.CQRS.BaseModels;
-using WeSociety.Application.Responses;
 
 namespace WeSociety.Application.CQRS.Commands.Article.Update
 {
-    public class UpdateArticleCommand : ICommand<Response>
+    public class UpdateArticleCommand : ICommand<Unit>
     {
         [FromRoute]
         public int id { get; set; }

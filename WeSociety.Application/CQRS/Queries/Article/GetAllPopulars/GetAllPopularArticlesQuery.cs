@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WeSociety.Application.CQRS.BaseModels;
+﻿using WeSociety.Application.CQRS.BaseModels;
 using WeSociety.Application.DTO.Article;
-using WeSociety.Application.Responses;
 
 namespace WeSociety.Application.CQRS.Queries.Article.GetAllPopulars
 {
-    public class GetAllPopularArticlesQuery : IQuery<DataResponse<List<GetArticleDto>>>
+    public class GetAllPopularArticlesQuery : IQuery<List<GetArticleDto>>
     {
         public int CategoryId { get; set; }
     }

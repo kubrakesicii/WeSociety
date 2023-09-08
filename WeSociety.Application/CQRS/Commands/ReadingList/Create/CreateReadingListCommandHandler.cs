@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ using WeSociety.Domain.Interfaces;
 
 namespace WeSociety.Application.CQRS.Commands.ReadingList.Create
 {
-    public class CreateReadingListCommandHandler : ICommandHandler<CreateReadingListCommand, Response>
+    public class CreateReadingListCommandHandler : ICommandHandler<CreateReadingListCommand, Unit>
     {
         private readonly IUnitOfWork _uow;
 
@@ -18,12 +19,11 @@ namespace WeSociety.Application.CQRS.Commands.ReadingList.Create
             _uow = uow;
         }
 
-        public async Task<Response> Handle(CreateReadingListCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateReadingListCommand request, CancellationToken cancellationToken)
         {
             var userProfile = await _uow.UserProfiles.Get(x => x.Id == request.UserProfileId);
             userProfile.AddReadingList(request.Name);
-
-            return new SuccessResponse();
+            return await Task.FromResult(Unit.Value);
         }
     }
 }

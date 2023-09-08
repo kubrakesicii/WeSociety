@@ -19,5 +19,7 @@ namespace WeSociety.Domain.Interfaces
         public IArticleClapRepository ArticleClaps { get; }
 
         Task<int> SaveChangesAsync();
+
+        bool Save();
     }
 }

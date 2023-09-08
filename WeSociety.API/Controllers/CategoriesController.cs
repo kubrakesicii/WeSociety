@@ -1,29 +1,25 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
+using WeSociety.API.Base;
 using WeSociety.Application.CQRS.Queries.Category.GetAll;
+using WeSociety.Application.DTO.Article;
 using WeSociety.Application.DTO.Category;
-using WeSociety.Application.DTO.User;
+using WeSociety.Application.Responses;
 
 namespace WeSociety.API.Controllers
 {
-    [Route("[controller]")]
-    [ApiController]
-    public class CategoriesController : ControllerBase
+    public class CategoriesController : WeSocietyController
     {
-        private readonly IMediator _mediator;
-
-        public CategoriesController(IMediator mediator)
+        public CategoriesController(IMediator mediator) : base(mediator)
         {
-            _mediator = mediator;
         }
 
         [HttpGet]
-        [SwaggerResponse(200, Type = typeof(List<GetCategoryDto>))]
-        public async Task<IActionResult> GetAll()
+        [ProducesResponseType(typeof(DataResponse<List<GetArticleDto>>), StatusCodes.Status200OK)]
+        public async Task<DataResponse<List<GetCategoryDto>>> GetAll()
         {
-            return Ok(await _mediator.Send(new GetAllCategoriesQuery()));
+            var res = await _mediator.Send(new GetAllCategoriesQuery());
+            return ProduceResponse(res);
         }
     }
 }

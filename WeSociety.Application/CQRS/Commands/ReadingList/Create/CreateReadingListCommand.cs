@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ using WeSociety.Application.Responses;
 
 namespace WeSociety.Application.CQRS.Commands.ReadingList.Create
 {
-    public class CreateReadingListCommand : ICommand<Response>
+    public class CreateReadingListCommand : ICommand<Unit>
     {
         public int UserProfileId { get; set; }  //Auht userdan alınacak
         public string Name { get; set; }

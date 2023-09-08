@@ -53,9 +53,6 @@ namespace WeSociety.Persistence.Repositories
 
         public async Task<List<Article>> GetAllWithUserProfileByProfile(int currentUserId, int userProfileId)
         {
-            //Expression<Func<Article, bool>> publishCond = x => true;
-            //if (userProfileId != currentUserId) publishCond = x => x.IsPublished == 1;
-
             return await _context.Articles.Include(x => x.UserProfile).Include(x => x.Category)
                 .Where(x => x.UserProfileId==userProfileId)
                 .Where(x => x.IsPublished==1)

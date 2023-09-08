@@ -4,13 +4,12 @@ using System.Security.Claims;
 using WeSociety.Application.CQRS.BaseModels;
 using WeSociety.Application.DTO.User;
 using WeSociety.Application.Exceptions;
-using WeSociety.Application.Responses;
 using WeSociety.Domain.Aggregates.UserRoot;
 using WeSociety.Domain.Interfaces;
 
 namespace WeSociety.Application.CQRS.Commands.Auth.Login
 {
-    public class LoginCommandHandler : ICommandHandler<LoginCommand, DataResponse<GetLoginUserDto>>
+    public class LoginCommandHandler : ICommandHandler<LoginCommand, GetLoginUserDto>
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IMapper _mapper;
@@ -24,7 +23,7 @@ namespace WeSociety.Application.CQRS.Commands.Auth.Login
             _uow = uow;
         }
 
-        public async Task<DataResponse<GetLoginUserDto>> Handle(LoginCommand request, CancellationToken cancellationToken)
+        public async Task<GetLoginUserDto> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             var signInUser = await _userManager.FindByEmailAsync(request.Email);
             if (signInUser == null) throw new LoginException();
@@ -43,7 +42,7 @@ namespace WeSociety.Application.CQRS.Commands.Auth.Login
             loggedUser.UserProfileId = userProfile.Id;
             loggedUser.Image = userProfile.Image;
 
-            return new SuccessDataResponse<GetLoginUserDto>(loggedUser);
+            return loggedUser;
         }
     }
 }

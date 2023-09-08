@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WeSociety.Application.CQRS.BaseModels;
-using WeSociety.Application.Responses;
+﻿using WeSociety.Application.CQRS.BaseModels;
 using WeSociety.Domain.Interfaces;
 
 namespace WeSociety.Application.CQRS.Queries.FollowRelationship.GetIsFollowing
 {
-    public class GetIsFollowingQueryHandler : IQueryHandler<GetIsFollowingQuery, DataResponse<bool>>
+    public class GetIsFollowingQueryHandler : IQueryHandler<GetIsFollowingQuery, bool>
     {
         private readonly IUnitOfWork _uow;
 
@@ -18,9 +12,9 @@ namespace WeSociety.Application.CQRS.Queries.FollowRelationship.GetIsFollowing
             _uow = uow;
         }
 
-        public async Task<DataResponse<bool>> Handle(GetIsFollowingQuery request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(GetIsFollowingQuery request, CancellationToken cancellationToken)
         {
-            return new SuccessDataResponse<bool>(await _uow.FollowRelationships.IsFollowing(request.FollowerId, request.FollowingId));
+            return await _uow.FollowRelationships.IsFollowing(request.FollowerId, request.FollowingId);
         }
     }
 }

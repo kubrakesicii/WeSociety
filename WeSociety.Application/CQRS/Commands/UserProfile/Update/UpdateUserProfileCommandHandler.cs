@@ -1,21 +1,14 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WeSociety.Application.CQRS.BaseModels;
 using WeSociety.Application.DTO.User;
 using WeSociety.Application.Exceptions;
 using WeSociety.Application.Helpers;
 using WeSociety.Application.Interfaces;
-using WeSociety.Application.Responses;
-using WeSociety.Domain.Aggregates.UserProfileRoot;
 using WeSociety.Domain.Interfaces;
 
 namespace WeSociety.Application.CQRS.Commands.UserProfile.Update
 {
-    public class UpdateUserProfileCommandHandler : ICommandHandler<UpdateUserProfileCommand, DataResponse<GetUpdateUserDto>>
+    public class UpdateUserProfileCommandHandler : ICommandHandler<UpdateUserProfileCommand, GetUpdateUserDto>
     {
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
@@ -29,7 +22,7 @@ namespace WeSociety.Application.CQRS.Commands.UserProfile.Update
             _elasticSearchService = elasticSearchService;
         }
 
-        public async Task<DataResponse<GetUpdateUserDto>> Handle(UpdateUserProfileCommand request, CancellationToken cancellationToken)
+        public async Task<GetUpdateUserDto> Handle(UpdateUserProfileCommand request, CancellationToken cancellationToken)
         {
             var profile = await _uow.UserProfiles.GetWithUserAsync(request.id);
             if (profile == null) throw new NotfoundException();
@@ -46,10 +39,9 @@ namespace WeSociety.Application.CQRS.Commands.UserProfile.Update
 
             //ELK UPDATE
             await _elasticSearchService.AddOrUpdateAsync("users",profile.UserId,
-                new Domain.Aggregates.UserProfileRoot.UserProfile(profile.FullName, profile.Bio, profile.UserId));
+                new Domain.Aggregates.UserProfileRoot.UserProfile(profile.Id,profile.FullName, profile.Bio));
 
-
-            return new SuccessDataResponse<GetUpdateUserDto>(returnDto);
+            return returnDto;
         }
     }
 }

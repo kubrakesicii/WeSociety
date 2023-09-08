@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
+using WeSociety.API.Base;
 using WeSociety.Application.CQRS.Commands.Article.Create;
 using WeSociety.Application.CQRS.Commands.Article.Delete;
 using WeSociety.Application.CQRS.Commands.Article.Update;
@@ -12,80 +12,84 @@ using WeSociety.Application.CQRS.Queries.Article.GetAllDrafts;
 using WeSociety.Application.CQRS.Queries.Article.GetAllPopulars;
 using WeSociety.Application.CQRS.Queries.Article.GetById;
 using WeSociety.Application.DTO.Article;
+using WeSociety.Application.Responses;
 using WeSociety.Domain.Pagination;
 
 namespace WeSociety.API.Controllers
 {
-    [Route("[controller]")]
-    [ApiController]
-    public class ArticlesController : ControllerBase
+    public class ArticlesController : WeSocietyController
     {
-        private readonly IMediator _mediator;
-
-        public ArticlesController(IMediator mediator)
+        public ArticlesController(IMediator mediator) : base(mediator)
         {
-            _mediator = mediator;
         }
 
         [HttpPost]
         [Authorize]
-        [SwaggerResponse(200, null)]
-        public async Task<IActionResult> Insert([FromForm] CreateArticleCommand createArticleCommand)
+        [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]
+        public async Task<Response> Insert([FromForm] CreateArticleCommand createArticleCommand)
         {
-            return Ok(await _mediator.Send(createArticleCommand));
+            await _mediator.Send(createArticleCommand);
+            return ProduceResponse();
         }
 
         [HttpGet]
-        [SwaggerResponse(200, Type = typeof(PaginatedList<GetArticleDto>))]
-        public async Task<IActionResult> GetAll([FromQuery] string? searchKey, [FromQuery] int categoryId, [FromQuery] int pageIndex, [FromQuery] int pageSize)
+        [ProducesResponseType(typeof(DataResponse<PaginatedList<GetArticleDto>>), StatusCodes.Status200OK)]
+        public async Task<DataResponse<PaginatedList<GetArticleDto>>> GetAll([FromQuery] string? searchKey, [FromQuery] int categoryId, [FromQuery] int pageIndex, [FromQuery] int pageSize)
         {
-            return Ok(await _mediator.Send(new GetAllArticlesQuery() {SearchKey=searchKey, CategoryId=categoryId, PageIndex=pageIndex,PageSize=pageSize}));
+            var res = await _mediator.Send(new GetAllArticlesQuery() { SearchKey = searchKey, CategoryId = categoryId, PageIndex = pageIndex, PageSize = pageSize });
+            return ProduceResponse(res);
         }
 
         [HttpGet("Popular")]
-        [SwaggerResponse(200, Type = typeof(List<GetArticleDto>))]
-        public async Task<IActionResult> GetAllPopulars([FromQuery] int categoryId)
+        [ProducesResponseType(typeof(DataResponse<List<GetArticleDto>>), StatusCodes.Status200OK)]
+        public async Task<DataResponse<List<GetArticleDto>>> GetAllPopulars([FromQuery] int categoryId)
         {
-            return Ok(await _mediator.Send(new GetAllPopularArticlesQuery() { CategoryId = categoryId }));
+            var res = await _mediator.Send(new GetAllPopularArticlesQuery() { CategoryId = categoryId });
+            return ProduceResponse(res);
         }
 
         [HttpGet("Drafts")]
-        [SwaggerResponse(200, Type = typeof(PaginatedList<GetArticleDto>))]
-        public async Task<IActionResult> GetAllDrafts([FromQuery, Required] int userProfileId,[FromQuery] int pageIndex, [FromQuery] int pageSize)
+        [ProducesResponseType(typeof(DataResponse<List<GetArticleDto>>), StatusCodes.Status200OK)]
+        public async Task<DataResponse<PaginatedList<GetArticleDto>>> GetAllDrafts([FromQuery, Required] int userProfileId,[FromQuery] int pageIndex, [FromQuery] int pageSize)
         {
-            return Ok(await _mediator.Send(new GetAllArticleDraftsByUserQuery() { UserProfileId=userProfileId,PageIndex = pageIndex,PageSize=pageSize }));
+            var res = await _mediator.Send(new GetAllArticleDraftsByUserQuery() { UserProfileId = userProfileId, PageIndex = pageIndex, PageSize = pageSize });
+            return ProduceResponse(res);
         }
 
 
         [HttpGet("{id}")]
-        [SwaggerResponse(200, Type = typeof(GetArticleDto))]
-        public async Task<IActionResult> Get([FromRoute] int id)
+        [ProducesResponseType(typeof(DataResponse<GetArticleDto>), StatusCodes.Status200OK)]
+        public async Task<DataResponse<GetArticleDto>> Get([FromRoute] int id)
         {
-            return Ok(await _mediator.Send(new GetArticleByIdQuery() { Id=id }));
+            var res = await _mediator.Send(new GetArticleByIdQuery() { Id = id });
+            return ProduceResponse(res);
         }
 
         [HttpGet("ByUser")]
-        [SwaggerResponse(200, Type = typeof(PaginatedList<GetArticleDto>))]
-        public async Task<IActionResult> GetAllByUser([FromQuery,Required] int userProfileId, [FromQuery] int pageIndex, [FromQuery] int pageSize)
+        [ProducesResponseType(typeof(DataResponse<PaginatedList<GetArticleDto>>), StatusCodes.Status200OK)]
+        public async Task<DataResponse<PaginatedList<GetArticleDto>>> GetAllByUser([FromQuery,Required] int userProfileId, [FromQuery] int pageIndex, [FromQuery] int pageSize)
         {
-            return Ok(await _mediator.Send(new GetAllArticlesByProfileQuery {UserProfileId=userProfileId, PageIndex = pageIndex, PageSize = pageSize }));
+            var res = await _mediator.Send(new GetAllArticlesByProfileQuery { UserProfileId = userProfileId, PageIndex = pageIndex, PageSize = pageSize });
+            return ProduceResponse(res);
         }
 
         
         [HttpPut("{id}")]
         [Authorize]
-        [SwaggerResponse(200, null)]
-        public async Task<IActionResult> Update([FromForm] UpdateArticleCommand updateArticleCommand)
+        [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]
+        public async Task<Response> Update([FromForm] UpdateArticleCommand updateArticleCommand)
         {
-            return Ok(await _mediator.Send(updateArticleCommand));
+            await _mediator.Send(updateArticleCommand);
+            return ProduceResponse();
         }
 
         [HttpDelete("{id}")]
         [Authorize]
-        [SwaggerResponse(200, null)]
-        public async Task<IActionResult> Delete([FromRoute] int id)
+        [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]
+        public async Task<Response> Delete([FromRoute] int id)
         {
-            return Ok(await _mediator.Send(new DeleteArticleCommand() { Id=id }));
+            await _mediator.Send(new DeleteArticleCommand() { Id = id });
+            return ProduceResponse();
         }
     }
 }

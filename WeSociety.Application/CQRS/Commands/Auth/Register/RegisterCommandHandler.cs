@@ -4,13 +4,12 @@ using WeSociety.Application.CQRS.BaseModels;
 using WeSociety.Application.DTO.User;
 using WeSociety.Application.Exceptions;
 using WeSociety.Application.Interfaces;
-using WeSociety.Application.Responses;
 using WeSociety.Domain.Aggregates.UserRoot;
 using WeSociety.Domain.Interfaces;
 
 namespace WeSociety.Application.CQRS.Commands.Auth.Register
 {
-    public class RegisterCommandHandler : ICommandHandler<RegisterCommand, DataResponse<GetUserDto>>
+    public class RegisterCommandHandler : ICommandHandler<RegisterCommand, GetUserDto>
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IMapper _mapper;
@@ -25,7 +24,7 @@ namespace WeSociety.Application.CQRS.Commands.Auth.Register
             _elasticSearchService = elasticSearchService;
         }
 
-        public async Task<DataResponse<GetUserDto>> Handle(RegisterCommand request, CancellationToken cancellationToken)
+        public async Task<GetUserDto> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
             var existingUser = await _userManager.FindByEmailAsync(request.Email);
             if (existingUser != null) throw new UserExistsException();   //Email must be unique
@@ -43,10 +42,10 @@ namespace WeSociety.Application.CQRS.Commands.Auth.Register
                 await _uow.UserProfiles.Insert(userProfile);
 
                 //ELK INDEXING
-                var createRes = await _elasticSearchService.CreateIndexAsync("users", newUser.Id, new Domain.Aggregates.UserProfileRoot.UserProfile("","",newUser.Id));
+                var createRes = await _elasticSearchService.CreateIndexAsync("users", newUser.Id, new Domain.Aggregates.UserProfileRoot.UserProfile(0,"",newUser.Id));
             }
-      
-            return new SuccessDataResponse<GetUserDto>(_mapper.Map<GetUserDto>(newUser));
+
+            return _mapper.Map<GetUserDto>(newUser);
         }
     }
 }

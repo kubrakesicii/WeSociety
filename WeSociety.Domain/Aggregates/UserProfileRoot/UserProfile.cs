@@ -32,9 +32,9 @@ namespace WeSociety.Domain.Aggregates.UserProfileRoot
         public IList<ArticleClap> ArticleClaps { get; private set; }
 
         //Kullancıı birden fazla okuma listesi olabilir
-        public IList<ReadingList> ReadingLists { get; set; }
+        public IList<ReadingList> ReadingLists { get; private set; }
 
-        public IList<ArticleComment> ArticleComments { get; set; }
+        public IList<ArticleComment> ArticleComments { get; private set; }
 
 
 
@@ -69,11 +69,11 @@ namespace WeSociety.Domain.Aggregates.UserProfileRoot
             ArticleClaps = new List<ArticleClap> { };
         }
 
-        public UserProfile(string fullname, string bio, string userId)
+        public UserProfile(int id,string fullname, string bio)
         {
+            Id = id;
             FullName = fullname;
             Bio = bio;          
-            UserId=userId;
         }
 
         public void Update(byte[]? image, string fullName, string bio, string github, string linkedin)

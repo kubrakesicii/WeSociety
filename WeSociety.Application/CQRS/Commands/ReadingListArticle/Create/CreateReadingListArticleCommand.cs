@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 using WeSociety.Application.CQRS.BaseModels;
-using WeSociety.Application.Responses;
 
 namespace WeSociety.Application.CQRS.Commands.ReadingListArticle.Create
 {
-    public class CreateReadingListArticleCommand : ICommand<Response>
+    public class CreateReadingListArticleCommand : ICommand<Unit>
     {
         public int ReadingListId { get; set; }
         public int ArticleId { get; set; }

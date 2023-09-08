@@ -1,45 +1,41 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
+using WeSociety.API.Base;
 using WeSociety.Application.CQRS.Commands.UserProfile.Create;
 using WeSociety.Application.CQRS.Commands.UserProfile.Update;
 using WeSociety.Application.CQRS.Queries.UserProfile.GetById;
-using WeSociety.Application.DTO.Search;
 using WeSociety.Application.DTO.UserProfile;
+using WeSociety.Application.Responses;
 
 namespace WeSociety.API.Controllers
 {
-    [Route("[controller]")]
-    [ApiController]
-    public class UserProfilesController : ControllerBase
+    public class UserProfilesController : WeSocietyController
     {
-        private readonly IMediator _mediator;
-
-        public UserProfilesController(IMediator mediator)
+        public UserProfilesController(IMediator mediator) : base(mediator)
         {
-            _mediator = mediator;
         }
 
         [HttpPost]
         [Authorize]
-        [SwaggerResponse(200, Type = null)]
-        public async Task<IActionResult> Insert([FromForm] CreateUserProfileCommand createUserProfileCommand)
+        [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]
+        public async Task<Response> Insert([FromForm] CreateUserProfileCommand createUserProfileCommand)
         {
-            return Ok(await _mediator.Send(createUserProfileCommand));
+            await _mediator.Send(createUserProfileCommand);
+            return ProduceResponse();
         }
 
         [HttpGet("{id}")]
-        [SwaggerResponse(200, Type = typeof(GetUserProfileDto))]
-        public async Task<IActionResult> Get([FromRoute] int id)
+        [ProducesResponseType(typeof(DataResponse<GetUserProfileDto>), StatusCodes.Status200OK)]
+        public async Task<DataResponse<GetUserProfileDto>> Get([FromRoute] int id)
         {
-            return Ok(await _mediator.Send(new GetUserProfileByIdQuery() { Id = id }));
+            var res = await _mediator.Send(new GetUserProfileByIdQuery() { Id = id });
+            return ProduceResponse(res);
         }
 
         [HttpPut("{id}")]
         [Authorize]
-        [SwaggerResponse(200, null)]
+        [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]
         public async Task<IActionResult> Update([FromForm] UpdateUserProfileCommand updateUserProfileCommand)
         {
             return Ok(await _mediator.Send(updateUserProfileCommand));

@@ -1,16 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using WeSociety.Application.CQRS.BaseModels;
-using WeSociety.Application.Responses;
 
 namespace WeSociety.Application.CQRS.Commands.UserProfile.Create
 {
-    public class CreateUserProfileCommand : ICommand<Response>
+    public class CreateUserProfileCommand : ICommand<Unit>
     {
         public string UserId { get; set; }
         public string FullName { get; set; }

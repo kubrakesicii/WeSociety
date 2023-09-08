@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ using WeSociety.Domain.Interfaces;
 
 namespace WeSociety.Application.CQRS.Commands.ReadingListArticle.Delete
 {
-    public class DeleteReadingListArticleCommandHandler : ICommandHandler<DeleteReadingListArticleCommand, Response>
+    public class DeleteReadingListArticleCommandHandler : ICommandHandler<DeleteReadingListArticleCommand, Unit>
     {
         private readonly IUnitOfWork _uow;
 
@@ -18,13 +19,11 @@ namespace WeSociety.Application.CQRS.Commands.ReadingListArticle.Delete
             _uow = uow;
         }
 
-        public async Task<Response> Handle(DeleteReadingListArticleCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteReadingListArticleCommand request, CancellationToken cancellationToken)
         {
             var readingListArt = await _uow.ReadingListArticles.Get(x => x.Id == request.Id);
-
             await _uow.ReadingListArticles.Delete(readingListArt);
-            await _uow.SaveChangesAsync();
-            return new SuccessResponse();
+            return await Task.FromResult(Unit.Value);
         }
     }
 }

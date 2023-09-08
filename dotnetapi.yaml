@@ -16,54 +16,54 @@ spec:
     spec:
       containers:
       - name: dotnetapi
-        image: kubraakesici/dotnet-api:1.5
+        image: kubraakesici/dotnet-api:1.6
         ports:
         - containerPort: 5000
         env:
         - name: JWT_SECURITY_KEY
           valueFrom:
             secretKeyRef:
-              name: dotnetapi-secret
+              name: dotnet-api-secret
               key: jwt-security-key
         - name: DB_SERVER
           valueFrom:
             secretKeyRef:
-              name: dotnetapi-secret
+              name: dotnet-api-secret
               key: db-server
         - name: DB_NAME
           valueFrom:
             secretKeyRef:
-              name: dotnetapi-secret
+              name: dotnet-api-secret
               key: db-name
         - name: DB_USER
           valueFrom:
             secretKeyRef:
-              name: dotnetapi-secret
+              name: dotnet-api-secret
               key: db-user
         - name: DB_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: dotnetapi-secret
+              name: dotnet-api-secret
               key: db-password
         - name: ELK_BASE_URL
           valueFrom:
             secretKeyRef:
-              name: dotnetapi-secret
+              name: dotnet-api-secret
               key: elk-base-url
         - name: ELK_DEFAULT_IND
           valueFrom:
             secretKeyRef:
-              name: dotnetapi-secret
+              name: dotnet-api-secret
               key: elk-default-ind
         - name: ELK_USERNAME
           valueFrom:
             secretKeyRef:
-              name: dotnetapi-secret
+              name: dotnet-api-secret
               key: elk-username
         - name: ELK_PASS
           valueFrom:
             secretKeyRef:
-              name: dotnetapi-secret
+              name: dotnet-api-secret
               key: elk-password
           
 ---

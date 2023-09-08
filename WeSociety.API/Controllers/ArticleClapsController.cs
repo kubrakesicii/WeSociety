@@ -1,40 +1,36 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
+using WeSociety.API.Base;
 using WeSociety.Application.CQRS.Commands.ArticleClap.Create;
 using WeSociety.Application.CQRS.Queries.ArticleClap.GetAllByArticle;
-using WeSociety.Application.DTO.Article;
 using WeSociety.Application.DTO.ArticleClap;
+using WeSociety.Application.Responses;
 
 namespace WeSociety.API.Controllers
 {
-    [Route("[controller]")]
-    [ApiController]
-    public class ArticleClapsController : ControllerBase
+    public class ArticleClapsController : WeSocietyController
     {
-        private readonly IMediator _mediator;
-
-        public ArticleClapsController(IMediator mediator)
+        public ArticleClapsController(IMediator mediator) : base(mediator)
         {
-            _mediator = mediator;
         }
 
         [HttpPost]
         [Authorize]
-        [SwaggerResponse(200, null)]
-        public async Task<IActionResult> Insert([FromBody] CreateArticleClapCommand command)
+        [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]
+        public async Task<Response> Insert([FromBody] CreateArticleClapCommand command)
         {
-            return Ok(await _mediator.Send(command));
+            await _mediator.Send(command);
+            return ProduceResponse();
         }
 
         [HttpGet]
-        [SwaggerResponse(200, Type = typeof(List<GetClapUserDto>))]
-        public async Task<IActionResult> GetAllByArticle([FromQuery, Required] int articleId)
+        [ProducesResponseType(typeof(DataResponse<List<GetClapUserDto>>), StatusCodes.Status200OK)]
+        public async Task<DataResponse<List<GetClapUserDto>>> GetAllByArticle([FromQuery, Required] int articleId)
         {
-            return Ok(await _mediator.Send(new GetAllClappingUsersQuery { ArticleId=articleId}));
+            var res = await _mediator.Send(new GetAllClappingUsersQuery { ArticleId = articleId });
+            return ProduceResponse(res);
         }
     }
 }

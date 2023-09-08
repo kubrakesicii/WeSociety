@@ -1,36 +1,33 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
+using WeSociety.API.Base;
 using WeSociety.Application.CQRS.Commands.Auth.Login;
 using WeSociety.Application.CQRS.Commands.Auth.Register;
-using WeSociety.Application.DTO.ArticleComment;
 using WeSociety.Application.DTO.User;
+using WeSociety.Application.Responses;
 
 namespace WeSociety.API.Controllers
 {
-    [Route("[controller]")]
-    [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthController : WeSocietyController
     {
-        private readonly IMediator _mediator;
-
-        public AuthController(IMediator mediator)
+        public AuthController(IMediator mediator) : base(mediator)
         {
-            _mediator = mediator;
         }
 
         [HttpPost("Register")]
-        [SwaggerResponse(200, null)]
-        public async Task<IActionResult> Register([FromBody] RegisterCommand registerCommand)
+        [ProducesResponseType(typeof(DataResponse<GetUserDto>), StatusCodes.Status200OK)]
+        public async Task<DataResponse<GetUserDto>> Register([FromBody] RegisterCommand registerCommand)
         {
-            return Ok(await _mediator.Send(registerCommand));
+            var res = await _mediator.Send(registerCommand);
+            return ProduceResponse(res);
         }
 
         [HttpPost("Login")]
-        [SwaggerResponse(200, Type = typeof(GetLoginUserDto))]
-        public async Task<IActionResult> Login([FromBody] LoginCommand loginCommand)
+        [ProducesResponseType(typeof(DataResponse<GetLoginUserDto>), StatusCodes.Status200OK)]
+        public async Task<DataResponse<GetLoginUserDto>> Login([FromBody] LoginCommand loginCommand)
         {
-            return Ok(await _mediator.Send(loginCommand));
+            var res = await _mediator.Send(loginCommand);
+            return ProduceResponse(res);
         }
     }
 }

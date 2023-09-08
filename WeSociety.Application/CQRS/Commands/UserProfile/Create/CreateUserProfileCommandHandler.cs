@@ -1,12 +1,11 @@
-﻿using WeSociety.Application.CQRS.BaseModels;
+﻿using MediatR;
+using WeSociety.Application.CQRS.BaseModels;
 using WeSociety.Application.Helpers;
-using WeSociety.Application.Responses;
 using WeSociety.Domain.Interfaces;
-
 
 namespace WeSociety.Application.CQRS.Commands.UserProfile.Create
 {
-    public class CreateUserProfileCommandHandler : ICommandHandler<CreateUserProfileCommand, Response>
+    public class CreateUserProfileCommandHandler : ICommandHandler<CreateUserProfileCommand, Unit>
     {
         private readonly IUnitOfWork _uow;
 
@@ -15,7 +14,7 @@ namespace WeSociety.Application.CQRS.Commands.UserProfile.Create
             _uow = uow;
         }
 
-        public async Task<Response> Handle(CreateUserProfileCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateUserProfileCommand request, CancellationToken cancellationToken)
         {
             Domain.Aggregates.UserProfileRoot.UserProfile newUserProfile = new Domain.Aggregates.UserProfileRoot.UserProfile(
                 FileHelper.ConvertFileToByteArray(request.Image),
@@ -27,7 +26,7 @@ namespace WeSociety.Application.CQRS.Commands.UserProfile.Create
                 );
 
             await _uow.UserProfiles.Insert(newUserProfile);
-            return new SuccessResponse();
+            return await Task.FromResult(Unit.Value);
         }
     }
 }
