@@ -23,35 +23,35 @@ namespace WeSociety.API.Controllers
         [HttpPost]
         [Authorize]
         [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]
-        public async Task<Response> InsertReadingArticle([FromBody] CreateReadingListArticleCommand command)
+        public async Task<Response> InsertReadingArticle([FromBody] CreateReadingListArticleCommand command, CancellationToken cancellationToken)
         {
-            await _mediator.Send(command);
+            await _mediator.Send(command, cancellationToken);
             return ProduceResponse();
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(DataResponse<List<GetArticleDto>>), StatusCodes.Status200OK)]
-        public async Task<DataResponse<List<GetArticleDto>>> GetArticles([FromQuery, Required] int readingListId)
+        public async Task<DataResponse<List<GetArticleDto>>> GetArticles([FromQuery, Required] int readingListId, CancellationToken cancellationToken)
         {
-            var res = await _mediator.Send(new GetAllArticlesByListQuery { ReadingListId = readingListId });
+            var res = await _mediator.Send(new GetAllArticlesByListQuery { ReadingListId = readingListId }, cancellationToken);
             return ProduceResponse(res);
         }
 
         [HttpGet("IsSaved")]
         [ProducesResponseType(typeof(DataResponse<GetIsSavedArticleDto>), StatusCodes.Status200OK)]
-        public async Task<DataResponse<GetIsSavedArticleDto>> GetIsSaved([FromQuery, Required] int userProfileId, [FromQuery, Required] int articleId )
+        public async Task<DataResponse<GetIsSavedArticleDto>> GetIsSaved([FromQuery, Required] int userProfileId, [FromQuery, Required] int articleId, CancellationToken cancellationToken)
         {
-            var res = await _mediator.Send(new GetArticleIsSavedQuery { UserProfileId = userProfileId, ArticleId = articleId });
+            var res = await _mediator.Send(new GetArticleIsSavedQuery { UserProfileId = userProfileId, ArticleId = articleId },cancellationToken);
             return ProduceResponse(res);
         }
 
 
         [HttpDelete("{id}")]
         [Authorize]
-        [SwaggerResponse(200, null)]
-        public async Task<Response> DeleteReadingArticle([FromRoute] int id)
+        [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]
+        public async Task<Response> DeleteReadingArticle([FromRoute] int id, CancellationToken cancellationToken)
         {
-            await _mediator.Send(new DeleteReadingListArticleCommand { Id = id });
+            await _mediator.Send(new DeleteReadingListArticleCommand { Id = id },cancellationToken);
             return ProduceResponse();
         }
 

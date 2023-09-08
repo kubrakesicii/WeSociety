@@ -19,17 +19,17 @@ namespace WeSociety.API.Controllers
         [HttpPost]
         [Authorize]
         [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]
-        public async Task<Response> Insert([FromBody] CreateReadingListCommand command)
+        public async Task<Response> Insert([FromBody] CreateReadingListCommand command,CancellationToken cancellationToken)
         {
-            await _mediator.Send(command);
+            await _mediator.Send(command,cancellationToken);
             return ProduceResponse();
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(DataResponse<List<GetReadingListDto>>), StatusCodes.Status200OK)]
-        public async Task<DataResponse<List<GetReadingListDto>>> GetAll([FromQuery, Required] int userProfileId)
+        public async Task<DataResponse<List<GetReadingListDto>>> GetAll([FromQuery, Required] int userProfileId, CancellationToken cancellationToken)
         {
-            var res = await _mediator.Send(new GetAllReadingListsByUserQuery { UserProfileId = userProfileId });
+            var res = await _mediator.Send(new GetAllReadingListsByUserQuery { UserProfileId = userProfileId }, cancellationToken);
             return ProduceResponse(res);
         }
     }

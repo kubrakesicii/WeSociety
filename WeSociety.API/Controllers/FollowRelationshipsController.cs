@@ -23,9 +23,9 @@ namespace WeSociety.API.Controllers
         [HttpPost("Follow")]
         [Authorize]
         [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]
-        public async Task<Response> Insert([FromBody] FollowUserProfileCommand followUserProfileCommand)
+        public async Task<Response> Insert([FromBody] FollowUserProfileCommand followUserProfileCommand, CancellationToken cancellationToken)
         {
-            await _mediator.Send(followUserProfileCommand);
+            await _mediator.Send(followUserProfileCommand,cancellationToken);
             return ProduceResponse();
 
         }
@@ -33,34 +33,34 @@ namespace WeSociety.API.Controllers
         [HttpPost("UnFollow")]
         [Authorize]
         [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]
-        public async Task<Response> Delete([FromBody] UnfollowUserProfileCommand unfollowUserProfileCommand)
+        public async Task<Response> Delete([FromBody] UnfollowUserProfileCommand unfollowUserProfileCommand, CancellationToken cancellationToken)
         {
-            await _mediator.Send(unfollowUserProfileCommand);
+            await _mediator.Send(unfollowUserProfileCommand,cancellationToken);
             return ProduceResponse();
         }
 
         [HttpGet("Followers")]
         [ProducesResponseType(typeof(DataResponse<PaginatedList<GetFollowerDto>>), StatusCodes.Status200OK)]
-        public async Task<DataResponse<PaginatedList<GetFollowerDto>>> GetAllFollowers([FromQuery,Required] int userProfileId, [FromQuery] int pageIndex, [FromQuery] int pageSize)
+        public async Task<DataResponse<PaginatedList<GetFollowerDto>>> GetAllFollowers([FromQuery,Required] int userProfileId, [FromQuery] int pageIndex, [FromQuery] int pageSize, CancellationToken cancellationToken)
         {
-            var res = await _mediator.Send(new GetAllFollowersQuery { UserProfileId = userProfileId, PageIndex = pageIndex, PageSize = pageSize });
+            var res = await _mediator.Send(new GetAllFollowersQuery { UserProfileId = userProfileId, PageIndex = pageIndex, PageSize = pageSize },cancellationToken);
             return ProduceResponse(res);
         }
 
         [HttpGet("Followings")]
         [ProducesResponseType(typeof(DataResponse<PaginatedList<GetFollowingDto>>), StatusCodes.Status200OK)]
-        public async Task<DataResponse<PaginatedList<GetFollowingDto>>> GetAllFollowings([FromQuery, Required] int userProfileId, [FromQuery] int pageIndex, [FromQuery] int pageSize)
+        public async Task<DataResponse<PaginatedList<GetFollowingDto>>> GetAllFollowings([FromQuery, Required] int userProfileId, [FromQuery] int pageIndex, [FromQuery] int pageSize, CancellationToken cancellationToken)
         {
-            var res = await _mediator.Send(new GetAllFollowingsQuery { UserProfileId = userProfileId, PageIndex = pageIndex, PageSize = pageSize });
+            var res = await _mediator.Send(new GetAllFollowingsQuery { UserProfileId = userProfileId, PageIndex = pageIndex, PageSize = pageSize }, cancellationToken);
             return ProduceResponse(res);
         }
 
 
         [HttpGet("IsFollow")]
         [ProducesResponseType(typeof(DataResponse<bool>), StatusCodes.Status200OK)]
-        public async Task<DataResponse<bool>> GetIsFollowing([FromQuery, Required] int followerId, [FromQuery, Required] int followingId)
+        public async Task<DataResponse<bool>> GetIsFollowing([FromQuery, Required] int followerId, [FromQuery, Required] int followingId, CancellationToken cancellationToken)
         {
-            var res = await _mediator.Send(new GetIsFollowingQuery { FollowerId = followerId, FollowingId = followingId });
+            var res = await _mediator.Send(new GetIsFollowingQuery { FollowerId = followerId, FollowingId = followingId }, cancellationToken);
             return ProduceResponse(res);
         }
     }

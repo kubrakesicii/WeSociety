@@ -16,17 +16,17 @@ namespace WeSociety.API.Controllers
 
         [HttpPost("Register")]
         [ProducesResponseType(typeof(DataResponse<GetUserDto>), StatusCodes.Status200OK)]
-        public async Task<DataResponse<GetUserDto>> Register([FromBody] RegisterCommand registerCommand)
+        public async Task<DataResponse<GetUserDto>> Register([FromBody] RegisterCommand registerCommand, CancellationToken cancellationToken)
         {
-            var res = await _mediator.Send(registerCommand);
+            var res = await _mediator.Send(registerCommand,cancellationToken);
             return ProduceResponse(res);
         }
 
         [HttpPost("Login")]
         [ProducesResponseType(typeof(DataResponse<GetLoginUserDto>), StatusCodes.Status200OK)]
-        public async Task<DataResponse<GetLoginUserDto>> Login([FromBody] LoginCommand loginCommand)
+        public async Task<DataResponse<GetLoginUserDto>> Login([FromBody] LoginCommand loginCommand, CancellationToken cancellationToken)
         {
-            var res = await _mediator.Send(loginCommand);
+            var res = await _mediator.Send(loginCommand, cancellationToken);
             return ProduceResponse(res);
         }
     }

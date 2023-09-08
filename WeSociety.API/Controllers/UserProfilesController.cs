@@ -19,26 +19,26 @@ namespace WeSociety.API.Controllers
         [HttpPost]
         [Authorize]
         [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]
-        public async Task<Response> Insert([FromForm] CreateUserProfileCommand createUserProfileCommand)
+        public async Task<Response> Insert([FromForm] CreateUserProfileCommand createUserProfileCommand, CancellationToken cancellationToken)
         {
-            await _mediator.Send(createUserProfileCommand);
+            await _mediator.Send(createUserProfileCommand,cancellationToken);
             return ProduceResponse();
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(DataResponse<GetUserProfileDto>), StatusCodes.Status200OK)]
-        public async Task<DataResponse<GetUserProfileDto>> Get([FromRoute] int id)
+        public async Task<DataResponse<GetUserProfileDto>> Get([FromRoute] int id, CancellationToken cancellationToken)
         {
-            var res = await _mediator.Send(new GetUserProfileByIdQuery() { Id = id });
+            var res = await _mediator.Send(new GetUserProfileByIdQuery() { Id = id }, cancellationToken);
             return ProduceResponse(res);
         }
 
         [HttpPut("{id}")]
         [Authorize]
         [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]
-        public async Task<IActionResult> Update([FromForm] UpdateUserProfileCommand updateUserProfileCommand)
+        public async Task<IActionResult> Update([FromForm] UpdateUserProfileCommand updateUserProfileCommand, CancellationToken cancellationToken)
         {
-            return Ok(await _mediator.Send(updateUserProfileCommand));
+            return Ok(await _mediator.Send(updateUserProfileCommand,cancellationToken));
         }
     }
 }

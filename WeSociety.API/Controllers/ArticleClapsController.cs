@@ -19,17 +19,17 @@ namespace WeSociety.API.Controllers
         [HttpPost]
         [Authorize]
         [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]
-        public async Task<Response> Insert([FromBody] CreateArticleClapCommand command)
+        public async Task<Response> Insert([FromBody] CreateArticleClapCommand command, CancellationToken cancellationToken)
         {
-            await _mediator.Send(command);
+            await _mediator.Send(command,cancellationToken);
             return ProduceResponse();
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(DataResponse<List<GetClapUserDto>>), StatusCodes.Status200OK)]
-        public async Task<DataResponse<List<GetClapUserDto>>> GetAllByArticle([FromQuery, Required] int articleId)
+        public async Task<DataResponse<List<GetClapUserDto>>> GetAllByArticle([FromQuery, Required] int articleId, CancellationToken cancellationToken)
         {
-            var res = await _mediator.Send(new GetAllClappingUsersQuery { ArticleId = articleId });
+            var res = await _mediator.Send(new GetAllClappingUsersQuery { ArticleId = articleId },cancellationToken);
             return ProduceResponse(res);
         }
     }

@@ -26,17 +26,21 @@ namespace WeSociety.API.Controllers
         [HttpPost]
         [Authorize]
         [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]
-        public async Task<Response> Insert([FromForm] CreateArticleCommand createArticleCommand)
+        public async Task<Response> Insert([FromForm] CreateArticleCommand createArticleCommand, CancellationToken cancellationToken)
         {
-            await _mediator.Send(createArticleCommand);
+            await _mediator.Send(createArticleCommand,cancellationToken);
             return ProduceResponse();
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(DataResponse<PaginatedList<GetArticleDto>>), StatusCodes.Status200OK)]
-        public async Task<DataResponse<PaginatedList<GetArticleDto>>> GetAll([FromQuery] string? searchKey, [FromQuery] int categoryId, [FromQuery] int pageIndex, [FromQuery] int pageSize)
+        public async Task<DataResponse<PaginatedList<GetArticleDto>>> GetAll([FromQuery] string? searchKey, 
+            [FromQuery] int categoryId, 
+            [FromQuery] int pageIndex, 
+            [FromQuery] int pageSize, 
+            CancellationToken cancellationToken)
         {
-            var res = await _mediator.Send(new GetAllArticlesQuery() { SearchKey = searchKey, CategoryId = categoryId, PageIndex = pageIndex, PageSize = pageSize });
+            var res = await _mediator.Send(new GetAllArticlesQuery() { SearchKey = searchKey, CategoryId = categoryId, PageIndex = pageIndex, PageSize = pageSize }, cancellationToken);
             return ProduceResponse(res);
         }
 
@@ -50,9 +54,9 @@ namespace WeSociety.API.Controllers
 
         [HttpGet("Drafts")]
         [ProducesResponseType(typeof(DataResponse<List<GetArticleDto>>), StatusCodes.Status200OK)]
-        public async Task<DataResponse<PaginatedList<GetArticleDto>>> GetAllDrafts([FromQuery, Required] int userProfileId,[FromQuery] int pageIndex, [FromQuery] int pageSize)
+        public async Task<DataResponse<PaginatedList<GetArticleDto>>> GetAllDrafts([FromQuery, Required] int userProfileId,[FromQuery] int pageIndex, [FromQuery] int pageSize, CancellationToken cancellationToken)
         {
-            var res = await _mediator.Send(new GetAllArticleDraftsByUserQuery() { UserProfileId = userProfileId, PageIndex = pageIndex, PageSize = pageSize });
+            var res = await _mediator.Send(new GetAllArticleDraftsByUserQuery() { UserProfileId = userProfileId, PageIndex = pageIndex, PageSize = pageSize }, cancellationToken);
             return ProduceResponse(res);
         }
 
@@ -77,18 +81,18 @@ namespace WeSociety.API.Controllers
         [HttpPut("{id}")]
         [Authorize]
         [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]
-        public async Task<Response> Update([FromForm] UpdateArticleCommand updateArticleCommand)
+        public async Task<Response> Update([FromForm] UpdateArticleCommand updateArticleCommand, CancellationToken cancellationToken)
         {
-            await _mediator.Send(updateArticleCommand);
+            await _mediator.Send(updateArticleCommand, cancellationToken);
             return ProduceResponse();
         }
 
         [HttpDelete("{id}")]
         [Authorize]
         [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]
-        public async Task<Response> Delete([FromRoute] int id)
+        public async Task<Response> Delete([FromRoute] int id, CancellationToken cancellationToken)
         {
-            await _mediator.Send(new DeleteArticleCommand() { Id = id });
+            await _mediator.Send(new DeleteArticleCommand() { Id = id }, cancellationToken);
             return ProduceResponse();
         }
     }

@@ -16,9 +16,9 @@ namespace WeSociety.API.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(DataResponse<List<GetArticleDto>>), StatusCodes.Status200OK)]
-        public async Task<DataResponse<List<GetCategoryDto>>> GetAll()
+        public async Task<DataResponse<List<GetCategoryDto>>> GetAll(CancellationToken cancellationToken)
         {
-            var res = await _mediator.Send(new GetAllCategoriesQuery());
+            var res = await _mediator.Send(new GetAllCategoriesQuery(),cancellationToken);
             return ProduceResponse(res);
         }
     }

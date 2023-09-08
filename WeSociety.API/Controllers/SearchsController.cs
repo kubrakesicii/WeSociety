@@ -16,9 +16,9 @@ namespace WeSociety.API.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(DataResponse<GetSearchResultDto>), StatusCodes.Status200OK)]
-        public async Task<DataResponse<GetSearchResultDto>> Search([FromQuery, Required] string searchKey)
+        public async Task<DataResponse<GetSearchResultDto>> Search([FromQuery, Required] string searchKey, CancellationToken cancellationToken)
         {
-            var res = await _mediator.Send(new SearchELKQuery() { SearchKey = searchKey });
+            var res = await _mediator.Send(new SearchELKQuery() { SearchKey = searchKey }, cancellationToken);
             return ProduceResponse(res);
         }
 
