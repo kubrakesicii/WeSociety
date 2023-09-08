@@ -6,7 +6,7 @@ using WeSociety.Application.CQRS.Commands.UserProfile.Create;
 using WeSociety.Application.CQRS.Commands.UserProfile.Update;
 using WeSociety.Application.CQRS.Queries.UserProfile.GetById;
 using WeSociety.Application.DTO.UserProfile;
-using WeSociety.Application.Responses;
+using WeSociety.Core.Responses;
 
 namespace WeSociety.API.Controllers
 {

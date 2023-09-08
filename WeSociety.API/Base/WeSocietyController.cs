@@ -1,8 +1,6 @@
-﻿using Azure;
-using MediatR;
-using Microsoft.AspNetCore.Http;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using WeSociety.Application.Responses;
+using WeSociety.Core.Responses;
 
 namespace WeSociety.API.Base
 {
@@ -21,9 +19,9 @@ namespace WeSociety.API.Base
         {
             return new DataResponse<T>(data,true);
         }
-        protected Application.Responses.Response ProduceResponse()
+        protected Response ProduceResponse()
         {
-            return new Application.Responses.Response(true);
+            return new Response(true);
         }
     }
 }

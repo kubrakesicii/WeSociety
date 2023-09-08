@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using WeSociety.Application.CQRS.BaseModels;
 using WeSociety.Application.DTO.User;
-using WeSociety.Application.Exceptions;
-using WeSociety.Application.Helpers;
 using WeSociety.Application.Interfaces;
+using WeSociety.Core.Exceptions;
+using WeSociety.Core.Helpers;
 using WeSociety.Domain.Interfaces;
 
 namespace WeSociety.Application.CQRS.Commands.UserProfile.Update

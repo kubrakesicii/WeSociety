@@ -6,7 +6,7 @@ using WeSociety.API.Base;
 using WeSociety.Application.CQRS.Commands.ArticleComment.Create;
 using WeSociety.Application.CQRS.Queries.ArticleComment.GetAllByArticle;
 using WeSociety.Application.DTO.ArticleComment;
-using WeSociety.Application.Responses;
+using WeSociety.Core.Responses;
 
 namespace WeSociety.API.Controllers
 {

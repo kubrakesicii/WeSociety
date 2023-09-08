@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using WeSociety.API.Base;
 using WeSociety.Application.CQRS.Queries.Search.SearchELK;
 using WeSociety.Application.DTO.Search;
-using WeSociety.Application.Responses;
+using WeSociety.Core.Responses;
 
 namespace WeSociety.API.Controllers
 {

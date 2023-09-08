@@ -4,7 +4,7 @@ using WeSociety.API.Base;
 using WeSociety.Application.CQRS.Queries.Category.GetAll;
 using WeSociety.Application.DTO.Article;
 using WeSociety.Application.DTO.Category;
-using WeSociety.Application.Responses;
+using WeSociety.Core.Responses;
 
 namespace WeSociety.API.Controllers
 {

@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
 using WeSociety.API.Base;
 using WeSociety.Application.CQRS.Commands.ReadingListArticle.Create;
@@ -10,7 +9,7 @@ using WeSociety.Application.CQRS.Queries.ReadingListArticle.GetAll;
 using WeSociety.Application.CQRS.Queries.ReadingListArticle.GetIsSaved;
 using WeSociety.Application.DTO.Article;
 using WeSociety.Application.DTO.ReadingListArticle;
-using WeSociety.Application.Responses;
+using WeSociety.Core.Responses;
 
 namespace WeSociety.API.Controllers
 {

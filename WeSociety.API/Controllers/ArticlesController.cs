@@ -12,7 +12,7 @@ using WeSociety.Application.CQRS.Queries.Article.GetAllDrafts;
 using WeSociety.Application.CQRS.Queries.Article.GetAllPopulars;
 using WeSociety.Application.CQRS.Queries.Article.GetById;
 using WeSociety.Application.DTO.Article;
-using WeSociety.Application.Responses;
+using WeSociety.Core.Responses;
 using WeSociety.Domain.Pagination;
 
 namespace WeSociety.API.Controllers

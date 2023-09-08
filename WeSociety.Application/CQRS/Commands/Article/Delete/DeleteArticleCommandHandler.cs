@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using WeSociety.Application.CQRS.BaseModels;
-using WeSociety.Application.Exceptions;
+using WeSociety.Core.Exceptions;
 using WeSociety.Domain.Interfaces;
 
 namespace WeSociety.Application.CQRS.Commands.Article.Delete

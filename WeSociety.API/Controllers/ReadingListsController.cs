@@ -6,7 +6,7 @@ using WeSociety.API.Base;
 using WeSociety.Application.CQRS.Commands.ReadingList.Create;
 using WeSociety.Application.CQRS.Queries.ReadingList.GetAllByUser;
 using WeSociety.Application.DTO.ReadingList;
-using WeSociety.Application.Responses;
+using WeSociety.Core.Responses;
 
 namespace WeSociety.API.Controllers
 {

@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using MediatR;
+using WeSociety.Core.Exceptions;
 
 namespace WeSociety.Application.CQRS.Behaviors
 {
@@ -29,7 +30,7 @@ namespace WeSociety.Application.CQRS.Behaviors
                      })
                 .ToDictionary(x => x.Key, x => x.Values);
 
-            if (errors.Any()) throw new Exceptions.ValidationException(errors);
+            if (errors.Any()) throw new Core.Exceptions.ValidationException(errors);
 
             return await next();
         }

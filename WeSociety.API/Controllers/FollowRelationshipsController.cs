@@ -9,7 +9,7 @@ using WeSociety.Application.CQRS.Queries.FollowRelationship.GetAllFollowers;
 using WeSociety.Application.CQRS.Queries.FollowRelationship.GetAllFollowings;
 using WeSociety.Application.CQRS.Queries.FollowRelationship.GetIsFollowing;
 using WeSociety.Application.DTO.FollowRelationship;
-using WeSociety.Application.Responses;
+using WeSociety.Core.Responses;
 using WeSociety.Domain.Pagination;
 
 namespace WeSociety.API.Controllers

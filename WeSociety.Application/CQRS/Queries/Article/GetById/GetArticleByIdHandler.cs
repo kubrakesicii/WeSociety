@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using WeSociety.Application.CQRS.BaseModels;
 using WeSociety.Application.DTO.Article;
-using WeSociety.Application.Exceptions;
+using WeSociety.Core.Exceptions;
 using WeSociety.Domain.Interfaces;
 
 namespace WeSociety.Application.CQRS.Queries.Article.GetById

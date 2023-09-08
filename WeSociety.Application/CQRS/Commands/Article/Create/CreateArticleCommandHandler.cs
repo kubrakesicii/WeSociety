@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using WeSociety.Application.CQRS.BaseModels;
-using WeSociety.Application.Helpers;
 using WeSociety.Application.Interfaces;
+using WeSociety.Core.Helpers;
 using WeSociety.Domain.Interfaces;
 
 namespace WeSociety.Application.CQRS.Commands.Article.Create

@@ -4,7 +4,7 @@ using WeSociety.API.Base;
 using WeSociety.Application.CQRS.Commands.Auth.Login;
 using WeSociety.Application.CQRS.Commands.Auth.Register;
 using WeSociety.Application.DTO.User;
-using WeSociety.Application.Responses;
+using WeSociety.Core.Responses;
 
 namespace WeSociety.API.Controllers
 {

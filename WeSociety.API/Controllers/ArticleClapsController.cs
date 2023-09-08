@@ -6,7 +6,7 @@ using WeSociety.API.Base;
 using WeSociety.Application.CQRS.Commands.ArticleClap.Create;
 using WeSociety.Application.CQRS.Queries.ArticleClap.GetAllByArticle;
 using WeSociety.Application.DTO.ArticleClap;
-using WeSociety.Application.Responses;
+using WeSociety.Core.Responses;
 
 namespace WeSociety.API.Controllers
 {

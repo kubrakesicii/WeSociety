@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using WeSociety.Application.CQRS.BaseModels;
 using WeSociety.Application.DTO.User;
-using WeSociety.Application.Exceptions;
+using WeSociety.Core.Exceptions;
 using WeSociety.Domain.Aggregates.UserRoot;
 using WeSociety.Domain.Interfaces;
 

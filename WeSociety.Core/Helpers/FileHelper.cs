@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
-using static System.Net.Mime.MediaTypeNames;
 
-namespace WeSociety.Application.Helpers
+namespace WeSociety.Core.Helpers
 {
     public static class FileHelper
     {

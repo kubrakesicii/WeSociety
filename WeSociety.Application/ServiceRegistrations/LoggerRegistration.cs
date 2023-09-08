@@ -12,9 +12,9 @@ namespace WeSociety.Application.ServiceRegistrations
         public static void AddLogger(this IServiceCollection services)
         {
             // var logger = new LoggerConfiguration()
-            //.WriteTo.File(new JsonFormatter(), "../WeSociety.Application/Logs/logger.json")
+            //.WriteTo.File(new JsonFormatter(), "../WeSociety.Core/Logs/logger.json")
             //.WriteTo.Console()
-            //.WriteTo.File("../WeSociety.Application/Logs/all.logs",
+            //.WriteTo.File("../WeSociety.Core/Logs/all.logs",
             //    restrictedToMinimumLevel: LogEventLevel.Warning,
             //    rollingInterval: RollingInterval.Day)
             //.MinimumLevel.Information()

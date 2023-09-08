@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-using Newtonsoft.Json;
-using WeSociety.Application.Exceptions;
+﻿using WeSociety.Core.Exceptions;
 
 namespace WeSociety.API.Middlewares
 {

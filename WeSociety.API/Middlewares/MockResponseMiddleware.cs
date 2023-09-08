@@ -1,20 +1,5 @@
-﻿using AutoMapper.Internal;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Nest;
-using System;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Net;
-using System.Reflection;
-using System.Reflection.Metadata;
-using System.Runtime.ConstrainedExecution;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using WeSociety.Application.Responses;
+﻿using Microsoft.AspNetCore.Mvc;
 using WeSociety.Domain.Pagination;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WeSociety.API.Middlewares
 {

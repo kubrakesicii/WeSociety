@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using WeSociety.Application.CQRS.BaseModels;
 using WeSociety.Application.DTO.ArticleClap;
-using WeSociety.Application.Responses;
 using WeSociety.Domain.Interfaces;
 
 namespace WeSociety.Application.CQRS.Queries.ArticleClap.GetAllByArticle
