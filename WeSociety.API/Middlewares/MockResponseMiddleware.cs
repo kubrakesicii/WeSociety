@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
 using WeSociety.Domain.Pagination;
 
 namespace WeSociety.API.Middlewares
@@ -21,13 +22,17 @@ namespace WeSociety.API.Middlewares
             else
             {
                 var endpoint = httpContext.GetEndpoint();
-                var myCustomAttributes = endpoint?.Metadata?.GetMetadata<ProducesResponseTypeAttribute>();
-                if (myCustomAttributes is not null)
-                {
-                    var type = myCustomAttributes.Type;
+                var method = endpoint.Metadata.GetType().GetMethods().First().ReturnType;
 
-                    if (type.Name != "Void")
+
+                var responseAttribute = endpoint?.Metadata?.GetMetadata<ProducesResponseTypeAttribute>();
+                if (responseAttribute is not null)
+                {
+                    var res = responseAttribute.Type;
+
+                    if (res.GenericTypeArguments.Count() > 0)
                     {
+                        var type = res.GenericTypeArguments[0];
                         var isGenericList = type.IsGenericType && 
                             (type.GetGenericTypeDefinition() == typeof(List<>) || type.GetGenericTypeDefinition() == typeof(PaginatedList<>));
 

@@ -17,7 +17,7 @@ namespace WeSociety.API.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        //[Authorize]
         [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]
         public async Task<Response> Insert([FromBody] CreateReadingListCommand command,CancellationToken cancellationToken)
         {

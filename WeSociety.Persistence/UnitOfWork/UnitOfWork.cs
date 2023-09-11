@@ -65,5 +65,25 @@ namespace WeSociety.Persistence.UnitOfWork
 
             return returnValue;
         }
+
+        public async Task BeginTransaction()
+        {
+            await _context.Database.BeginTransactionAsync();
+        }
+
+        public async Task SaveChanges()
+        {
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task Commit()
+        {
+            await _context.Database.CommitTransactionAsync();
+        }
+
+        public async Task Rollback()
+        {
+            await _context.Database.RollbackTransactionAsync();
+        }
     }
 }

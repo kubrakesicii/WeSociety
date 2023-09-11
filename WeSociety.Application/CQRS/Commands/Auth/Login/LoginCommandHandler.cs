@@ -31,7 +31,7 @@ namespace WeSociety.Application.CQRS.Commands.Auth.Login
             var signinRes = await _userManager.CheckPasswordAsync(signInUser,request.Password);
             if(!signinRes) throw new LoginException();
 
-            var userProfile = await _uow.UserProfiles.Get(x => x.UserId == signInUser.Id);
+            var userProfile = await _uow.UserProfiles.GetAsync(x => x.UserId == signInUser.Id,cancellationToken);
 
             var userIdentity = new ClaimsIdentity("Custom");
 

@@ -1,4 +1,5 @@
-﻿using WeSociety.Application.CQRS.BaseModels;
+﻿using Nest;
+using WeSociety.Application.CQRS.BaseModels;
 using WeSociety.Domain.Interfaces;
 
 namespace WeSociety.Application.Decorators
@@ -15,9 +16,21 @@ namespace WeSociety.Application.Decorators
 
         public async Task<TResponse> Handle(TCommand request, CancellationToken cancellationToken)
         {
-            var result = await _commandHandler.Handle(request, cancellationToken);
-            await _uow.SaveChangesAsync();
-            return result;
+            TResponse result;
+            await _uow.BeginTransaction();
+            try
+            {
+                result = await _commandHandler.Handle(request, cancellationToken);
+                await _uow.ReadingLists.InsertAsync(new Domain.Aggregates.ReadingListRoot.ReadingList("xx", 465465),cancellationToken);
+                await _uow.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                await _uow.Rollback();
+
+            }
+            await _uow.Commit();
+            return await _commandHandler.Handle(request, cancellationToken);
         }
     }
 }

@@ -39,7 +39,7 @@ namespace WeSociety.Application.CQRS.Commands.Auth.Register
                 // User added successfully, user Id.
                 // Create empty profile for registered user
                 var userProfile = new Domain.Aggregates.UserProfileRoot.UserProfile(newUser.Id);
-                await _uow.UserProfiles.Insert(userProfile);
+                await _uow.UserProfiles.InsertAsync(userProfile, cancellationToken);
 
                 //ELK INDEXING
                 var createRes = await _elasticSearchService.CreateIndexAsync("users", newUser.Id, new Domain.Aggregates.UserProfileRoot.UserProfile(0,"",newUser.Id));

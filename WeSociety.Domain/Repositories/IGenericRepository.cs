@@ -5,9 +5,9 @@ namespace WeSociety.Domain.Repository
 {
     public interface IGenericRepository<T> where T : Entity
     {
-        Task<List<T>> GetAll(Expression<Func<T, bool>> filter = null);
-        Task<T> Get(Expression<Func<T, bool>> filter);
-        Task<T> Insert(T entity);
+        Task<List<T>> GetAllAsync(Expression<Func<T, bool>> filter, CancellationToken cancellationToken);
+        Task<T> GetAsync(Expression<Func<T, bool>> filter,CancellationToken cancellationToken);
+        Task<T> InsertAsync(T entity, CancellationToken cancellationToken);
         Task Delete(T entity);
         Task Update(T entity);
     }

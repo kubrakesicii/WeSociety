@@ -28,14 +28,14 @@ namespace WeSociety.Persistence.Repositories
             await Task.Run(() => { _context.Remove(entity); });
         }
 
-        public async Task<T> Get(Expression<Func<T, bool>> filter)
+        public async Task<T> GetAsync(Expression<Func<T, bool>> filter, CancellationToken cancellationToken)
         {
-            return await _dbSet.AsNoTracking().FirstOrDefaultAsync(filter);
+            return await _dbSet.AsNoTracking().FirstOrDefaultAsync(filter,cancellationToken);
         }
 
-        public async Task<T> Insert(T entity)
+        public async Task<T> InsertAsync(T entity, CancellationToken cancellationToken)
         {
-            await _dbSet.AddAsync(entity);
+            await _dbSet.AddAsync(entity,cancellationToken);
             return entity;
         }
 
@@ -44,9 +44,9 @@ namespace WeSociety.Persistence.Repositories
             await Task.Run(() => { _context.Update(entity); });
         }
 
-        public async Task<List<T>> GetAll(Expression<Func<T, bool>> filter = null)
+        public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>>? filter, CancellationToken cancellationToken)
         {
-            return await _dbSet.Where(filter).AsNoTracking().ToListAsync();
+            return await _dbSet.Where(filter).AsNoTracking().ToListAsync(cancellationToken);
         }
     }
 }

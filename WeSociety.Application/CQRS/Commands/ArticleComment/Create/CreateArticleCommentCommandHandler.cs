@@ -15,7 +15,7 @@ namespace WeSociety.Application.CQRS.Commands.ArticleComment.Create
 
         public async Task<Unit> Handle(CreateArticleCommentCommand request, CancellationToken cancellationToken)
         {
-            var article = await _uow.Articles.Get(x => x.Id == request.ArticleId);
+            var article = await _uow.Articles.GetAsync(x => x.Id == request.ArticleId, cancellationToken);
             article.AddComment(request.UserProfileId, request.Text);
             return await Task.FromResult(Unit.Value);
         }

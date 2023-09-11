@@ -18,7 +18,7 @@ namespace WeSociety.Application.CQRS.Queries.Category.GetAll
 
         public async Task<List<GetCategoryDto>> Handle(GetAllCategoriesQuery request, CancellationToken cancellationToken)
         {
-            var cats = await _uow.Categories.GetAll(x => x.IsActive==1);
+            var cats = await _uow.Categories.GetAsync(x => x.IsActive == 1, cancellationToken);
             return _mapper.Map<List<GetCategoryDto>>(cats);
         }
     }

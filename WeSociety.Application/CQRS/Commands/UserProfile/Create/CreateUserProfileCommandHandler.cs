@@ -25,7 +25,7 @@ namespace WeSociety.Application.CQRS.Commands.UserProfile.Create
                 request.UserId
                 );
 
-            await _uow.UserProfiles.Insert(newUserProfile);
+            await _uow.UserProfiles.InsertAsync(newUserProfile,cancellationToken);
             return await Task.FromResult(Unit.Value);
         }
     }

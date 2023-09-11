@@ -21,5 +21,10 @@ namespace WeSociety.Domain.Interfaces
         Task<int> SaveChangesAsync();
 
         bool Save();
+
+        Task BeginTransaction();
+        Task SaveChanges();
+        Task Commit();
+        Task Rollback();
     }
 }

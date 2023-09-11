@@ -19,7 +19,7 @@ namespace WeSociety.Application.CQRS.Commands.Article.Update
 
         public async Task<Unit> Handle(UpdateArticleCommand request, CancellationToken cancellationToken)
         {
-            var article = await _uow.Articles.Get(x => x.Id == request.id);
+            var article = await _uow.Articles.GetAsync(x => x.Id == request.id, cancellationToken);
             article.Update(request.Title,
                 request.Content,
                 request.CategoryId,

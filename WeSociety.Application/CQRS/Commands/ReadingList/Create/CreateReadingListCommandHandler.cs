@@ -15,7 +15,7 @@ namespace WeSociety.Application.CQRS.Commands.ReadingList.Create
 
         public async Task<Unit> Handle(CreateReadingListCommand request, CancellationToken cancellationToken)
         {
-            var userProfile = await _uow.UserProfiles.Get(x => x.Id == request.UserProfileId);
+            var userProfile = await _uow.UserProfiles.GetAsync(x => x.Id == request.UserProfileId, cancellationToken);
             userProfile.AddReadingList(request.Name);
             return await Task.FromResult(Unit.Value);
         }

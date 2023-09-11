@@ -15,7 +15,7 @@ namespace WeSociety.Application.CQRS.Commands.ReadingListArticle.Delete
 
         public async Task<Unit> Handle(DeleteReadingListArticleCommand request, CancellationToken cancellationToken)
         {
-            var readingListArt = await _uow.ReadingListArticles.Get(x => x.Id == request.Id);
+            var readingListArt = await _uow.ReadingListArticles.GetAsync(x => x.Id == request.Id, cancellationToken);
             await _uow.ReadingListArticles.Delete(readingListArt);
             return await Task.FromResult(Unit.Value);
         }

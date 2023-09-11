@@ -16,8 +16,7 @@ namespace WeSociety.Persistence.Repositories
         public async Task<List<Article>> GetAllDraftsWithUserProfileByProfile(int userProfileId)
         {
             return await _context.Articles.Include(x => x.UserProfile).Include(x => x.Category)
-                .Where(x => x.UserProfileId == userProfileId)
-                .Where(x => x.IsPublished == -1)
+                .Where(x => x.UserProfileId == userProfileId && x.IsPublished==-1)
                 .OrderByDescending(x => x.CreatedTime)
                 .ToListAsync();
         }
@@ -54,8 +53,7 @@ namespace WeSociety.Persistence.Repositories
         public async Task<List<Article>> GetAllWithUserProfileByProfile(int currentUserId, int userProfileId)
         {
             return await _context.Articles.Include(x => x.UserProfile).Include(x => x.Category)
-                .Where(x => x.UserProfileId==userProfileId)
-                .Where(x => x.IsPublished==1)
+                .Where(x => x.UserProfileId==userProfileId && x.IsPublished == 1)
                 .OrderByDescending(x => x.CreatedTime)
                 .ToListAsync();
         }

@@ -20,7 +20,7 @@ namespace WeSociety.Application.CQRS.Commands.Article.Create
         public async Task<Unit> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
         {
             //var profileId = await _authService.GetProfileId();
-            var userProfile = await _uow.UserProfiles.Get(x => x.Id == request.UserProfileId);
+            var userProfile = await _uow.UserProfiles.GetAsync(x => x.Id == request.UserProfileId,cancellationToken);
             var newArticle = userProfile.AddArticle(
                 request.Title,
                 Guid.NewGuid().ToString(),

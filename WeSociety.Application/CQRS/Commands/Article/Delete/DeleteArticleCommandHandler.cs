@@ -16,10 +16,10 @@ namespace WeSociety.Application.CQRS.Commands.Article.Delete
 
         public async Task<Unit> Handle(DeleteArticleCommand request, CancellationToken cancellationToken)
         {
-            var article = await _uow.Articles.Get(x => x.Id == request.Id);
+            var article = await _uow.Articles.GetAsync(x => x.Id == request.Id,cancellationToken);
             if (article == null) throw new NotfoundException();
 
-            var userProfile = await _uow.UserProfiles.Get(x => x.Id == article.UserProfileId);
+            var userProfile = await _uow.UserProfiles.GetAsync(x => x.Id == article.UserProfileId, cancellationToken);
             userProfile.DeleteArticle(article);
             return await Task.FromResult(Unit.Value);
         }
