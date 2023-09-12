@@ -125,6 +125,7 @@ namespace WeSociety.Domain.Aggregates.UserProfileRoot
         //Create Reading List
         public void AddReadingList(string name)
         {
+            if (name == null) throw new NullReferenceException();
             ReadingList readingList = new ReadingList(name, this.Id);
             ReadingLists.Add(readingList);
         }

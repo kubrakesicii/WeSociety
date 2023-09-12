@@ -1,5 +1,8 @@
-﻿using Nest;
+﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
+using Nest;
 using WeSociety.Application.CQRS.BaseModels;
+using WeSociety.Core.Exceptions;
 using WeSociety.Domain.Interfaces;
 
 namespace WeSociety.Application.Decorators
@@ -16,21 +19,26 @@ namespace WeSociety.Application.Decorators
 
         public async Task<TResponse> Handle(TCommand request, CancellationToken cancellationToken)
         {
-            TResponse result;
-            await _uow.BeginTransaction();
-            try
+            TResponse? result;
+            using (var dbContextTransaction = _uow.BeginTransaction())
             {
-                result = await _commandHandler.Handle(request, cancellationToken);
-                await _uow.ReadingLists.InsertAsync(new Domain.Aggregates.ReadingListRoot.ReadingList("xx", 465465),cancellationToken);
-                await _uow.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                await _uow.Rollback();
+                try
+                {
+                    //await _uow.ReadingLists.InsertAsync(new Domain.Aggregates.ReadingListRoot.ReadingList("hello", 1), cancellationToken);
+                    //await _uow.SaveChangesAsync();
 
+                    result = await _commandHandler.Handle(request, cancellationToken);
+                    await _uow.SaveChangesAsync();
+                    await _uow.Commit();
+                    return result;
+                }
+                catch (Exception ex)
+                {
+                    await _uow.Rollback();
+                    throw new DBException();
+                }
+                return default(TResponse);
             }
-            await _uow.Commit();
-            return await _commandHandler.Handle(request, cancellationToken);
         }
     }
 }

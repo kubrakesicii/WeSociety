@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Nest;
 using WeSociety.Application.CQRS.BaseModels;
 using WeSociety.Domain.Interfaces;
 
@@ -17,7 +18,7 @@ namespace WeSociety.Application.CQRS.Commands.ReadingList.Create
         {
             var userProfile = await _uow.UserProfiles.GetAsync(x => x.Id == request.UserProfileId, cancellationToken);
             userProfile.AddReadingList(request.Name);
-            return await Task.FromResult(Unit.Value);
+            return await Task.FromResult(Unit.Value);         
         }
     }
 }

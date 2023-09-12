@@ -17,6 +17,7 @@ namespace WeSociety.Domain.Aggregates.ReadingListRoot
 
         public ReadingList(string name, int userProfileId)
         {
+            if(name == null) throw new ArgumentNullException("name");
             Name = name;
             UserProfileId = userProfileId;
             ReadingListArticles = new List<ReadingListArticle>();
