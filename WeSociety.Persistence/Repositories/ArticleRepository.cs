@@ -16,7 +16,7 @@ namespace WeSociety.Persistence.Repositories
         public async Task<List<Article>> GetAllDraftsWithUserProfileByProfile(int userProfileId)
         {
             return await _context.Articles.Include(x => x.UserProfile).Include(x => x.Category)
-                .Where(x => x.UserProfileId == userProfileId && x.IsPublished==-1)
+                .Where(x => x.UserProfileId == userProfileId && x.IsPublished==false)
                 .OrderByDescending(x => x.CreatedTime)
                 .ToListAsync();
         }
@@ -26,7 +26,7 @@ namespace WeSociety.Persistence.Repositories
             Expression<Func<Article, bool>> categoryCond = x => true;
             if (categoryId != 0) categoryCond = x => x.CategoryId == categoryId;
             return await _context.Articles.Include(x => x.UserProfile).Include(x => x.Category)
-                .Where(x => x.IsPublished == 1)
+                .Where(x => x.IsPublished == true)
                 .Where(categoryCond)
                 .OrderByDescending(x => x.ViewCount)
                 .Take(5)
@@ -43,7 +43,7 @@ namespace WeSociety.Persistence.Repositories
             if (categoryId != 0) categoryCond = x => x.CategoryId == categoryId;
 
             return await _context.Articles.Include(x => x.UserProfile).Include(x => x.Category)
-                .Where(x => x.IsPublished == 1)
+                .Where(x => x.IsPublished == true)
                 .Where(searchCond)
                 .Where(categoryCond)
                 .OrderByDescending(x => x.CreatedTime)
@@ -53,7 +53,7 @@ namespace WeSociety.Persistence.Repositories
         public async Task<List<Article>> GetAllWithUserProfileByProfile(int currentUserId, int userProfileId)
         {
             return await _context.Articles.Include(x => x.UserProfile).Include(x => x.Category)
-                .Where(x => x.UserProfileId==userProfileId && x.IsPublished == 1)
+                .Where(x => x.UserProfileId==userProfileId && x.IsPublished == true)
                 .OrderByDescending(x => x.CreatedTime)
                 .ToListAsync();
         }

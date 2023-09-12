@@ -11,6 +11,6 @@ namespace WeSociety.Domain.Common
         public int Id { get; set; }
         public DateTime CreatedTime { get; set; }
         public DateTime UpdatedTime { get; set; }
-        public int IsActive { get; set; }
+        public bool IsActive { get; set; }
     }
 }

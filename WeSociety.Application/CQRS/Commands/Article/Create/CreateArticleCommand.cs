@@ -10,7 +10,7 @@ namespace WeSociety.Application.CQRS.Commands.Article.Create
         public string Title { get; set; }
         public string Content { get; set; }
         public int CategoryId { get; set; }
-        public int IsPublished { get; set; }
+        public bool IsPublished { get; set; }
         public IFormFile? MainImage { get; set; }
     }
 }

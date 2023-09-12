@@ -15,7 +15,7 @@ namespace WeSociety.Persistence.Configurations
              .WithMany(p => p.ReadingLists)
              .HasForeignKey(r => r.UserProfileId).OnDelete(DeleteBehavior.Cascade);
 
-            builder.Property(x => x.IsActive).HasMaxLength(1).HasDefaultValueSql("1");
+            builder.Property(x => x.IsActive).HasMaxLength(1).HasDefaultValue(true);
             builder.Property(x => x.CreatedTime).ValueGeneratedOnAdd().HasDefaultValueSql("GETUTCDATE()");
             builder.Property(x => x.UpdatedTime).ValueGeneratedOnAddOrUpdate().HasDefaultValueSql("GETUTCDATE()");
         }

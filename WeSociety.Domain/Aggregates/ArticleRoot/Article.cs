@@ -13,7 +13,7 @@ namespace WeSociety.Domain.Aggregates.ArticleRoot
         public string Title { get; private set; }
         public string Domain { get; private set; }
         public string Content { get; private set; }
-        public int IsPublished { get; private set; }
+        public bool IsPublished { get; private set; }
 
         public int ViewCount { get; set; }
         public int UserProfileId { get; private set; }
@@ -25,7 +25,7 @@ namespace WeSociety.Domain.Aggregates.ArticleRoot
         public Category Category { get; private set; }
 
 
-        public IList<ArticleComment> ArticleComments { get; set; }
+        public IList<ArticleComment> ArticleComments { get; private set; }
 
 
         //İçerisinde lis-article bağlantı listesi vardır
@@ -35,7 +35,7 @@ namespace WeSociety.Domain.Aggregates.ArticleRoot
         public IList<ArticleClap> ArticleClaps { get; private set; }
 
 
-        public Article(string title,string domain, string content, int isPublished, int categoryId, byte[]? mainImage, int userProfileId)
+        public Article(string title,string domain, string content, bool isPublished, int categoryId, byte[]? mainImage, int userProfileId)
         {
             if (string.IsNullOrEmpty(title)) throw new ArgumentNullException(nameof(title));
             Title = title;
@@ -61,7 +61,7 @@ namespace WeSociety.Domain.Aggregates.ArticleRoot
 
         public void Publish()
         {
-            IsPublished = 1;
+            IsPublished = true;
         }
 
         public void Update(string title, string content, int categoryId, byte[]? mainImage)

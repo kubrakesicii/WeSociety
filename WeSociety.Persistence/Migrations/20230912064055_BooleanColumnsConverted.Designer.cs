@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WeSociety.Persistence.Context;
 
@@ -11,9 +12,11 @@ using WeSociety.Persistence.Context;
 namespace WeSociety.Persistence.Migrations
 {
     [DbContext(typeof(WeSocietyDbContext))]
-    partial class WeSocietyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230912064055_BooleanColumnsConverted")]
+    partial class BooleanColumnsConverted
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

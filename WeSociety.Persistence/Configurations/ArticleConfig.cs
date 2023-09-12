@@ -12,7 +12,7 @@ namespace WeSociety.Persistence.Configurations
             builder.Property(x => x.Title).IsRequired().HasMaxLength(256);
             builder.Property(x => x.Content).IsRequired();  //will be html content
             builder.Property(x => x.Domain).IsRequired().HasMaxLength(256);
-            builder.Property(x => x.IsPublished).HasMaxLength(1).HasDefaultValueSql("1");
+            builder.Property(x => x.IsPublished).HasMaxLength(1).HasDefaultValue(true);
             builder.Property(x => x.ViewCount).HasDefaultValueSql("0");
             builder.Property(x => x.MainImage).IsRequired(false);
 
@@ -25,7 +25,7 @@ namespace WeSociety.Persistence.Configurations
                 .WithOne(c => c.Article)
                 .HasForeignKey(c => c.ArticleId);
 
-            builder.Property(x => x.IsActive).HasMaxLength(1).HasDefaultValueSql("1");
+            builder.Property(x => x.IsActive).HasMaxLength(1).HasDefaultValue(true);
             builder.Property(x => x.CreatedTime).ValueGeneratedOnAdd().HasDefaultValueSql("GETUTCDATE()");
             builder.Property(x => x.UpdatedTime).ValueGeneratedOnAddOrUpdate().HasDefaultValueSql("GETUTCDATE()");
         }

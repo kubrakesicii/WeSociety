@@ -14,8 +14,8 @@ namespace WeSociety.Domain.Aggregates.UserProfileRoot
         public string FullName { get; private set; }
         public string Bio { get; private set; }
 
-        public string Github { get; set; }
-        public string Linkedin { get; set; }
+        public string Github { get; private set; }
+        public string Linkedin { get; private set; }
 
         public string UserId { get; private set; }
         public AppUser User { get; private set; }
@@ -86,7 +86,7 @@ namespace WeSociety.Domain.Aggregates.UserProfileRoot
         }
 
         //Article bahavior methoda
-        public Article AddArticle(string title,string domain, string content, int isPublished,int categoryId, byte[]? mainImage)
+        public Article AddArticle(string title,string domain, string content, bool isPublished,int categoryId, byte[]? mainImage)
         {
             Article article = new Article(title,domain, content, isPublished,categoryId, mainImage,Id);
             Articles.Add(article);
