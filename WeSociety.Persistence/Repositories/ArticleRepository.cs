@@ -16,7 +16,7 @@ namespace WeSociety.Persistence.Repositories
         public async Task<List<Article>> GetAllDraftsWithUserProfileByProfile(int userProfileId)
         {
             return await _context.Articles.Include(x => x.UserProfile).Include(x => x.Category)
-                .Where(x => x.UserProfileId == userProfileId && x.IsPublished==false)
+                .Where(x => x.UserProfileId == userProfileId && !x.IsPublished && x.IsActive)
                 .OrderByDescending(x => x.CreatedTime)
                 .ToListAsync();
         }
@@ -26,7 +26,7 @@ namespace WeSociety.Persistence.Repositories
             Expression<Func<Article, bool>> categoryCond = x => true;
             if (categoryId != 0) categoryCond = x => x.CategoryId == categoryId;
             return await _context.Articles.Include(x => x.UserProfile).Include(x => x.Category)
-                .Where(x => x.IsPublished == true)
+                .Where(x => x.IsPublished && x.IsActive)
                 .Where(categoryCond)
                 .OrderByDescending(x => x.ViewCount)
                 .Take(5)
@@ -34,17 +34,13 @@ namespace WeSociety.Persistence.Repositories
 
         }
 
-        public async Task<List<Article>> GetAllWithUserProfile(string searchKey,int categoryId)
+        public async Task<List<Article>> GetAllWithUserProfile(int categoryId)
         {
-            Expression<Func<Article, bool>> searchCond = x => true;
             Expression<Func<Article, bool>> categoryCond = x => true;
-
-            if(searchKey != null) searchCond = x => x.Title.Contains(searchKey.ToUpper(new CultureInfo("tr-TR", false)))  || x.Content.Contains(searchKey.ToUpper(new CultureInfo("tr-TR", false)));
             if (categoryId != 0) categoryCond = x => x.CategoryId == categoryId;
 
             return await _context.Articles.Include(x => x.UserProfile).Include(x => x.Category)
-                .Where(x => x.IsPublished == true)
-                .Where(searchCond)
+                .Where(x => x.IsPublished)
                 .Where(categoryCond)
                 .OrderByDescending(x => x.CreatedTime)
                 .ToListAsync();
@@ -53,7 +49,7 @@ namespace WeSociety.Persistence.Repositories
         public async Task<List<Article>> GetAllWithUserProfileByProfile(int currentUserId, int userProfileId)
         {
             return await _context.Articles.Include(x => x.UserProfile).Include(x => x.Category)
-                .Where(x => x.UserProfileId==userProfileId && x.IsPublished == true)
+                .Where(x => x.UserProfileId==userProfileId && x.IsPublished && x.IsActive)
                 .OrderByDescending(x => x.CreatedTime)
                 .ToListAsync();
         }

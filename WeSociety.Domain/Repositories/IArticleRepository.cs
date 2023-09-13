@@ -5,7 +5,7 @@ namespace WeSociety.Domain.Repositories
 {
     public interface IArticleRepository : IGenericRepository<Article>
     {
-        Task<List<Article>> GetAllWithUserProfile(string searchKey,int categoryId);
+        Task<List<Article>> GetAllWithUserProfile(int categoryId);
         Task<List<Article>> GetAllWithUserProfileByProfile(int currentUserId, int userProfileId);
         Task<List<Article>> GetAllDraftsWithUserProfileByProfile(int userProfileId);
         Task<Article> GetByIdWithIncludes(int id);

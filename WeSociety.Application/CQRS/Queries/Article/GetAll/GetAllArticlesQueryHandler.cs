@@ -24,12 +24,12 @@ namespace WeSociety.Application.CQRS.Queries.Article.GetAll
             var articles = await _uow.Articles.GetAllWithUserProfile(request.SearchKey, request.CategoryId);
 
             //ELK INDEXING
-            var existsCheck = await _elasticSearchService.CheckIndexAsync("articles");
-            if (!existsCheck)
-            {
-                articles.ForEach(async a => await _elasticSearchService.CreateIndexAsync("articles", a.Domain,
-                    new Domain.Aggregates.ArticleRoot.Article(a.Title, a.Domain, a.Content)));
-            }
+            //var existsCheck = await _elasticSearchService.CheckIndexAsync("articles");
+            //if (!existsCheck)
+            //{
+            //    articles.ForEach(async a => await _elasticSearchService.CreateIndexAsync("articles", a.Domain,
+            //        new Domain.Aggregates.ArticleRoot.Article(a.Title, a.Domain, a.Content)));
+            //}
 
             var articleDtos = _mapper.Map<List<GetArticleDto>>(articles);
             var paginatedRes = PaginatedResponse<GetArticleDto>.Create(articleDtos, request.PageIndex, request.PageSize);

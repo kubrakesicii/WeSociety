@@ -17,11 +17,11 @@ namespace WeSociety.API.Base
 
         protected DataResponse<T> ProduceResponse<T>(T data)
         {
-            return new DataResponse<T>(data,true);
+            return new DataResponse<T>(data,true,"OK");
         }
         protected Response ProduceResponse()
         {
-            return new Response(true);
+            return new Response(true,"OK");
         }
     }
 }

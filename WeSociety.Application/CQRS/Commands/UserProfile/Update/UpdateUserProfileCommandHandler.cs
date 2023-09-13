@@ -38,8 +38,8 @@ namespace WeSociety.Application.CQRS.Commands.UserProfile.Update
 
 
             //ELK UPDATE
-            await _elasticSearchService.AddOrUpdateAsync("users",profile.UserId,
-                new Domain.Aggregates.UserProfileRoot.UserProfile(profile.Id,profile.FullName, profile.Bio));
+            //await _elasticSearchService.AddOrUpdateAsync("users",profile.UserId,
+            //    new Domain.Aggregates.UserProfileRoot.UserProfile(profile.Id,profile.FullName, profile.Bio));
 
             return returnDto;
         }

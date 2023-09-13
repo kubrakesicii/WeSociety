@@ -8,7 +8,7 @@ namespace WeSociety.Application.Mapping
     {
         public CategoryMapping()
         {
-            CreateMap<Category,GetCategoryDto>();
+            CreateMap<Category, GetCategoryDto>().ReverseMap();
         }
     }
 }

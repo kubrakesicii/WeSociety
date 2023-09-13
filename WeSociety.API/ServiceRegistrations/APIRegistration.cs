@@ -73,8 +73,6 @@ namespace WeSociety.API.ServiceRegistrations
 
             //Bu midde her istekte gidecek, token geldiyse claimse ilgili user bilgileri atanacak, gelmediyse boş olacak
             app.UseMockResponseMiddleware();
-
-
             app.UseCustomExceptionMiddleware();
 
             app.UseEndpoints(endpoints =>

@@ -1,8 +1,4 @@
-﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Nest;
-using WeSociety.Application.CQRS.BaseModels;
-using WeSociety.Core.Exceptions;
+﻿using WeSociety.Application.CQRS.BaseModels;
 using WeSociety.Domain.Interfaces;
 
 namespace WeSociety.Application.Decorators
@@ -35,7 +31,7 @@ namespace WeSociety.Application.Decorators
                 catch (Exception ex)
                 {
                     await _uow.Rollback();
-                    throw new DBException();
+                    throw ex;
                 }
                 return default(TResponse);
             }
